@@ -1,0 +1,58 @@
+//编写一个专门用于定义颜色的样式库
+//设置一个背景色
+.u-bg-green {
+	background-color: #35a963; //背景颜色
+}
+
+.u-bg-blue{
+	background-color: #2fa4e7;
+}
+
+.u-bg-blue2{
+	background-color: #0e80e5;
+}
+
+//设置一个灰色的背景色
+.u-bg-gray {
+	background-color: #F0F0F0; //背景颜色
+}
+//设置一个白色的背景色
+.u-bg-white{
+	background-color: white;
+}
+
+//字体白色
+.u-font-white {
+	color: white; //字体颜色 白色
+}
+
+//绿色的字体
+.u-font-green{
+	color: #35a963;
+}
+
+//绿色的字体
+.u-font-black{
+	color: #333;
+}
+
+.u-font-red{
+	color: red;
+}
+
+//字体灰色
+.u-font-gray {
+	color: #333; //字体颜色 灰色
+}
+
+.u-font-gray2 {
+	color: #888; //字体颜色 灰色
+}
+
+.u-font-gray3 {
+	color: #aaa; //字体颜色 灰色
+}
+
+.u-font-gray4 {
+	color: #f0f0f0; //字体颜色 灰色
+}

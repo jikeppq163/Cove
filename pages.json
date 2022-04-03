@@ -1,0 +1,19 @@
+{
+	"pages": [
+		{
+			"path": "pages/list/index"
+		},
+		{
+			"path": "pages/login/index"
+		}
+	],
+	"globalStyle": {
+		"navigationBarTextStyle": "white",
+		"navigationBarTitleText": "Coves",
+		"navigationBarBackgroundColor": "skyblue",
+		"backgroundColor": "#F8F8F8",
+		"app-plus": {
+			"background": "#efeff4"
+		}
+	}
+}

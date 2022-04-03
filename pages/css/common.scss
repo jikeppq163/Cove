@@ -1,0 +1,109 @@
+//编写一个通用样式库
+
+//设置排版横向排版
+//使用flex布局
+.flex-row {
+	display: flex; 
+	flex-direction: row;
+}
+
+.flex-column {
+	display: flex; 
+	flex-direction: column; 
+}
+
+//横向倒叙排列
+.row-reverse{
+	flex-direction: row-reverse;
+}
+
+//纵向倒叙排列
+.column-reverse{
+	flex-direction: column-reverse; 
+}
+
+//对齐排列 左右分布
+.space-between{
+	justify-content: space-between;
+}
+
+//居中
+.center{
+	justify-content: center;
+}
+
+//居中
+.align-center{
+	align-items: center;
+}
+//均匀外扩
+.margin-auto{
+	margin: auto;
+}
+
+//最大值
+.u-width-full{
+	width: 100%;
+}
+
+
+//有一个向内延展的距离
+@for $i from 1 to 80 {
+	.u-p-#{$i} {
+		padding: $i+px; 
+	}
+	//有一个向内左边延展的距离
+	.u-p-l-#{$i} {
+		padding-left: $i+px; 
+	}
+	.u-p-r-#{$i} {
+		padding-right: $i+px; 
+	}
+	//有一个向内上延展的距离
+	.u-p-t-#{$i} {
+		padding-top: $i+px; 
+	}
+	.u-p-b-#{$i} {
+		padding-bottom: $i+px; 
+	}
+	
+	//一个向内延展的距离
+	.u-m-#{$i}{
+		margin: $i+px;
+	}
+	.u-m-l-#{$i}{
+		margin-left: $i+px;
+	}
+	.u-m-t-#{$i}{
+		margin-top: $i+px;
+	}
+	.u-m-r-#{$i}{
+		margin-right: $i+px;
+	}
+	.u-m-b-#{$i}{
+		margin-bottom: $i+px;
+	}
+	//边框 弧边
+	.u-radius-#{$i}{
+		border-radius: $i + px; 
+	}
+}
+
+//遍历一个 8 到 80 的属性字体
+@for $i from 8 to 60 {
+	.u-font-size-#{$i}{
+		font-size: $i + px; 
+	}
+	.line-height-#{$i}{
+		line-height: $i + px; 
+	}
+}
+
+//遍历一个 8 到 40 的属性边框弧度
+@for $i from 1 to 5 {
+	.u-border-#{$i}{
+		border: $i + px solid; 
+	}
+}
+
+
