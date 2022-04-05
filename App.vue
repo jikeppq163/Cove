@@ -1,12 +1,14 @@
 <script>
 	export default {
 		onLaunch: function() {
+			//获取设备基础信息
 			uni.getSystemInfo({
 				success: (res) => {
 					console.log('Cove version:'+this.$store.state.version,res);
-					this.$store.state.systemInfo = res;
+					this.$store.commit('setSystemInfo',res);
 				}
 			})
+			this.$store.dispatch('initPlayer');
 		},
 		onShow: function() {
 			//console.log('App Show')

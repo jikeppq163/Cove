@@ -3,6 +3,21 @@
 .u-bg-green {
 	background-color: #35a963; //背景颜色
 }
+.u-bg-green1 {
+	background-color: #B3A9Bc; //背景颜色
+}
+.u-bg-green2 {
+	background-color: #736D8F; //背景颜色
+}
+.u-bg-green3 {
+	background-color: #93c7a1; //背景颜色
+}
+.u-bg-green4 {
+	background-color: #4F7A5E; //背景颜色
+}
+.u-bg-green5 {
+	background-color: #405348; //背景颜色
+}
 
 .u-bg-blue{
 	background-color: #2fa4e7;
@@ -40,6 +55,10 @@
 	color: red;
 }
 
+.u-font-skyblue{
+	color:skyblue
+}
+
 //字体灰色
 .u-font-gray {
 	color: #333; //字体颜色 灰色
@@ -55,4 +74,74 @@
 
 .u-font-gray4 {
 	color: #f0f0f0; //字体颜色 灰色
+}
+
+.u-bg-gray1{
+	background-color: #595959;
+}
+
+.u-bg-gray2{
+	background-color: #7c7c7c;
+}
+
+.u-bg-gray3{
+	background-color: #9a9491;
+}
+
+.u-bg-gray4{
+	background-color: #EAEAEA;
+}
+
+/**
+ * 马卡龙色
+ */
+.u-bg-maka1{
+	background-color: #B699dd;
+}
+
+.u-bg-maka2{
+	background-color: #d3bfe4;
+}
+
+.u-bg-maka3{
+	background-color: #F9E8B8;
+}
+
+.u-bg-maka-g{
+	background-image: linear-gradient(to top right, #d3bfe4, #F9E8B8);
+}
+
+.u-bg-maka-g2{
+	background-image: linear-gradient(to bottom left, #B699dd, #d3bfe4);
+}
+
+.u-bg-maka-g3{
+	background-image: linear-gradient(to top left, #B699dd, #d3bfe4);
+}
+
+/**
+ * 莫兰迪色
+ */
+.u-bg-malandy1{
+	background-color: #769A80;
+}
+
+.u-bg-malandy2{
+	background-color: #acc9b5;
+}
+
+.u-bg-malandy3{
+	background-color: #F4c587;
+}
+
+.u-bg-malandy-g1{
+	background-image: linear-gradient(to top right, #acc9b5, #F4c587);
+}
+
+.u-bg-malandy-g2{
+	background-image: linear-gradient(to bottom left, #769A80, #acc9b5);
+}
+
+.u-bg-malandy-g3{
+	background-image: linear-gradient(to top left, #769A80, #acc9b5);
 }
