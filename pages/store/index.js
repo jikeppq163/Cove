@@ -25,35 +25,30 @@ let state={
 		mood:[],
 		audio:'',
 		volume:10,
+		synth:[],
+		title:'',
+		thoughts:'',
+		location:'',
 	},
 	//所有过往记录列表 list
 	list:[
-		{
-			id: 'AA', 				//id
-			title:'标题',			//标题
-			backgroundMusic:'aaa', //背景音乐
-			dateTime:'2022-04-04 22:15:43',//时间
-			thoughts:'没有想法............',	//想法
-			location:'百慕大三角',	//位置
-			imageUrl:'',			//图片地址
-			mood:[],				//心情
-			music:[]				//音乐组合
-		},
-		{
-			title:'标题',			//标题
-			backgroundMusic:'aaa', //背景音乐
-			dateTime:'2022-04-04 22:15:43',//时间
-			thoughts:'没有想法............',	//想法
-			location:'百慕大三角',	//位置
-			imageUrl:'',			//图片地址
-			mood:[],				//心情
-			music:[]				//音乐组合
-		}
+		// {
+		// 	id: 'AA', 				//id
+		// 	title:'标题',			//标题
+		// 	backgroundMusic:'aaa', //背景音乐
+		// 	dateTime:'2022-04-04 22:15:43',//时间
+		// 	thoughts:'没有想法............',	//想法
+		// 	location:'百慕大三角',	//位置
+		// 	imageUrl:'',			//图片地址
+		// 	mood:[],				//心情
+		// 	synth:[]				//音阶组合
+		// }
 	],
 	//音频处理
 	playing:false,
 	playerState:'',
 	player:false,
+	synth:false,
 	source:false,
 }
 
@@ -97,7 +92,7 @@ let getters={
 let actions={
 	//初始化音乐
 	initPlayer({commit,state}){
-
+		state.synth = new Tone.Synth().toDestination();
 	},
 	setPlayer({commit,state,getters},src){
 		//播放
@@ -156,14 +151,40 @@ let actions={
 		state.player.playbackRate = 0.25;
 	},
 	//插入音阶
-	synthStart({commit}){
+	synthGamut({commit,state}){
 		const now = Tone.now();
-		synth.triggerAttackRelease("C4", "8n", now);
-		synth.triggerAttackRelease("E4", "8n", now + 0.5);
-		synth.triggerAttackRelease("G4", "8n", now + 1);
+		state.synth.triggerAttackRelease("C4", "8n", now);
+	},
+	runSynthGamut({state},Arrays){
+		if(Arrays!=[]){
+			const now = Tone.now();
+			for(var item of Arrays){
+				state.synth.triggerAttackRelease("C4", "8n", now + item.id);
+			}
+		}
+	},
+	saveSynthGamut({state},Arr){
+		state.project.synth = Arr;
+	},
+	saveInfo({state},Obj){
+		var {title,thoughts,location} = Obj;
+		if(title) state.project.title = title;
+		if(thoughts) state.project.thoughts = thoughts;
+		if(location) state.project.location = location;
 	},
 	saveProject({commit,state,getters}){
 		console.log('saveProject',state.project);
+		state.project.date = new Date();
+		state.list.push(state.project);
+		uni.setStorage('list',state.list);
+	},
+	getProject({commit,state,getters}){
+		var list = uni.getStorage('list');
+		if(list){
+			if(list.lenght >0){
+				state.list = list;
+			}
+		}
 	}
 }
 

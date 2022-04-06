@@ -11,7 +11,7 @@
 				>
 				<view class="u-p-b-5">PLEASE GIVE YOUR COVE A TITLE...</view>
 				<view class="">
-					<input type="text" maxlength='100' @blur="inputBlur('title')"/>
+					<input v-model="title" type="text" maxlength='100' @blur="inputBlur('title')"/>
 				</view>
 			</view>
 			<view class="u-bg-malandy1 u-radius-3  u-font-white u-p-10 u-m-t-20 u-font-size-12 shadow-blur"
@@ -20,7 +20,7 @@
 				>
 				<view class="u-p-b-5">YOU CAN ADD SOME THOUGHTS ABOUT YOUR COVE...</view>
 				<view class="">
-					<textarea type="text" maxlength='300' auto-height  @blur="inputBlur('thoughts')"/>
+					<textarea v-model="thoughts" type="text" maxlength='300' auto-height  @blur="inputBlur('thoughts')"/>
 				</view>
 			</view>
 			<view class="u-bg-malandy1 u-radius-3  u-font-white u-p-10 u-m-t-20 u-font-size-12 shadow-blur"
@@ -29,7 +29,7 @@
 				>
 				<view class="u-p-b-5">ADD LOCATION</view>
 				<view class="">
-					<input type="text" maxlength='100'  @blur="inputBlur('location')"/>
+					<input v-model="location" type="text" maxlength='100'  @blur="inputBlur('location')"/>
 				</view>
 			</view>
 			<view class="u-radius-3  u-font-white u-p-10 u-m-t-10 u-font-size-12"
@@ -39,7 +39,7 @@
 				<MoodList></MoodList>
 			</view>
 		</view>
-		<view v-if='show' class="flex center">
+		<view class="flex center">
 			<view class="u-p-10 u-font-size-20 u-font-white u-border-1 u-radius-20 u-p-l-40 u-p-r-40 uni-shadow-lg" 
 				@click="handleClickNext">
 				SAVE
@@ -57,7 +57,10 @@ export default {
 			show:false,
 			date:'',
 			time:'',
-			inputFocus:''
+			inputFocus:'',
+			location:'',
+			thoughts:'',
+			title:''
 		}
 	},
 	components:{MoodList},
@@ -70,8 +73,14 @@ export default {
 		this.time = date.getHours() + ':' + date.getMinutes();
 	},
 	methods:{
+		...mapActions(['saveInfo','saveProject']),
 		handleClickNext(){
-			
+			this.saveInfo({
+				title:this.title,
+				thoughts:this.thoughts,
+				location:this.location
+			})
+			this.saveProject();
 		},
 		handleClickChangeInput(value){
 			this.inputFocus = value;

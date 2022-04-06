@@ -1,6 +1,8 @@
 <template>
-	<view class="" :style="defaultHeight">
-		<scroll-view scroll-y="true" class="u-p-t-5 u-font-white u-bg-maka-g2 uni-shadow-base" style="height: 88%;">
+	<view class="u-bg-malandy-g2" :style="defaultHeight" >
+		<scroll-view scroll-y="true" class="u-p-t-5 u-font-white uni-shadow-base" 
+			:style="'height:'+getWindowsHeight*0.8 +'px;'" 
+			>
 			<view class="u-radius-3 u-p-3 u-m-10 u-bg-maka-g uni-shadow-base" v-for="item of list" :key='item.id'>
 				<view class="u-p-3">
 					<uni-icons type="flag"></uni-icons>
@@ -20,7 +22,7 @@
 				</view>
 			</view>
 		</scroll-view>
-		<view class="u-bottom u-p-10 u-m-t-20 flex space-between u-bg-maka-g3">
+		<view class="u-bottom u-p-10 u-m-t-20 flex space-between u-bg-malandy-g2">
 			<view class="u-m-10 u-p-10 u-radius-5 text-center u-bg-maka3 u-font-gray2"
 			 style="width: 100%;"
 			 @click="handleClickDelete">
@@ -50,7 +52,7 @@
 				list:'list'
 			}),
 			// 使用对象展开运算符将 getter 混入 computed 对象中
-			...mapGetters(['findMood','defaultHeight'])
+			...mapGetters(['findMood','defaultHeight','getWindowsHeight'])
 		},
 		methods:{
 			handleClickDelete(){

@@ -1,13 +1,15 @@
 <template>
-	<view class="u-bg-malandy-g3" :style="defaultHeight" >
-		<view class="" style="height: 80%;" @click="handleChickSet">
+	<view class="u-bg-malandy-g3" :style="defaultHeight">
+		<view class="" 
+			:style="'height:'+getWindowsHeight*0.8 +'px;'"
+			@click="handleChickSet">
 			<view
 			v-for="(item,index) of synthList"
 			:key='item.id' 
 			class="view-synth"
 			:class="animation"
 			:style="[{
-				animationDelay: (index + 1)*0.1 + 's',
+				animationDelay: (index + 1)*0.3 + 's',
 				top:item.top,
 				left:item.left,
 				}]"
@@ -35,35 +37,46 @@
 		},
 		computed:{
 			// 使用对象展开运算符将 getter 混入 computed 对象中
-			...mapGetters(['findMood','defaultHeight','getPlayerState']),
+			...mapGetters(['defaultHeight','getWindowsHeight']),
 			show(){
 				return this.synthList.length? true:false;
 			}
 		},
 		mounted() {
+			this.initPlayer();
 			setInterval(()=>{
 				//console.log('清空动画');
 				this.animation ="";
 				setTimeout(()=>{
 					//console.log('启动动画');
 					this.animation='animation-fade';
+					this.runSynthGamut(this.synthList);
 				},1000);
 			},10000);
 		},
 		methods:{
 			...mapActions([
-				'playerStart','setPlayer','playerStop'
+				'synthGamut','initPlayer','runSynthGamut','saveSynthGamut'
 			]),
 			handleChickSet(e){
+				this.synthGamut();
 				this.synthList.push({
 					left: (e.detail.x-20) + 'px',
 					top: (e.detail.y-20) +'px',
+					y: e.detail.y-20
 				});
+				this.synthList.sort((a,b)=>{
+					return a.y - b.y
+				});
+				for(var i=0;i<this.synthList.length;i++){
+					this.synthList[i].id = i;
+				}
 			},
 			change(){
 				
 			},
 			handleClickNext(e){
+				this.saveSynthGamut(this.synthList);
 				uni.navigateTo({
 					url:'../details/index',
 					complete(res) {
