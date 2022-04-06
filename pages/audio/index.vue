@@ -1,27 +1,26 @@
 <template>
 	<view class="u-bg-malandy-g2" :style="defaultHeight">
-		<view class="flex center" style="height: 80%;">
+		<view class="flex center" :style="'height:'+getWindowsHeight*0.7 +'px;'">
 			<view class="flex warp u-p-20">
 				<view v-for="(item,index) of audioList" :key='item.id' 
-					class="view-image flex center u-p-20"
+					class="view-image flex center "
 					>
-					<view class="">
-						<view class="view-image-s" 
-						@click="handleClickImg(index)"
-						>
-							<image style="height: 80px;width: 80px;"
-							class="u-p-10 u-radius-40 uni-shadow-base"
-							:class="indexs==index? 'u-bg-malandy-g1':'u-bg-malandy-g2'"
-							:src="'../../static/icon/'+item[0]+'.png'"
-							></image>
-						</view>
+					<view class="view-image-s u-p-20"
+					@click="handleClickImg(index)">
+						<image style="height: 80px;width: 80px;"
+						class="u-p-10 u-radius-40 uni-shadow-base"
+						:class="indexs==index? 'u-bg-malandy-g1':'u-bg-malandy-g2'"
+						:src="'../../static/icon/'+item[0]+'.png'"
+						></image>
 					</view>
 				</view>
 			</view>
 		</view>
-		<slider v-if='show' :value="volume"  @change="sliderChange" show-value />
+		<view class="u-p-10">
+			<slider v-if='show' :value="project.volume" block-color='#F4c587' min="0" max="30"  @changing='sliderChanging'/>
+		</view>
 		<view v-if='show' class="flex center">
-			<view class="u-p-10 u-font-size-20 u-font-white u-border-1 u-radius-20 u-p-l-40 u-p-r-40 uni-shadow-lg" 
+			<view class="u-p-10 u-font-size-20 u-font-white u-border-1 u-radius-20 u-p-l-40 u-p-r-40 uni-shadow-lg animation-fade" 
 				@click="handleClickNext">
 				NEXT
 			</view>
@@ -46,7 +45,7 @@
 					['wind_grass'],
 				],
 				indexs:99,
-				volume:100,
+				volume:10,
 				show:false,
 				audio:[],
 				start:0,
@@ -57,20 +56,23 @@
 				//选中的情绪列表
 				list:'list',
 				//总列表
-				menu:'menu'
+				project:'project'
 			}),
 			// 使用对象展开运算符将 getter 混入 computed 对象中
-			...mapGetters(['findMood','defaultHeight','getPlayerState'])
+			...mapGetters(['findMood','defaultHeight','getPlayerState','getWindowsHeight'])
 		},
 		mounted() {
 			//Eruda.init();
+			//this.defaultHeight['height'] = this.defaultHeight['min-height'];
 		},
 		methods:{
-			...mapActions(['setPlayer','playerStop','playerStart']),
+			...mapMutations(['setProjectAudio']),
+			...mapActions(['setPlayer','playerStop','playerStart','playerVolume']),
 			handleClickDelete(){
 				
 			},
 			handleClickNext(){
+				this.setProjectAudio(this.audioList[this.indexs]);
 				uni.navigateTo({
 					url:'../tone/index'
 				})
@@ -80,7 +82,7 @@
 				//console.log('handleClickImg');
 				if(that.indexs == value){
 					if(that.show){
-						that.show == false;
+						that.show = false;
 						that.playerStop();
 						that.indexs = 99;
 					}
@@ -96,14 +98,10 @@
 					that.setPlayer(that.audioList[value]);
 				}
 			},
-			sliderChange(e){
-				this.volume = e.detail.value;
-			},
-			upVolme(){
-				if(this.volume<100)this.volume++;
-			},
-			downVolme(){
-				if(this.volume>0)this.volume--;
+			sliderChanging(e){
+				this.playerVolume({
+					volume:e.detail.value-10
+				});
 			}
 		}
 	}

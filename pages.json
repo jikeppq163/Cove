@@ -10,6 +10,9 @@
 			"path": "pages/tone/index"
 		},
 		{
+			"path": "pages/details/index"
+		},
+		{
 			"path": "pages/audio/index"
 		},
 		{

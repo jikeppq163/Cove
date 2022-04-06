@@ -13,8 +13,6 @@ let state={
 	defaultHeight:{
 		//最低高度
 		"min-height":"800rpx",
-		//屏幕高度
-		"height":"800rpx"
 	},
 	mood:[
 		['Happy','Sad','Annoyed','Strong','Anxous','Content','Excited'],
@@ -25,7 +23,8 @@ let state={
 	//当前新增列表 project
 	project:{
 		mood:[],
-		audio:''
+		audio:'',
+		volume:10,
 	},
 	//所有过往记录列表 list
 	list:[
@@ -54,7 +53,8 @@ let state={
 	//音频处理
 	playing:false,
 	playerState:'',
-	player:false
+	player:false,
+	source:false,
 }
 
 let mutations={
@@ -67,14 +67,11 @@ let mutations={
 	setSystemInfo(state,value){
 		state.systemInfo = value;
 		//屏幕高度减去标题高度
-		state.defaultHeight['height'] = (value.windowHeight - 43)+"px";
+		state.defaultHeight['min-height'] = (value.windowHeight - 43)+"px";
 	},
-	PLAYER_START(state,value){
-		state.playing = true;
-	},
-	PLAYER_STOP(state,value){
-		state.playing = false;
-	},
+	setProjectAudio(state,value){
+		state.project.audio = value;
+	}
 }
 
 let getters={
@@ -124,6 +121,7 @@ let actions={
 				autostart: true,
 				loop:true
 			}).toDestination();
+			state.source = new Tone.PWMOscillator().toDestination();
 		}
 	},
 	//播放音乐
@@ -141,11 +139,21 @@ let actions={
 	playerStop({commit,state,getters}){
 		if(getters.getPlayerState=='started'){
 			state.player.stop();
-			commit('PLAYER_STOP');
 		}
 		else{
 			console.log('播放状态:',getters.getPlayerState);
 		}
+	},
+	playerVolume({commit,state,getters},value){
+		var {volume,step} = value;
+		if(getters.getPlayerState=='started'){
+			state.player.volume.value = volume;
+			state.project.volume = volume;
+		}
+	},
+	playerbackRate({commit,state,getters}){
+		// play at 1/4 speed 音调
+		state.player.playbackRate = 0.25;
 	},
 	//插入音阶
 	synthStart({commit}){
@@ -153,6 +161,9 @@ let actions={
 		synth.triggerAttackRelease("C4", "8n", now);
 		synth.triggerAttackRelease("E4", "8n", now + 0.5);
 		synth.triggerAttackRelease("G4", "8n", now + 1);
+	},
+	saveProject({commit,state,getters}){
+		console.log('saveProject',state.project);
 	}
 }
 

@@ -27,6 +27,7 @@
 	@import '@/pages/css/common.scss';
 	@import '@/pages/css/color.scss';
 	
+	@import '@/colorui/animation.css';
 	@import '@/colorui/main.css';
 	@import '@/colorui/icon.css';
 	// 设置整个项目的背景色
