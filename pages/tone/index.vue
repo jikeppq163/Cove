@@ -1,5 +1,6 @@
 <template>
 	<view class="u-bg-malandy-g3" :style="defaultHeight">
+		<view class="u-font-white text-center">TAP WINDOWS ADD NEW GAUMT</view>
 		<view class="" 
 			:style="'height:'+getWindowsHeight*0.8 +'px;'"
 			@click="handleChickSet">
@@ -9,7 +10,7 @@
 			class="view-synth"
 			:class="animation"
 			:style="[{
-				animationDelay: (index + 1)*0.3 + 's',
+				animationDelay: (index + 1)*0.8 + 's',
 				top:item.top,
 				left:item.left,
 				}]"
@@ -27,7 +28,7 @@
 </template>
 
 <script>
-	import {mapActions,mapGetters} from 'vuex';
+	import {mapActions,mapGetters,mapState} from 'vuex';
 	export default{
 		data(){
 			return{
@@ -36,6 +37,7 @@
 			}
 		},
 		computed:{
+			...mapState(['Interval']),
 			// 使用对象展开运算符将 getter 混入 computed 对象中
 			...mapGetters(['defaultHeight','getWindowsHeight']),
 			show(){
@@ -44,39 +46,47 @@
 		},
 		mounted() {
 			this.initPlayer();
-			setInterval(()=>{
+			this.runIntervals(()=>{
 				//console.log('清空动画');
 				this.animation ="";
 				setTimeout(()=>{
 					//console.log('启动动画');
 					this.animation='animation-fade';
-					this.runSynthGamut(this.synthList);
-				},1000);
-			},10000);
+					this.runSynthGamut();
+				},100);
+			})
 		},
 		methods:{
 			...mapActions([
-				'synthGamut','initPlayer','runSynthGamut','saveSynthGamut'
+				'synthGamut','initPlayer','runSynthGamut','saveSynthGamut','playerStop','clearIntervals','runIntervals'
 			]),
 			handleChickSet(e){
+				//播放音阶 
 				this.synthGamut();
-				this.synthList.push({
-					left: (e.detail.x-20) + 'px',
-					top: (e.detail.y-20) +'px',
-					y: e.detail.y-20
-				});
-				this.synthList.sort((a,b)=>{
-					return a.y - b.y
-				});
-				for(var i=0;i<this.synthList.length;i++){
-					this.synthList[i].id = i;
+				if(this.synthList.length<8){
+					//新增
+					this.synthList.push({
+						left: (e.detail.x-20) + 'px',
+						top: (e.detail.y-20) +'px',
+						y: e.detail.y-20
+					});
+					//排序
+					this.synthList.sort((a,b)=>{
+						return a.y - b.y
+					});
+					//新增播放间隔 编号是播放音频的增量 也可以自定义up值
+					for(var i=0;i<this.synthList.length;i++){
+						this.synthList[i].up = i;
+					}
+					this.saveSynthGamut(this.synthList);
 				}
 			},
 			change(){
 				
 			},
 			handleClickNext(e){
-				this.saveSynthGamut(this.synthList);
+				this.clearIntervals();
+				this.playerStop();
 				uni.navigateTo({
 					url:'../details/index',
 					complete(res) {

@@ -3,20 +3,22 @@
 		<scroll-view scroll-y="true" class="u-p-t-5 u-font-white uni-shadow-base" 
 			:style="'height:'+getWindowsHeight*0.8 +'px;'" 
 			>
-			<view class="u-radius-3 u-p-3 u-m-10 u-bg-maka-g uni-shadow-base" v-for="item of list" :key='item.id'>
+			<view class="u-radius-3 u-p-3 u-m-10 u-bg-maka-g uni-shadow-base" v-for="(item,index) of list" :key='item.id' @click="handleClickInfo(index)">
 				<view class="u-p-3">
-					<uni-icons type="flag"></uni-icons>
+					<uni-icons type="flag" color='#F4c587'></uni-icons>
 					{{item.title}}
 				</view>
 				<view class="u-p-3">
+					<uni-icons type="compose" color='#F4c587'></uni-icons>
 					{{item.thoughts}}
 				</view>
 				<view class="u-p-3 flex space-between">
 					<view class="">
-						{{item.dateTime}}
+					<uni-icons type="spinner-cycle" color='#F4c587'></uni-icons>
+						{{getDate(item.date)}}
 					</view>
 					<view class="">
-						<uni-icons type="location"></uni-icons>
+						<uni-icons type="location" color='#F4c587'></uni-icons>
 						{{item.location}}
 					</view>
 				</view>
@@ -38,7 +40,7 @@
 </template>
 
 <script>
-	import {mapState,mapGetters,mapMutations} from 'vuex'
+	import {mapState,mapGetters,mapMutations,mapActions} from 'vuex'
 	export default {
 		data() {
 			return {
@@ -54,7 +56,17 @@
 			// 使用对象展开运算符将 getter 混入 computed 对象中
 			...mapGetters(['findMood','defaultHeight','getWindowsHeight'])
 		},
+		mounted() {
+			setTimeout(()=>{
+				if(this.list.length==0){
+					uni.navigateTo({
+						url:'../mood/index'
+					})
+				}
+			},2000)
+		},
 		methods:{
+			...mapActions(['getProject','setProject']),
 			handleClickDelete(){
 				uni.showModal({
 					title:'删除全部',
@@ -71,6 +83,15 @@
 				uni.navigateTo({
 					url:'../mood/index'
 				})
+			},
+			getDate(value){
+				var date = new Date(value);
+				var dates = date.getFullYear() + '-' +(date.getMonth() + 1) + '-' + date.getDate();
+				var time = date.getHours() + ':' + date.getMinutes();
+				return dates + ' ' + time
+			},
+			handleClickInfo(index){
+				this.setProject()
 			}
 		}
 	}

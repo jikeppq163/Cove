@@ -81,6 +81,9 @@ export default {
 				location:this.location
 			})
 			this.saveProject();
+			uni.navigateTo({
+				url:'../index/index'
+			})
 		},
 		handleClickChangeInput(value){
 			this.inputFocus = value;

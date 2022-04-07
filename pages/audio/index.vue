@@ -5,7 +5,8 @@
 				<view v-for="(item,index) of audioList" :key='item.id' 
 					class="view-image flex center "
 					>
-					<view class="view-image-s u-p-20"
+					<view class="view-image-s u-p-20 animation-fade"
+					:style="[{animationDelay: (index + 1)*0.1 + 's'}]"
 					@click="handleClickImg(index)">
 						<image style="height: 80px;width: 80px;"
 						class="u-p-10 u-radius-40 uni-shadow-base"
@@ -80,10 +81,11 @@
 			handleClickImg(value){
 				var that = this;
 				//console.log('handleClickImg');
-				if(that.indexs == value){
+				that.playerStop();
+				if(that.indexs == value){ 
+					//命中已经选中的背景音乐
 					if(that.show){
 						that.show = false;
-						that.playerStop();
 						that.indexs = 99;
 					}
 					else{

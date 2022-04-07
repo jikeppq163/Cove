@@ -26,9 +26,9 @@ let state={
 		audio:'',
 		volume:10,
 		synth:[],
-		title:'',
-		thoughts:'',
-		location:'',
+		title:'NOTHING...',
+		thoughts:'NOTHING...',
+		location:'NOTHING...',
 	},
 	//所有过往记录列表 list
 	list:[
@@ -47,9 +47,10 @@ let state={
 	//音频处理
 	playing:false,
 	playerState:'',
-	player:false,
-	synth:false,
+	player:false,	//背景音乐播放器
+	synth:false,	//音阶组合播放器
 	source:false,
+	Interval:false, //循环
 }
 
 let mutations={
@@ -155,16 +156,23 @@ let actions={
 		const now = Tone.now();
 		state.synth.triggerAttackRelease("C4", "8n", now);
 	},
-	runSynthGamut({state},Arrays){
-		if(Arrays!=[]){
+	runSynthGamut({state}){
+		if(state.project.synth!=[]){
 			const now = Tone.now();
-			for(var item of Arrays){
-				state.synth.triggerAttackRelease("C4", "8n", now + item.id);
+			var i=0;
+			var yd = ['A4','B4','C5','B4','C5','E5','B4'];
+			var jp = ['8n','8n','2n','8n','4n','4n','2n'];
+			for(var item of state.project.synth){
+				state.synth.triggerAttackRelease(yd[i], jp[i], now + item.up);
+				i++;
 			}
 		}
 	},
 	saveSynthGamut({state},Arr){
 		state.project.synth = Arr;
+	},
+	setProject({state},index){
+		state.project = state.list[index];
 	},
 	saveInfo({state},Obj){
 		var {title,thoughts,location} = Obj;
@@ -176,15 +184,28 @@ let actions={
 		console.log('saveProject',state.project);
 		state.project.date = new Date();
 		state.list.push(state.project);
-		uni.setStorage('list',state.list);
+		uni.setStorage('list',state.list).then(res=>{
+			console.log('setStorage 存储数据:',res);
+		});
 	},
 	getProject({commit,state,getters}){
-		var list = uni.getStorage('list');
-		if(list){
-			if(list.lenght >0){
-				state.list = list;
+		uni.getStorage('list').then(res=>{
+			console.log('getStorage 读取数据:',res);
+			if(res.data){
+				if(res.data.lenght >0){
+					state.list = res.data;
+				}
 			}
-		}
+		});
+	},
+	runIntervals({state},callback){
+		state.Interval = setInterval(()=>{
+			callback(true);
+		},10000);
+	},
+	clearIntervals({state}){
+		//停止循环
+		clearInterval(state.Interval);
 	}
 }
 

@@ -8,7 +8,10 @@
 					this.$store.commit('setSystemInfo',res);
 				}
 			})
+			//初始化音频
 			this.$store.dispatch('initPlayer');
+			//获取存储的数据
+			this.$store.dispatch('getProject');
 		},
 		onShow: function() {
 			//console.log('App Show')
