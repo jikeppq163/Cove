@@ -16,7 +16,7 @@
 		</view>
 		<view class="flex center u-p-t-20">
 			<view class="u-p-10 u-radius-5 u-bg-malandy2 text-center" style="height: 40px;width: 120px;" @click="handleClickPlay">
-				<uni-icons type='videocam' size="30" color="#769A80"></uni-icons>
+				<uni-icons type='videocam' size="30" color="#F4c587"></uni-icons>
 			</view>
 		</view>
 		<view class="u-m-10 u-m-t-20 u-p-40 u-bg-maka-g text-center u-font-gray2 shadow-lg">
@@ -32,6 +32,9 @@
 			 @click="handleClickDelete">
 				DELETE THIS COVE
 			</view>
+		</view>
+		<view class="share-view">
+			<uni-icons type='paperplane-filled' size="30" color="#F4c587"></uni-icons>
 		</view>
 	</view>
 </template>
@@ -95,5 +98,10 @@
 	}
 </script>
 
-<style>
+<style scoped lang="scss">
+	.share-view{
+		position: absolute;
+		right: 20px;
+		top:20px;
+	}
 </style>
