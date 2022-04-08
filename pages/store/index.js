@@ -30,6 +30,16 @@ let state={
 		thoughts:'NOTHING...',
 		location:'NOTHING...',
 	},
+	//模版
+	template:{
+			mood:[],
+			audio:'',
+			volume:10,
+			synth:[],
+			title:'NOTHING...',
+			thoughts:'NOTHING...',
+			location:'NOTHING...',
+	},
 	//所有过往记录列表 list
 	list:[
 		// {
@@ -71,6 +81,12 @@ let mutations={
 	},
 	CLEAR_INDEX(){
 		state.index = -1;
+	},
+	CLEAR_STORAGE(){
+		
+	},
+	RESET_PROJECT(state){
+		state.project = JSON.parse(JSON.stringify(state.template))
 	}
 }
 
@@ -99,7 +115,7 @@ let actions={
 	initPlayer({commit,state}){
 		state.synth = new Tone.Synth().toDestination();
 	},
-	setPlayer({commit,state,getters},src){
+	setPlayer({commit,state,getters}){
 		//播放
 		if(!state.player){
 			if(getters.getPlayerState=='stoped'){
@@ -117,7 +133,7 @@ let actions={
 		}
 		function set(){
 			state.player = new Tone.Player({
-				url:'/static/mp3/'+src+'.mp3',
+				url:'/static/mp3/'+state.project.audio+'.mp3',
 				autostart: true,
 				loop:true
 			}).toDestination();
@@ -186,8 +202,8 @@ let actions={
 		if(location) state.project.location = location;
 	},
 	deleteProject({state}){
-		if(index!=-1){
-			state.list.splice(index,1);
+		if(state.index!=-1){
+			state.list.splice(state.index,1);
 			uni.setStorage({
 				key:'list',
 				data:state.list,
@@ -223,6 +239,7 @@ let actions={
 		});
 	},
 	runIntervals({state},callback){
+		callback(true);
 		state.Interval = setInterval(()=>{
 			callback(true);
 		},10000);

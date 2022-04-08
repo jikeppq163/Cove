@@ -15,7 +15,7 @@
 			</view>
 		</view>
 		<view class="flex center u-p-t-20">
-			<view class="u-p-10 u-p-l-40 u-p-r-40 u-radius-5 u-bg-malandy2">
+			<view class="u-p-10 u-radius-5 u-bg-malandy2 text-center" style="height: 40px;width: 120px;" @click="handleClickPlay">
 				<uni-icons type='videocam' size="30" color="#769A80"></uni-icons>
 			</view>
 		</view>
@@ -44,18 +44,35 @@
 				'project'
 			]),
 			// 使用对象展开运算符将 getter 混入 computed 对象中
-			...mapGetters(['defaultHeight','getWindowsHeight'])
+			...mapGetters(['defaultHeight','getWindowsHeight','getPlayerState'])
+		},
+		mounted() {
+			
 		},
 		methods:{
-			...mapActions(['deleteProject']),
+			...mapActions(['deleteProject','setPlayer','playerStop','runIntervals','runSynthGamut','clearIntervals']),
+			handleClickPlay(){
+				if(this.getPlayerState=='stoped'){
+					this.setPlayer();
+					this.runIntervals(()=>{
+						this.runSynthGamut();
+					})
+				}
+				else{
+					this.playerStop();
+					this.clearIntervals();
+				}
+			},
 			handleClickDelete(){
 				var that =this;
 				uni.showModal({
 					title:'WARING!!!',
 					content:'ARE YOU SURE DELETE?',
-					confirmColor: red,
+					confirmColor: 'red',
 					success:(res)=>{
 						if(res.confirm){
+							that.playerStop();
+							that.clearIntervals();
 							that.deleteProject();
 							uni.navigateTo({
 								url:'../index/index'

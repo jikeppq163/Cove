@@ -58,7 +58,7 @@
 			...mapGetters(['findMood','defaultHeight','getWindowsHeight'])
 		},
 		mounted() {
-			this.listIndex = -1;
+			this.CLEAR_INDEX();
 			setTimeout(()=>{
 				if(this.list.length==0){
 					uni.navigateTo({
@@ -68,6 +68,7 @@
 			},2000)
 		},
 		methods:{
+			...mapMutations(['CLEAR_INDEX','RESET_PROJECT']),
 			...mapActions(['getProject','setProject']),
 			handleClickDelete(){
 				uni.showModal({
@@ -82,6 +83,7 @@
 				})
 			},
 			handleClickAdd(){
+				this.RESET_PROJECT();
 				uni.navigateTo({
 					url:'../mood/index'
 				})

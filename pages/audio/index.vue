@@ -73,7 +73,7 @@
 				
 			},
 			handleClickNext(){
-				this.setProjectAudio(this.audioList[this.indexs]);
+				
 				uni.navigateTo({
 					url:'../tone/index'
 				})
@@ -91,13 +91,15 @@
 					else{
 						that.show = true;
 						that.indexs = value;
-						that.setPlayer(that.audioList[value]);
+						that.setProjectAudio(that.audioList[that.indexs]);
+						that.setPlayer();
 					}
 				}
 				else{
 					that.indexs = value;
 					that.show = true;
-					that.setPlayer(that.audioList[value]);
+					that.setProjectAudio(that.audioList[that.indexs]);
+					that.setPlayer();
 				}
 			},
 			sliderChanging(e){
