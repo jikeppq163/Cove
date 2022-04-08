@@ -45,6 +45,7 @@ let state={
 		// }
 	],
 	//音频处理
+	index:-1, //选中的指标
 	playing:false,
 	playerState:'',
 	player:false,	//背景音乐播放器
@@ -67,6 +68,9 @@ let mutations={
 	},
 	setProjectAudio(state,value){
 		state.project.audio = value;
+	},
+	CLEAR_INDEX(){
+		state.index = -1;
 	}
 }
 
@@ -173,12 +177,25 @@ let actions={
 	},
 	setProject({state},index){
 		state.project = state.list[index];
+		state.index = index;
 	},
 	saveInfo({state},Obj){
 		var {title,thoughts,location} = Obj;
 		if(title) state.project.title = title;
 		if(thoughts) state.project.thoughts = thoughts;
 		if(location) state.project.location = location;
+	},
+	deleteProject({state}){
+		if(index!=-1){
+			state.list.splice(index,1);
+			uni.setStorage({
+				key:'list',
+				data:state.list,
+				success:(res)=>{
+					console.log('setStorage 存储数据:',res);
+				}
+			});
+		}
 	},
 	saveProject({commit,state,getters}){
 		//console.log('saveProject',state.project);

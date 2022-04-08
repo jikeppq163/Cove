@@ -51,12 +51,14 @@
 				//选中的情绪列表
 				project:'project',
 				//总列表
-				list:'list'
+				list:'list',
+				listIndex:'index'
 			}),
 			// 使用对象展开运算符将 getter 混入 computed 对象中
 			...mapGetters(['findMood','defaultHeight','getWindowsHeight'])
 		},
 		mounted() {
+			this.listIndex = -1;
 			setTimeout(()=>{
 				if(this.list.length==0){
 					uni.navigateTo({
@@ -91,7 +93,10 @@
 				return dates + ' ' + time
 			},
 			handleClickInfo(index){
-				this.setProject()
+				this.setProject(index);
+				uni.navigateTo({
+					url:'../info/index'
+				})
 			}
 		}
 	}
