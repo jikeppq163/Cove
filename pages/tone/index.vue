@@ -76,7 +76,7 @@
 					});
 					//新增播放间隔 编号是播放音频的增量 也可以自定义up值
 					for(var i=0;i<this.synthList.length;i++){
-						this.synthList[i].up = i;
+						this.synthList[i].up = i*0.7;
 					}
 					this.saveSynthGamut(this.synthList);
 				}

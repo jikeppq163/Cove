@@ -16,6 +16,9 @@
 			"path": "pages/mood/index"
 		},
 		{
+			"path": "pages/info/index"
+		},
+		{
 			"path": "pages/login/index"
 		}
 	],

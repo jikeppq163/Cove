@@ -161,7 +161,7 @@ let actions={
 			const now = Tone.now();
 			var i=0;
 			var yd = ['A4','B4','C5','B4','C5','E5','B4'];
-			var jp = ['8n','8n','2n','8n','4n','4n','2n'];
+			var jp = ['8n','8n','2n','8n','4n','8n','2n'];
 			for(var item of state.project.synth){
 				state.synth.triggerAttackRelease(yd[i], jp[i], now + item.up);
 				i++;
@@ -181,19 +181,26 @@ let actions={
 		if(location) state.project.location = location;
 	},
 	saveProject({commit,state,getters}){
-		console.log('saveProject',state.project);
+		//console.log('saveProject',state.project);
 		state.project.date = new Date();
 		state.list.push(state.project);
-		uni.setStorage('list',state.list).then(res=>{
-			console.log('setStorage 存储数据:',res);
-		});
+		uni.setStorage({
+			key:'list',
+			data:state.list,
+			success:(res)=>{
+				console.log('setStorage 存储数据:',res);
+			}
+			});
 	},
 	getProject({commit,state,getters}){
-		uni.getStorage('list').then(res=>{
-			console.log('getStorage 读取数据:',res);
-			if(res.data){
-				if(res.data.lenght >0){
-					state.list = res.data;
+		uni.getStorage({
+			key:'list',
+			success:(res)=>{
+				console.log('getStorage 读取数据:',res);
+				if(res.data){
+					if(res.data.length >0){
+						state.list = res.data;
+					}
 				}
 			}
 		});
