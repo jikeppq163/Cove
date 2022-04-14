@@ -93,7 +93,7 @@
 					complete(res) {
 						console.log(res);
 					}
-				})
+				});
 			}
 		}
 	}

@@ -81,8 +81,8 @@ export default {
 				location:this.location
 			})
 			this.saveProject();
-			uni.navigateTo({
-				url:'../index/index'
+			uni.switchTab({
+				url:'../../index/index'
 			})
 		},
 		handleClickChangeInput(value){
