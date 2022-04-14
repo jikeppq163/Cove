@@ -5,26 +5,26 @@
 			>
 			<view class="u-radius-3 u-p-3 u-m-10 u-bg-maka-g uni-shadow-base" v-for="(item,index) of list" :key='item.id' @click="handleClickInfo(index)">
 				<view class="u-p-3">
-					<uni-icons type="flag" color='#F4c587'></uni-icons>
+					<uni-icons type="flag" color='#769A80'></uni-icons>
 					{{item.title}}
 				</view>
 				<view class="u-p-3">
-					<uni-icons type="compose" color='#F4c587'></uni-icons>
+					<uni-icons type="compose" color='#769A80'></uni-icons>
 					{{item.thoughts}}
 				</view>
 				<view class="u-p-3 flex space-between">
 					<view class="">
-					<uni-icons type="spinner-cycle" color='#F4c587'></uni-icons>
+					<uni-icons type="spinner-cycle" color='#769A80'></uni-icons>
 						{{getDate(item.date)}}
 					</view>
 					<view class="">
-						<uni-icons type="location" color='#F4c587'></uni-icons>
+						<uni-icons type="location" color='#769A80'></uni-icons>
 						{{item.location}}
 					</view>
 				</view>
 			</view>
 		</scroll-view>
-		<view class="u-bottom u-p-10 u-m-t-20 flex space-between u-bg-malandy-g2">
+		<view class="u-bottom u-p-10 u-m-t-20 u-m-b-40 flex space-between u-bg-malandy-g2">
 			<view class="u-m-10 u-p-10 u-radius-5 text-center u-bg-maka3 u-font-gray2"
 			 style="width: 100%;"
 			 @click="handleClickDelete">
@@ -59,13 +59,26 @@
 		},
 		mounted() {
 			this.CLEAR_INDEX();
-			setTimeout(()=>{
-				if(this.list.length==0){
-					uni.navigateTo({
-						url:'../mood/index'
-					})
-				}
-			},2000)
+			var openId = localStorage.getItem("openId");
+			if(!openId){
+				uni.switchTab({
+					url:"../stars/index",
+					complete: (res) => {
+								console.log('res',res)
+							}
+				})
+				// uni.navigateTo({
+				// 	url:'../login/index'
+				// })
+			}else{
+				setTimeout(()=>{
+					if(this.list.length==0){
+						uni.navigateTo({
+							url:'../emotion/mood/index',
+							})
+					}
+				},2000)
+			}
 		},
 		methods:{
 			...mapMutations(['CLEAR_INDEX','RESET_PROJECT']),
@@ -85,7 +98,7 @@
 			handleClickAdd(){
 				this.RESET_PROJECT();
 				uni.navigateTo({
-					url:'../mood/index'
+					url:'../emotion/mood/index'
 				})
 			},
 			getDate(value){
@@ -97,7 +110,7 @@
 			handleClickInfo(index){
 				this.setProject(index);
 				uni.navigateTo({
-					url:'../info/index'
+					url:'../emotion/info/index'
 				})
 			}
 		}

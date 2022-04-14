@@ -1,27 +1,67 @@
 {
-	"pages": [
-		{
+	"pages": [{
 			"path": "pages/index/index"
 		},
 		{
-			"path": "pages/tone/index"
+			"path": "pages/emotion/tone/index"
 		},
 		{
-			"path": "pages/details/index"
+			"path": "pages/emotion/details/index"
 		},
 		{
-			"path": "pages/audio/index"
+			"path": "pages/emotion/audio/index"
 		},
 		{
-			"path": "pages/mood/index"
+			"path": "pages/emotion/mood/index"
 		},
 		{
-			"path": "pages/info/index"
+			"path": "pages/emotion/info/index"
+		},
+		{
+			"path": "auth"
 		},
 		{
 			"path": "pages/login/index"
+		},
+		{
+			"path": "pages/stars/index"
+		},
+		{
+			"path": "pages/user/index"
+		},
+		{
+			"path": "pages/ucharts/index"
 		}
 	],
+	"tabBar": {
+		"color": "#7A7E83",
+		"selectedColor": "#3cc51f",
+		"borderStyle": "black",
+		"backgroundColor": "#ffffff",
+		"list": [{
+			"pagePath": "pages/index/index",
+			"iconPath": "static/image/menu.png",
+			"selectedIconPath": "static/image/menu_fill.png",
+			"text": "目录"
+		}, {
+			"pagePath": "pages/ucharts/index",
+			"iconPath": "static/image/stitetic.png",
+			"selectedIconPath": "static/image/stitetic_fill.png",
+			"text": "统计"
+		},
+		{
+			"pagePath": "pages/stars/index",
+			"iconPath": "static/image/tianwen.png",
+			"selectedIconPath": "static/image/tianwen_fill.png",
+			"text": "社区"
+		},
+		{
+			"pagePath": "pages/user/index",
+			"iconPath": "static/image/set.png",
+			"selectedIconPath": "static/image/set_fill.png",
+			"text": "我的"
+		}]
+	},
 	"globalStyle": {
 		"navigationBarTextStyle": "white",
 		"navigationBarTitleText": "Coves",
