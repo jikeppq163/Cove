@@ -59,6 +59,8 @@
         "router" : {
             "mode" : "history",
             "base" : "./"
-        }
+        },
+        "title" : "心乐星语",
+        "domain" : "https://metamusic.toob.net.cn/"
     }
 }
