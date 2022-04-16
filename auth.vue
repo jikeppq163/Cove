@@ -26,12 +26,12 @@ export default {
 					  })  
 				}
 				console.log('request redirectUrl:',redirectUrl);
-				if(redirectUrl){
-					this.$router.replace(redirectUrl); //跳转到业务页面
-				}
-				else{
-					this.$router.replace("./");
-				}
+				// if(redirectUrl){
+				// 	this.$router.replace(redirectUrl); //跳转到业务页面
+				// }
+				// else{
+				 this.$router.replace("./pages/user/index");
+				//}
 			}
 		})
       } catch (error) {

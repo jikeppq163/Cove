@@ -69,9 +69,10 @@
 				// 			}
 				// })
 				// 跳到普通页面
-				uni.navigateTo({
-					url:'../login/index'
-				})
+				this.$router.replace("./pages/user/index");
+				// uni.navigateTo({
+				// 	url:'../login/index'
+				// })
 			}else{
 				setTimeout(()=>{
 					if(this.list.length==0){
