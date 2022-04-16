@@ -40,6 +40,7 @@
 </template>
 
 <script>
+	import authorize from "../utils/user.js";
 	import {mapState,mapGetters,mapMutations,mapActions} from 'vuex';
 	export default {
 		data() {
@@ -59,7 +60,6 @@
 		},
 		mounted() {
 			this.CLEAR_INDEX();
-			
 		},
 		methods:{
 			...mapMutations(['CLEAR_INDEX','RESET_PROJECT','getLoginStatus']),
@@ -77,14 +77,12 @@
 				})
 			},
 			handleClickAdd(){
-				if(this.getLoginStatus()){
+				var test = this.$route.query.test? true:false;
+				if(test || authorize(this.$route.fullPath)){
 					this.RESET_PROJECT();
 					uni.navigateTo({
 						url:'../emotion/mood/index'
 					})
-				}
-				else{
-					
 				}
 			},
 			getDate(value){

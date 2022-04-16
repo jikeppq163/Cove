@@ -1,6 +1,8 @@
 <script>
+	import Eruda from 'eruda'
 	export default {
 		onLaunch: function() {
+			Eruda.init();
 			//获取设备基础信息
 			uni.getSystemInfo({
 				success: (res) => {
@@ -12,6 +14,8 @@
 			this.$store.dispatch('initPlayer');
 			//获取存储的数据
 			this.$store.dispatch('getProject');
+			
+			localStorage.setItem('authDebug',0);
 		},
 		onShow: function() {
 			//console.log('App Show')

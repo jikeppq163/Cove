@@ -17,6 +17,7 @@
 </template>
 
 <script>
+	import authorize from "../utils/user.js"
 	//uni-icon 地址 https://uniapp.dcloud.io/component/uniui/uni-icons.html#介绍
 	import {mapState,mapGetters,mapMutations,mapActions} from 'vuex';
 	export default {
@@ -25,13 +26,22 @@
 			}
 		},
 		computed:{
-			...mapState('userInfo')
+			...mapState(['userInfo'])
 		},
 		mounted() {
-			this.getLoginStatus();
+			//authorize(this.$route.fullPath);
+			uni.request({
+				url:'https://metamusic.toob.net.cn/api/oauth/wechat/oalogin?code=021gfdll20CPZ84ZAvol2dmOyo4gfdlm',
+				success: (res) => {
+					console.log(res);
+				},
+				fail:(err)=>{
+					console.log(err);
+				}
+			})
 		},
 		methods:{
-			...mapMutations(['getLoginStatus'])
+			
 		}
 	}
 </script>

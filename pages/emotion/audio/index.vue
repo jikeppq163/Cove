@@ -31,7 +31,6 @@
 
 <script>
 	import {mapState,mapGetters,mapMutations,mapActions} from 'vuex';
-	//import Eruda from 'eruda'
 	export default {
 		data() {
 			return {

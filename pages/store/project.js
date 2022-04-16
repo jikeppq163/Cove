@@ -1,4 +1,4 @@
-import {authorize} from "../utils/user.js"
+import authorize from "../utils/user.js"
 import * as Tone from "tone";
 //组合
 const synth = new Tone.Synth().toDestination();
@@ -131,25 +131,6 @@ let mutations={
 	setProject(state,value){
 		state.project =value;
 	},
-	//获取登录信息
-	getLoginStatus(state){
-		if(!state.getOpenId){
-			state.getOpenId = true;
-			var openId = uni.getStorageSync('openId');
-			if(openId){
-				state.openId = openId;
-				state.userInfo = uni.getStorageSync('userInfo');
-				return true;
-			}
-			else {
-				authorize();
-				return false;
-			}
-		}
-		else{
-			return true;
-		}
-	},
 	CLEAR_INDEX(){
 		state.index = -1;
 	},
@@ -182,6 +163,25 @@ let getters={
 }
 
 let actions={
+	//获取登录信息
+	getLoginStatus(state){
+		if(!state.getOpenId){
+			state.getOpenId = true;
+			var openId = uni.getStorageSync('openId');
+			if(openId){
+				state.openId = openId;
+				state.userInfo = uni.getStorageSync('userInfo');
+				return true;
+			}
+			else {
+				authorize();
+				return false;
+			}
+		}
+		else{
+			return true;
+		}
+	},
 	//初始化音乐
 	initPlayer({commit,state}){
 		state.synth = new Tone.Synth().toDestination();
