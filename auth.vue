@@ -71,6 +71,7 @@ export default {
   	    console.log(error);
   	  }
   	} else {
+		console.log('auth fail',this.$route.query.code);
   		 // 如果不是从微信重定向过来的，没有带着微信的 code，则直接进入首页
   		this.$router.replace("/");
   	}
