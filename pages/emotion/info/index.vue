@@ -36,9 +36,6 @@
 		<view class="share-view" @click="handleClickShareOpen">
 			<uni-icons type='paperplane-filled' size="30" color="#F4c587"></uni-icons>
 		</view>
-		<uni-popup ref="popup" type="share">
-			<uni-popup-share title="分享到" @select="shareSelect"></uni-popup-share>
-		</uni-popup>
 	</view>
 </template>
 
