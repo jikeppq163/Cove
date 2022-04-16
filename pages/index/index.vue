@@ -61,12 +61,14 @@
 			this.CLEAR_INDEX();
 			var openId = localStorage.getItem("openId");
 			if(!openId){
+				//跳到tabbar页面
 				// uni.switchTab({
 				// 	url:"../stars/index",
 				// 	complete: (res) => {
 				// 				console.log('res',res)
 				// 			}
 				// })
+				// 跳到普通页面
 				// uni.navigateTo({
 				// 	url:'../login/index'
 				// })
