@@ -35,7 +35,7 @@ export default{
 	},
 	mounted() {
 		//eruda.init();//控制台
-		console.log('login',this.$route,this.$route.query);
+		//console.log('login',this.$route,this.$route.query);
 	},
 	methods:{
 		handleClickLogin(){
@@ -47,11 +47,11 @@ export default{
 			 let openId = localStorage.getItem('openId');
 			    if (!openId) {
 			        //保存当前路由地址，授权后还会跳到此地址
-					sessionStorage.setItem('wxRedirectUrl', this.$route.fullPath)
+					sessionStorage.setItem('wxRedirectUrl', this.$route.fullPath);
 			        //请求微信授权,并跳转到 /auth 路由
 			        let appId = 'wx98f8c9efa066cb6e';
-					let servers = '192.168.2.4';
-			        let redirectUrl = `https%3A%2F%2F${servers}%2Fauth#wechat_redirect`;
+					let servers = 'metamusic.toob.net.cn';
+			        let redirectUrl = `https://${servers}/index.html#/auth#wechat_redirect`;
 					var url=`https://open.weixin.qq.com/connect/oauth2/authorize?appid=${appId}&response_type=code&scope=snsapi_userinfo&state=123&redirect_uri=${redirectUrl}`;
 					window.location.href = url;
 			   } else {

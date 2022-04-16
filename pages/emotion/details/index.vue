@@ -79,7 +79,7 @@ export default {
 				title:this.title,
 				thoughts:this.thoughts,
 				location:this.location
-			})
+			});
 			this.saveProject();
 			uni.switchTab({
 				url:'../../index/index'

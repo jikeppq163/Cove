@@ -33,14 +33,17 @@
 				DELETE THIS COVE
 			</view>
 		</view>
-		<view class="share-view">
+		<view class="share-view" @click="handleClickShareOpen">
 			<uni-icons type='paperplane-filled' size="30" color="#F4c587"></uni-icons>
 		</view>
+		<uni-popup ref="popup" type="share">
+			<uni-popup-share title="分享到" @select="shareSelect"></uni-popup-share>
+		</uni-popup>
 	</view>
 </template>
 
 <script>
-	import {mapActions,mapGetters,mapState} from 'vuex';
+	import {mapActions,mapGetters,mapState,mapMutations} from 'vuex';
 	export default {
 		computed:{
 			...mapState([
@@ -50,9 +53,10 @@
 			...mapGetters(['defaultHeight','getWindowsHeight','getPlayerState'])
 		},
 		mounted() {
-			
+
 		},
 		methods:{
+			...mapMutations(['setProject']),
 			...mapActions(['deleteProject','setPlayer','playerStop','runIntervals','runSynthGamut','clearIntervals']),
 			handleClickPlay(){
 				if(this.getPlayerState=='stoped'){
@@ -65,6 +69,9 @@
 					this.playerStop();
 					this.clearIntervals();
 				}
+			},
+			handleClickShareOpen(){
+				this.$refs.popup.open('bottom');
 			},
 			handleClickDelete(){
 				var that =this;
@@ -83,6 +90,9 @@
 						}
 					}
 				})
+			},
+			shareSelect(){
+				//todo
 			},
 			getDate(value){
 				var date = new Date(value);

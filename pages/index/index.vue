@@ -69,9 +69,9 @@
 				// 			}
 				// })
 				// 跳到普通页面
-				// uni.navigateTo({
-				// 	url:'../login/index'
-				// })
+				uni.navigateTo({
+					url:'../login/index'
+				})
 			}else{
 				setTimeout(()=>{
 					if(this.list.length==0){
@@ -84,7 +84,7 @@
 		},
 		methods:{
 			...mapMutations(['CLEAR_INDEX','RESET_PROJECT']),
-			...mapActions(['getProject','setProject']),
+			...mapActions(['getProject','setProjectFromId']),
 			handleClickDelete(){
 				uni.showModal({
 					title:'删除全部',
@@ -110,7 +110,7 @@
 				return dates + ' ' + time
 			},
 			handleClickInfo(index){
-				this.setProject(index);
+				this.setProjectFromId(index);
 				uni.navigateTo({
 					url:'../emotion/info/index'
 				})

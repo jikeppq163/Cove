@@ -49,7 +49,7 @@ let state={
 		// 	imageUrl:'',			//图片地址
 		// 	mood:[],				//心情
 		// 	synth:[]				//音阶组合
-		// }
+		// },
 	],
 	//音频处理
 	index:-1, //选中的指标
@@ -71,10 +71,14 @@ let mutations={
 	setSystemInfo(state,value){
 		state.systemInfo = value;
 		//屏幕高度减去标题高度
-		state.defaultHeight['min-height'] = (value.windowHeight - 43)+"px";
+		state.defaultHeight['min-height'] = (value.windowHeight)+"px";
 	},
 	setProjectAudio(state,value){
 		state.project.audio = value;
+	},
+	//todo
+	setProject(state,value){
+		state.project =value;
 	},
 	CLEAR_INDEX(){
 		state.index = -1;
@@ -188,7 +192,7 @@ let actions={
 	saveSynthGamut({state},Arr){
 		state.project.synth = Arr;
 	},
-	setProject({state},index){
+	setProjectFromId({state},index){
 		state.project = state.list[index];
 		state.index = index;
 	},
@@ -212,6 +216,7 @@ let actions={
 	},
 	saveProject({commit,state,getters}){
 		//console.log('saveProject',state.project);
+		state.project.id = 'id_' + Date.now();
 		state.project.date = new Date();
 		state.list.push(state.project);
 		uni.setStorage({

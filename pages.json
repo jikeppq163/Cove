@@ -31,6 +31,9 @@
 		},
 		{
 			"path": "pages/ucharts/index"
+		},
+		{
+			"path": "pages/share/index"
 		}
 	],
 	"tabBar": {
@@ -67,6 +70,7 @@
 		"navigationBarTitleText": "Coves",
 		"navigationBarBackgroundColor": "#769A80",
 		"backgroundColor": "#F8F8F8",
+		"navigationStyle": "custom",
 		"app-plus": {
 			"background": "#efeff4"
 		}
