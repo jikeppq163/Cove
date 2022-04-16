@@ -61,12 +61,12 @@
 			this.CLEAR_INDEX();
 			var openId = localStorage.getItem("openId");
 			if(!openId){
-				uni.switchTab({
-					url:"../stars/index",
-					complete: (res) => {
-								console.log('res',res)
-							}
-				})
+				// uni.switchTab({
+				// 	url:"../stars/index",
+				// 	complete: (res) => {
+				// 				console.log('res',res)
+				// 			}
+				// })
 				// uni.navigateTo({
 				// 	url:'../login/index'
 				// })
