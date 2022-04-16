@@ -40,7 +40,7 @@
 </template>
 
 <script>
-	import {mapState,mapGetters,mapMutations,mapActions} from 'vuex'
+	import {mapState,mapGetters,mapMutations,mapActions} from 'vuex';
 	export default {
 		data() {
 			return {
@@ -59,32 +59,10 @@
 		},
 		mounted() {
 			this.CLEAR_INDEX();
-			var openId = localStorage.getItem("openId");
-			if(!openId){
-				//跳到tabbar页面
-				// uni.switchTab({
-				// 	url:"../stars/index",
-				// 	complete: (res) => {
-				// 				console.log('res',res)
-				// 			}
-				// })
-				// 跳到普通页面
-				this.$router.replace("./pages/user/index");
-				// uni.navigateTo({
-				// 	url:'../login/index'
-				// })
-			}else{
-				setTimeout(()=>{
-					if(this.list.length==0){
-						uni.navigateTo({
-							url:'../emotion/mood/index',
-							})
-					}
-				},2000)
-			}
+			
 		},
 		methods:{
-			...mapMutations(['CLEAR_INDEX','RESET_PROJECT']),
+			...mapMutations(['CLEAR_INDEX','RESET_PROJECT','getLoginStatus']),
 			...mapActions(['getProject','setProjectFromId']),
 			handleClickDelete(){
 				uni.showModal({
@@ -99,10 +77,15 @@
 				})
 			},
 			handleClickAdd(){
-				this.RESET_PROJECT();
-				uni.navigateTo({
-					url:'../emotion/mood/index'
-				})
+				if(this.getLoginStatus()){
+					this.RESET_PROJECT();
+					uni.navigateTo({
+						url:'../emotion/mood/index'
+					})
+				}
+				else{
+					
+				}
 			},
 			getDate(value){
 				var date = new Date(value);

@@ -17,29 +17,45 @@ export default {
 				if(res.state==200){
 					 //将一些信息存储到本地
 					  const token = res.headers['access_token'];
-					  localStorage.setItem('token', token)
+					  localStorage.setItem('token', token);
 					  localStorage.setItem("wxUserInfo", JSON.stringify(res.data.root));
 					  localStorage.setItem("openId", res.data.root.openId);
+					  uni.setStorage({
+					  	key:'openId',
+					  	data:res.data.root.openId
+					  })
 					  uni.setStorage({
 					  	key:'userInfo',
 						data:JSON.stringify(res.data.root)
 					  })  
 				}
 				console.log('request redirectUrl:',redirectUrl);
-				// if(redirectUrl){
-				// 	this.$router.replace(redirectUrl); //跳转到业务页面
-				// }
-				// else{
-				 this.$router.replace("./pages/user/index");
-				//}
+				if(redirectUrl){
+					this.$router.replace(redirectUrl); //跳转到业务页面
+				}
+				else{
+				 this.$router.replace("./");
+				}
 			}
 		})
       } catch (error) {
+		  uni.showModal({
+		  	title:'错误:',
+			content:error.message,
+			showCancel:false
+		  })
         console.log(error);
       }
     } else {
-     // 如果不是从微信重定向过来的，没有带着微信的 code，则直接进入首页
-      this.$router.replace("/");
+		 // 如果不是从微信重定向过来的，没有带着微信的 code，则直接进入首页
+		uni.showModal({
+			title:'错误:code',
+			content:this.$route.query.code,
+			showCancel:false,
+			success:(res)=>{
+				this.$router.replace("/");
+			}
+		})
     }
   }
 };

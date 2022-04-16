@@ -18,37 +18,20 @@
 
 <script>
 	//uni-icon 地址 https://uniapp.dcloud.io/component/uniui/uni-icons.html#介绍
+	import {mapState,mapGetters,mapMutations,mapActions} from 'vuex';
 	export default {
 		data() {
 			return {
-				userInfo: {
-					"id": "o_cGP5oEgf4j5U8_4itil0Jf5Hio",
-					"nickname": "用户名",
-					"avatar": "https://thirdwx.qlogo.cn/mmopen/vi_32/4FYsd8bWiaR8otxj1cNzib0ibL975Ug8zGvJicPT0yZYIh4ox41pmiaUc8GeKl6kw9Q4q26Mab0TzYp9SaKDic55iavIQ/132",
-					"email": null,
-					"raw": {
-						"openid": "o_cGP5oEgf4j5U8_4itil0Jf5Hio",
-						"sex": 0,
-					}
-				},
 			}
 		},
+		computed:{
+			...mapState('userInfo')
+		},
 		mounted() {
-			uni.request({
-				url: "https://metamusic.toob.net.cn/user.json",
-				success: (res) => {
-					if (res.statusCode == 200) {
-						this.userInfo = res.data
-					} else {
-						uni.showModal({
-							title: '错误:' + res.statusCode,
-							content: res.errMsg,
-							showCancel: false
-						})
-					}
-					console.log('uni.request', res);
-				}
-			})
+			this.getLoginStatus();
+		},
+		methods:{
+			...mapMutations(['getLoginStatus'])
 		}
 	}
 </script>

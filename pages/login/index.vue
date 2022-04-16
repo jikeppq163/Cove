@@ -44,19 +44,7 @@ export default{
 			})
 		},
 		handleClickWechat(){
-			 let openId = localStorage.getItem('openId');
-			    if (!openId) {
-			        //保存当前路由地址，授权后还会跳到此地址
-					sessionStorage.setItem('wxRedirectUrl', this.$route.fullPath);
-			        //请求微信授权,并跳转到 /auth 路由
-			        let appId = 'wx98f8c9efa066cb6e';
-					let servers = 'metamusic.toob.net.cn';
-			        let redirectUrl = `https://${servers}/index.html#/auth#wechat_redirect`;
-					var url=`https://open.weixin.qq.com/connect/oauth2/authorize?appid=${appId}&response_type=code&scope=snsapi_userinfo&state=123&redirect_uri=${redirectUrl}`;
-					window.location.href = url;
-			   } else {
-			       console.log('next');
-			   }
+			
 		}
 	}
 }

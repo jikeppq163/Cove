@@ -1,8 +1,23 @@
 /**
- * 获取验证信息
+ * 校验登录授权
  */
-function auth(){
-	
+function authorize(){
+	let openId = localStorage.getItem('openId');
+	   if (!openId) {
+	       //保存当前路由地址，授权后还会跳到此地址
+			sessionStorage.setItem('wxRedirectUrl', this.$route.fullPath);
+	       //请求微信授权,并跳转到 /auth 路由
+	        let appId = 'wx98f8c9efa066cb6e';
+			let servers = 'metamusic.toob.net.cn';
+	        let redirectUrl = `https://${servers}/index.html#/auth#wechat_redirect`;
+			let scope = 'snsapi_userinfo';
+			var url=`https://open.weixin.qq.com/connect/oauth2/authorize?appid=${appId}&response_type=code&scope=${scope}&state=123&redirect_uri=${redirectUrl}`;
+			window.location.href = url;
+			return false;
+	  } else {
+			return true;
+	  }
+	  return false;
 }
 
 /**
@@ -18,11 +33,11 @@ function login(){
 function getUserInfo(code,callback){
 	uni.getStorage({
 		key:'userInfo',
-		success:(res){
+		success:(res)=>{
 			console.log('getUserInfo getStorage',res);
 			callback(res.data);
 		}
 	})
 }
 
-export default {getUserInfo}
+export default {authorize,getUserInfo}

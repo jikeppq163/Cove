@@ -1,3 +1,4 @@
+import {authorize} from "../utils/user.js"
 import * as Tone from "tone";
 //组合
 const synth = new Tone.Synth().toDestination();
@@ -6,7 +7,17 @@ let state={
 	version:'0.1.0',
 	systemInfo:{},
 	openId:'',
-	userInfo:{},
+	getOpenId:false,
+	userInfo:{
+		"id": "",
+		"nickname": "用户名",
+		"avatar": "https://thirdwx.qlogo.cn/mmopen/vi_32/4FYsd8bWiaR8otxj1cNzib0ibL975Ug8zGvJicPT0yZYIh4ox41pmiaUc8GeKl6kw9Q4q26Mab0TzYp9SaKDic55iavIQ/132",
+		"email": null,
+		"raw": {
+			"openid": "",
+			"sex": 0,
+		}
+	},
 	defaultHeight:{
 		//最低高度
 		"min-height":"800rpx",
@@ -119,6 +130,25 @@ let mutations={
 	//todo
 	setProject(state,value){
 		state.project =value;
+	},
+	//获取登录信息
+	getLoginStatus(state){
+		if(!state.getOpenId){
+			state.getOpenId = true;
+			var openId = uni.getStorageSync('openId');
+			if(openId){
+				state.openId = openId;
+				state.userInfo = uni.getStorageSync('userInfo');
+				return true;
+			}
+			else {
+				authorize();
+				return false;
+			}
+		}
+		else{
+			return true;
+		}
 	},
 	CLEAR_INDEX(){
 		state.index = -1;
