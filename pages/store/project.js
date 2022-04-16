@@ -51,6 +51,46 @@ let state={
 		// 	synth:[]				//音阶组合
 		// },
 	],
+	audio:{
+		bgmList:[
+			{
+				name:'birds_countryside',
+				url:'',
+				img:'',
+				volue:1
+			},
+			{
+				name:'misc_night',
+				url:'',
+				img:'',
+				volue:1
+			},
+			{
+				name:'rain_light',
+				url:'',
+				img:'',
+				volue:1
+			},
+			{
+				name:'thunder',
+				url:'',
+				img:'',
+				volue:1
+			},
+			{
+				name:'water_river',
+				url:'',
+				img:'',
+				volue:1
+			},
+			{
+				name:'wind_grass',
+				url:'',
+				img:'',
+				volue:1
+			}
+		]
+	},
 	//音频处理
 	index:-1, //选中的指标
 	playing:false,

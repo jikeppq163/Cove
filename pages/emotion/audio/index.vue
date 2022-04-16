@@ -73,7 +73,6 @@
 				
 			},
 			handleClickNext(){
-				
 				uni.navigateTo({
 					url:'../tone/index'
 				})
