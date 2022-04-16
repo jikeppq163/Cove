@@ -78,7 +78,7 @@
 			},
 			handleClickAdd(){
 				var test = this.$route.query.test? true:false;
-				if(test || authorize(this.$route.fullPath)){
+				if(authorize(this.$route.fullPath)){
 					this.RESET_PROJECT();
 					uni.navigateTo({
 						url:'../emotion/mood/index'

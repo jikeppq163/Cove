@@ -16,7 +16,7 @@ function authorize(fullPath){
 			let scope = 'snsapi_userinfo';
 			var url=`https://open.weixin.qq.com/connect/oauth2/authorize?appid=${appId}&response_type=code&scope=${scope}&state=123&redirect_uri=${redirectUrl}#wechat_redirect`;
 			console.log('authorize',url);
-			window.location.href = url;
+			//window.location.href = url;
 			return false;
 	  } else {
 			return true;
