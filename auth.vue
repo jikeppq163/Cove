@@ -33,12 +33,6 @@ export default {
   	this.redirectUrl = redirectUrl;
   	if (this.$route.query.code) {
   	  try {
-		 //  uni.request({
-		 //  	url:'https://metamusic.toob.net.cn/user.json',
-			// success: (res) => {
-			// 	this.msg = 'success' + JSON.stringify(res);
-			// }
-		 //  });
   		uni.request({
   			url:'https://metamusic.toob.net.cn/api/oauth/wechat/oalogin?code='+this.$route.query.code,
   			method:'GET',

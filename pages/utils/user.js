@@ -10,8 +10,8 @@ function authorize(fullPath){
 	        let appId = 'wx98f8c9efa066cb6e';
 			//let servers = 'metamusic.toob.net.cn/index.html';
 			let ip = '192.168.31.17';
-			//let servers = 'metamusic.toob.net.cn/ttt?url='+ip;
-			let servers = 'metamusic.toob.net.cn/index.html#/auth';
+			let servers = 'metamusic.toob.net.cn/ttt?url='+ip;
+			//let servers = 'metamusic.toob.net.cn/index.html#/auth';
 	        let redirectUrl = `https://${servers}`;
 			let scope = 'snsapi_userinfo';
 			var url=`https://open.weixin.qq.com/connect/oauth2/authorize?appid=${appId}&response_type=code&scope=${scope}&state=123&redirect_uri=${redirectUrl}#wechat_redirect`;

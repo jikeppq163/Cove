@@ -14,7 +14,6 @@
 			this.$store.dispatch('initPlayer');
 			//获取存储的数据
 			this.$store.dispatch('getProject');
-			
 			localStorage.setItem('authDebug',0);
 		},
 		onShow: function() {
