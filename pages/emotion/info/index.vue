@@ -47,7 +47,7 @@
 				'project'
 			]),
 			// 使用对象展开运算符将 getter 混入 computed 对象中
-			...mapGetters(['defaultHeight','getWindowsHeight','getPlayerState'])
+			...mapGetters(['defaultHeight','getPlayerState'])
 		},
 		mounted() {
 

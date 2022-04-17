@@ -17,6 +17,7 @@
 </template>
 
 <script>
+import Axios from 'axios'
 export default {
   name: "Auth",
   data(){
@@ -54,7 +55,7 @@ export default {
   						data:JSON.stringify(res.data.root)
   					  })  
   				}
-  				console.log('request redirectUrl:',redirectUrl);
+  				console.log('auth 重定向地址:',redirectUrl);
   				if(redirectUrl){
   					this.$router.replace(redirectUrl); //跳转到业务页面
   				}
@@ -71,9 +72,9 @@ export default {
   	    console.log(error);
   	  }
   	} else {
-		console.log('auth fail',this.$route.query.code);
+		 console.log('auth fail not code:',this.$route.query.code);
   		 // 如果不是从微信重定向过来的，没有带着微信的 code，则直接进入首页
-  		//this.$router.replace("/");
+  		this.$router.replace("/");
   	}
   }
 }
