@@ -4,10 +4,10 @@
 			<view class="u-p-t-20 u-p-l-20 u-p-r-20 flex-row space-between">
 				<view class="">
 					<view class="u-font-size-20 u-p-3">
-						此处标题
+						{{project.title}}
 					</view>
 					<view class="u-p-3">
-						心情
+						{{project.thoughts}}
 					</view>
 				</view>
 				<view class="u-p-t-10">
@@ -17,12 +17,11 @@
 					</view>
 				</view>
 			</view>
-			<view class="u-p-l-20 u-p-r-20 flex-row space-between">
-				<view class="u-p-3">
-					2022-04-17 20:23
-				</view>
-				<view class="u-p-3">
-					地址
+			<view class="u-p-l-23 u-p-r-20 flex-row space-between">
+				<uni-dateformat :date="project.create_at"></uni-dateformat>
+				<view class="">
+					<uni-icons type="location" color='#fff'></uni-icons>
+					{{project.location}}
 				</view>
 			</view>
 		</view>
@@ -49,7 +48,16 @@
 			return {
 				// 使用对象展开运算符将 getter 混入 computed 对象中
 				...mapGetters(['defaultHeight', 'getWindowsHeight']),
-				
+				project:{
+					mood:[],
+					audio:'',
+					volume:10,
+					synth:[],
+					title:'今天过得很快',
+					thoughts:'因为又是忙碌的一天',
+					location:'深圳',
+					create_at:'2021-03-19 12:43'
+				},
 				"reqFlag": false, // 请求标志，防止重复操作，true表示请求中
 				//评论区
 				commentData:{
