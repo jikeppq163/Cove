@@ -50,6 +50,44 @@
 	width: 100%;
 }
 
+.hidden{
+	overflow: hidden;
+}
+
+//相对定位
+.relative{
+	position: relative;
+}
+
+//绝对定位
+.absolute{
+	position: absolute;
+}
+
+//固定位置
+.flexd{
+	position: fixed;
+}
+
+//不换行
+.nowrap{
+	white-space: nowrap;
+}
+
+@for $i from 1 to 80 {
+	.left-#{$i} {
+		left: $i+px; 
+	}
+	.top-#{$i} {
+		top: $i+px; 
+	}
+	.right-#{$i} {
+		right: $i+px; 
+	}
+	.bottom-#{$i} {
+		bottom: $i+px; 
+	}
+}
 
 //有一个向内延展的距离
 @for $i from 1 to 80 {

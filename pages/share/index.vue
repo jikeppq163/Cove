@@ -18,7 +18,7 @@
 				</view>
 			</view>
 			<view class="u-p-l-23 u-p-r-20 flex-row space-between">
-				<uni-dateformat :date="project.create_at"></uni-dateformat>
+				<uni-dateformat :date="project.create_at" :threshold = "[60000,3600000]"></uni-dateformat>
 				<view class="">
 					<uni-icons type="location" color='#fff'></uni-icons>
 					{{project.location}}
@@ -101,10 +101,30 @@
 			// 		}
 			// 	}
 			// });
-			
 			this.getComment();
 		},
 		methods:{
+			// 登录校验
+			checkLogin() {
+				// TODO 此处填写登录校验逻辑
+				if (true) {
+					return true;
+				} else {
+					uni.showModal({
+						title: '提示',
+						content: '请先登录',
+						confirmText: '前往登录',
+						success: function(res) {
+							if (res.confirm) {
+								// uni.redirectTo({
+								// 	url: '/pages/login/login'
+								// });
+							}
+						}
+					});
+					return false;
+				}
+			},
 			// 输入框聚焦
 			focusOn() {
 				this.checkLogin();
