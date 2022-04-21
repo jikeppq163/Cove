@@ -129,7 +129,7 @@
 			focusOn() {
 				this.checkLogin();
 			},
-			// 新增评论
+			// 新增评论 改为分享你的故事 - 他的心情很「XX」，分享你的故事，帮帮Ta
 			add(req) {
 				if (!this.checkLogin()) {
 					return
