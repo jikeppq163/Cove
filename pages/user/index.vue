@@ -30,15 +30,7 @@
 		},
 		mounted() {
 			//authorize(this.$route.fullPath);
-			uni.request({
-				url:'https://metamusic.toob.net.cn/api/oauth/wechat/oalogin?code=021gfdll20CPZ84ZAvol2dmOyo4gfdlm',
-				success: (res) => {
-					console.log(res);
-				},
-				fail:(err)=>{
-					console.log(err);
-				}
-			})
+
 		},
 		methods:{
 			
