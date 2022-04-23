@@ -28,7 +28,9 @@ function authorize(fullPath){
  * 登录验证
  */
 function login(){
-	
+	if(localStorage.getItem('openId')){
+		
+	}
 }
 
 /**
