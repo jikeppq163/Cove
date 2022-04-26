@@ -1,7 +1,5 @@
 {
   "dependencies": {
-    "axios": "^0.27.0",
-    "eruda": "^2.4.1",
     "particles.js": "^2.0.0",
     "tonal": "^2.2.2",
     "tone": "^14.7.77"

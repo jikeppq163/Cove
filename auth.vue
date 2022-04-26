@@ -17,7 +17,7 @@
 </template>
 
 <script>
-import Axios from 'axios';
+//import Axios from 'axios';
 import {login} from '@/api/login.js'
 export default {
   name: "Auth",

@@ -40,8 +40,10 @@
 									<uni-icons type="chat" color='#fff' size="20"></uni-icons>
 									{{item.comment}}
 								</view>
-								<view class="">
-									
+							</view>
+							<view class="absolute right-20 bottom-10" style="">
+								<view class="flex u-font-gray4 u-font-size-16">
+									<button type="default" @click="goto('/pages/share/index')">详情</button>
 								</view>
 							</view>
 						</view>
@@ -116,6 +118,11 @@
 			//todo 数据最好在创建的时候进行加载
 		},
 		methods:{
+			goto(url) {
+				uni.navigateTo({
+					url:url
+				})
+			},
 			tabClick(){
 				//todo
 			},

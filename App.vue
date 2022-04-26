@@ -1,8 +1,8 @@
 <script>
-	import Eruda from 'eruda'
+//	import Eruda from 'eruda'
 	export default {
 		onLaunch: function() {
-			Eruda.init();
+			// Eruda.init();
 			//获取设备基础信息
 			uni.getSystemInfo({
 				success: (res) => {
