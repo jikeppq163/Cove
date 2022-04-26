@@ -1,7 +1,7 @@
 <template>
 	<view>
 		<view class="u-p-20 text-center u-font-size-16">
-			今日心情
+			社区作品
 		</view>
 		<view class="flex space-between u-font-gray2 u-p-l-20 u-p-r-20">
 			 <liuyuno-tabs :tabData="titleTag" :defaultIndex="defaultIndex" @tabClick='tabClick' />

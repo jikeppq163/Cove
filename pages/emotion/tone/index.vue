@@ -1,6 +1,6 @@
 <template>
 	<view class="u-bg-malandy-g3" :style="defaultHeight">
-		<view class="u-font-white text-center">TAP WINDOWS ADD NEW GAUMT</view>
+		<view class="u-font-white text-center">点击屏幕创作你的情绪旋律</view>
 		<view id = "particles" class="" 
 			:style="'height:'+getWindowsHeight*0.8 +'px;'"
 			@click="handleChickSet"
