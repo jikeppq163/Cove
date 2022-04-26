@@ -17,7 +17,8 @@
 </template>
 
 <script>
-import Axios from 'axios'
+import Axios from 'axios';
+import {login} from '@/api/login.js'
 export default {
   name: "Auth",
   data(){
@@ -34,40 +35,23 @@ export default {
   	this.redirectUrl = redirectUrl;
   	if (this.$route.query.code) {
   	  try {
-  		uni.request({
-  			url:'https://metamusic.toob.net.cn/api/oauth/wechat/oalogin?code='+this.$route.query.code,
-  			method:'GET',
-  			success: (res) => {
-  				console.log('request api:',res);
-  				this.msg = 'success' + JSON.stringify(res);
-  				if(res.state==200){
-  					 //将一些信息存储到本地
-  					  const token = res.headers['access_token'];
-  					  localStorage.setItem('token', token);
-  					  localStorage.setItem("wxUserInfo", JSON.stringify(res.data.root));
-  					  localStorage.setItem("openId", res.data.root.openId);
-  					  uni.setStorage({
-  					  	key:'openId',
-  					  	data:res.data.root.openId
-  					  })
-  					  uni.setStorage({
-  					  	key:'userInfo',
-  						data:JSON.stringify(res.data.root)
-  					  })  
-  				}
-  				console.log('auth 重定向地址:',redirectUrl);
-  				if(redirectUrl){
-  					this.$router.replace(redirectUrl); //跳转到业务页面
-  				}
-  				else{
-  					this.$router.replace("./");
-  				}
-  			},
-  			fail: (err) => {
-  				this.msg ='auth fail' + JSON.stringify(err);
-  				console.log('auth fail',err);
-  			}
-  		})
+		login({
+				code:this.$route.query.code,
+				success: (res) => {
+					//this.msg = 'success' + JSON.stringify(res);
+					//console.log('auth 重定向地址:',redirectUrl);
+					if(redirectUrl){
+						this.$router.replace(redirectUrl); //跳转到业务页面
+					}
+					else{
+						this.$router.replace("./");
+					}
+				},
+				fail: (err) => {
+					//this.msg ='auth fail' + JSON.stringify(err);
+					console.log('auth fail',err);
+				}
+			})
   	  } catch (error) {
   	    console.log(error);
   	  }

@@ -72,7 +72,7 @@
 						volume: 10,
 						synth: [],
 						title: '心情很糟糕',
-						thoughts: '手机坏了,维修居然要14天',
+						thoughts: '手机坏了,iphone维修居然要14天!',
 						location: '深圳',
 						create_at: '2021-03-19 12:43'
 					},
@@ -112,9 +112,12 @@
 		components: {
 		        liuyunoTabs
 		},
+		mounted() {
+			//todo 数据最好在创建的时候进行加载
+		},
 		methods:{
 			tabClick(){
-				
+				//todo
 			},
 			/**
 			 * @param {Object} index
