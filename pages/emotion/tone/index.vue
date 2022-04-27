@@ -5,8 +5,7 @@
 			:style="'height:'+getWindowsHeight*0.8 +'px;'"
 			@click="handleChickSet"
 			ref = "container">
-			<view
-			v-for="(item) of synthList"
+			<view v-for="(item) of synthList"
 			:key='item.id' 
 			class="view-synth"
 			:class="animation"
@@ -15,8 +14,7 @@
 				top:item.top,
 				left:item.left,
 				}]"
-			@change="change"
-			>
+			@change="change">
 			</view>
 		</view>
 		<view v-if='show' class="flex center">
@@ -35,7 +33,7 @@
 	import normalToPct from './normal-to-pct.js';
 	import particles from 'particles.js';
 	//For interval calculation 
-	var previousClickTime;
+	var loopStartTime;
 	var everClick = false;
 	const container = new ref(null);
 	
@@ -57,20 +55,6 @@
 		mounted() {
 			particlesJS.load('particles','./static/particles_nasa.json');
 			this.initPlayer();
-			this.runIntervals(()=>{
-				//Reset delay count
-				if (everClick) {
-					previousClickTime = Date.now();
-				}
-				
-				//console.log('清空动画');
-				this.animation ="";
-				setTimeout(()=>{
-					//console.log('启动动画');
-					this.animation='animation-fade';
-					this.runSynthGamut();
-				},100);
-			})
 		},
 		methods:{
 			...mapActions([
@@ -80,22 +64,36 @@
 				//播放音阶
 				var clientHeight = this.$refs.container.$el.clientHeight;
 				var yPct = normalToPct(e.detail.y/clientHeight);
-				this.synthGamut(yPct);
+				if (everClick){
+					this.synthGamut(yPct);
+				}
 				
-				//新增
+				if (!everClick) {
+					this.runIntervals(()=>{
+						//Reset delay count
+						loopStartTime = Date.now();
+						
+						//console.log('清空动画');
+						this.animation ="";
+						setTimeout(()=>{
+							//console.log('启动动画');
+							this.animation='animation-fade';
+							this.runSynthGamut();
+						},10);
+					})
+				}
 				
 				//Calculate intervals
-				
 				let interval = 0;
-				if (everClick) {
-					interval = (Date.now() - previousClickTime)/1000;
-				}
+				interval = (Date.now() - loopStartTime)/1000;
+				
 				this.synthList.push({
 					left: (e.detail.x-20) + 'px',
 					top: (e.detail.y-20) +'px',
 					y: yPct,
 					up: interval
 				});
+				
 				//排序
 				this.synthList.sort((a,b)=>{
 					return a.up - b.up
@@ -107,7 +105,7 @@
 				// }
 				this.saveSynthGamut(this.synthList);
 
-				previousClickTime = Date.now();
+				//previousClickTime = Date.now();
 				everClick = true;
 			},
 			change(){
@@ -133,7 +131,7 @@
 		width: 40px;
 		border-radius: 20px;
 		position: absolute;
-		background-image: url('../../../static/image/star.png');
+		background-image: url('../../../static/image/star-min.png');
 		background-position: center center;
 		background-repeat: no-repeat;
 		background-size: contain;
