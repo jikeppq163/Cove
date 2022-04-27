@@ -28,7 +28,7 @@
 			<view class="comment-box" v-for="(item, index) in commentData.comment" :key='index'>
 				<view class="comment-box-item">
 					<view>
-						<image :src="item.avatarUrl || emptyAvatar" mode="aspectFill" class="avatar"></image>
+						<!-- <image :src="item.avatarUrl || emptyAvatar" mode="aspectFill" class="avatar"></image> -->
 					</view>
 					<view class="comment-main">
 						<!-- 父故事体-start -->
@@ -67,8 +67,8 @@
 						<view class="comment-sub-box">
 							<view class="comment-sub-item" v-for="each in item.children" :key='each.id'>
 								<view>
-									<image :src="each.avatarUrl || emptyAvatar" mode="aspectFill" class="avatar">
-									</image>
+									<!-- <image :src="each.avatarUrl || emptyAvatar" mode="aspectFill" class="avatar">
+									</image> -->
 								</view>
 								<view class="comment-main">
 									<view class="sub-comment-main-top">
@@ -374,14 +374,14 @@
 	}
 
 	.comment-main-top {
-		width: 600rpx;
+		width: 680rpx;
 		padding-top: 6rpx;
 		display: flex;
 		justify-content: space-between;
 	}
 
 	.sub-comment-main-top {
-		width: 510rpx;
+		width: 660rpx;
 		padding-top: 6rpx;
 		display: flex;
 		justify-content: space-between;

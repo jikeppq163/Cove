@@ -230,8 +230,8 @@
 					"commentList": 
 [{
 	"id": 1,
-	"owner": false,
-	"hasLike": false,
+	"owner": true,
+	"hasLike": true,
 	"likeNum": 239,
 	"avatarUrl": "https://img-cdn-tc.dcloud.net.cn/uploads/avatar/000/15/95/31_avatar_max.jpg",
 	"nickName": "粤语guo",

@@ -35,7 +35,7 @@ const playByInstrument = (yPct, delay) => {
 	const note = getNoteAtHeight(yPct);
 	const instrument = new Sampler({
 		urls: samples['vsco2-piano-reverb-mp3'],
-		baseUrl: "../../static/samples/vsco2-piano-reverb-mp3/",
+		baseUrl: "/static/samples/vsco2-piano-reverb-mp3/",
 		onload: () => {
 			instrument.triggerAttack(note, delay + NOTE_TIME_OFFSET_S, VELOCITY);
 		}

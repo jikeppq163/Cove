@@ -45,35 +45,31 @@
 		"list": [{
 			"pagePath": "pages/index/index",
 			"iconPath": "static/image/menu.png",
-			"selectedIconPath": "static/image/menu_fill.png",
-			"text": "目录"
-		}, {
-			"pagePath": "pages/ucharts/index",
-			"iconPath": "static/image/stitetic.png",
-			"selectedIconPath": "static/image/stitetic_fill.png",
-			"text": "统计"
+			"selectedIconPath": "static/image/menu_fill.png"
 		},
 		{
 			"pagePath": "pages/stars/index",
 			"iconPath": "static/image/tianwen.png",
-			"selectedIconPath": "static/image/tianwen_fill.png",
-			"text": "社区"
+			"selectedIconPath": "static/image/tianwen_fill.png"
+		},{
+			"pagePath": "pages/ucharts/index",
+			"iconPath": "static/image/stitetic.png",
+			"selectedIconPath": "static/image/stitetic_fill.png"
 		},
 		{
 			"pagePath": "pages/user/index",
 			"iconPath": "static/image/set.png",
-			"selectedIconPath": "static/image/set_fill.png",
-			"text": "我的"
+			"selectedIconPath": "static/image/set_fill.png"
 		}]
 	},
 	"globalStyle": {
 		"navigationBarTextStyle": "white",
 		"navigationBarTitleText": "心乐星记",
-		"navigationBarBackgroundColor": "#769A80",
-		"backgroundColor": "#F8F8F8",
+		"navigationBarBackgroundColor": "#333333",
+		"backgroundColor": "#333333",
 		"navigationStyle": "custom",
 		"app-plus": {
-			"background": "#efeff4"
+			"background": "#333333"
 		}
 	}
 }
