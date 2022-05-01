@@ -1,8 +1,9 @@
 import authorize from "../utils/user.js"
 import * as Tone from "tone";
 //组合
-const synth = new Tone.Synth().toDestination();
-import playByInstrument from './instrument';
+//const synth = new Tone.Synth().toDestination();
+import getInstrument from './instrument';
+import getNoteAtHeight from './getNode';
 
 let state={
 	version:'0.1.0',
@@ -185,7 +186,9 @@ let actions={
 	},
 	//初始化音乐
 	initPlayer({commit,state}){
-		state.synth = new Tone.Synth().toDestination();
+		
+		state.sampler = getInstrument('piano');
+		// state.synth = new Tone.Synth().toDestination();
 	},
 	setPlayer({commit,state,getters}){
 		//播放
@@ -246,14 +249,19 @@ let actions={
 	//插入音阶
 	synthGamut({commit,state},yPct){
 		const now = Tone.now();
-		playByInstrument(yPct, now);
+		const node = getNoteAtHeight(yPct);
+		
+		state.sampler.triggerAttack(node,now);
 		//state.synth.triggerAttackRelease(note, now);
 	},
 	runSynthGamut({state}){
 		if (state.project.synth != []) {
 			const now = Tone.now();
 			for (var item of state.project.synth) {
-				playByInstrument(item.y, now + item.up);
+				const node = getNoteAtHeight(item.y);
+				
+				state.sampler.triggerAttack(node, now + item.up);
+				//playByInstrument(item.y, now + item.up);
 			}
 		}
 	},
