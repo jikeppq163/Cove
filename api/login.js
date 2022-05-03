@@ -5,12 +5,12 @@ import request from './request.js'
  */
 function getCode(code,success){
 	request({
-		url:'https://metamusic.toob.net.cn/api/oauth/wechat/oalogin?code='+code
+		url:'/oauth/wechat/oalogin?code='+code
 	},success)
 }
 
 function login({url,success,fail}){
-	request({url:'https://metamusic.toob.net.cn/api/oauth/wechat/oalogin?code='+code,
+	request({url:'/oauth/wechat/oalogin?code='+code,
 	success:(res)=>{
 		console.log('wxChat login:',res);
 		if(res.state==200){

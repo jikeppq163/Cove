@@ -13,6 +13,7 @@
 			<uni-icons class='u-m-r-10' type="tune-filled"></uni-icons>
 			设置
 		</view>
+									
 	</view>
 </template>
 
@@ -33,7 +34,6 @@
 
 		},
 		methods:{
-			
 		}
 	}
 </script>

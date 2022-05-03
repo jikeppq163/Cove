@@ -1,32 +1,75 @@
 import request from './request.js'
 
 let project = {
-	create: function (){
-		
+	create: function ({data,success,fail}){
+		request({
+			url:"/project/5",
+			method:"POST",
+			data,
+			success,
+			fail
+		})
 	},
 	
-	star:function (){
-		
+	delete:function ({data,success,fail}){
+		request({
+			url:"/h5/project/5",
+			method:"DEL",
+			data,
+			success,
+			fail
+		})
 	},
 	
-	delete:function (){
-		
+	update:function({data,success,fail}){
+		request({
+			url:"/h5/project/5",
+			method:"POST",
+			data,
+			success,
+			fail
+		})
 	},
 	
-	view:function(){
-		
+	star:function ({params,success,fail}){
+		request({
+			url:"/h5/project/create",
+			method:"GET",
+			params,
+			success,
+			fail
+		})
 	},
 	
-	update:function(){
-		
+	view:function({params,success,fail}){
+		request({
+			url:"/h5/project/5/edit",
+			method:"GET",
+			params,
+			success,
+			fail
+		})
 	},
 	
-	list:function(){
-		
+
+	list:function({data,success,fail}){
+		request({
+			url:"/h5/project",
+			method:"DEL",
+			data,
+			success,
+			fail
+		})
 	},
 	
-	share:function(){
-		
+	share:function({params,success,fail}){
+		request({
+			url:"/h5/project/5",
+			method:"GET",
+			params,
+			success,
+			fail
+		})
 	}
 }
 

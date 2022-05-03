@@ -14,34 +14,34 @@
 			<view class="seg_line"></view>
 		</view>
 		<!-- 阅读数下边那条线-end -->
-		<!-- 评论主体-start -->
+		<!-- 故事主体-start -->
 		<view class="comment-list" v-if="commentData.commentSize">
-			<!-- 评论主体-顶部数量及发表评论按钮-start -->
+			<!-- 故事主体-顶部数量及发表故事按钮-start -->
 			<view class="comment-num">
-				<view>共 {{commentData.commentSize}} 条评论</view>
+				<view>共 {{commentData.commentSize}} 个故事</view>
 				<view class="add-btn">
-					<button type="primary" size="mini" @click="commentInput">发表评论</button>
+					<button type="primary" size="mini" @click="commentInput">分享故事</button>
 				</view>
 			</view>
-			<!-- 评论主体-顶部数量及发表评论按钮-end -->
-			<!-- 评论列表-start -->
+			<!-- 故事主体-顶部数量及发表故事按钮-end -->
+			<!-- 故事列表-start -->
 			<view class="comment-box" v-for="(item, index) in commentData.comment" :key='index'>
 				<view class="comment-box-item">
 					<view>
-						<image :src="item.avatarUrl || emptyAvatar" mode="aspectFill" class="avatar"></image>
+						<!-- <image :src="item.avatarUrl || emptyAvatar" mode="aspectFill" class="avatar"></image> -->
 					</view>
 					<view class="comment-main">
-						<!-- 父评论体-start -->
+						<!-- 父故事体-start -->
 						<view class="comment-main-top">
 							<view class="nick-name-box">
-								<view class="comLogo com1" v-if="index == 0">沙发</view>
+								<!-- <view class="comLogo com1" v-if="index == 0">沙发</view>
 								<view class="comLogo com2" v-if="index == 1">板凳</view>
 								<view class="comLogo com3" v-if="index == 2">地板</view>
-								<view class="comLogo com4" v-if="index > 2">{{index + 1}}楼</view>
+								<view class="comLogo com4" v-if="index > 2">{{index + 1}}楼</view> -->
 								<view class="nick-name">{{item.nickName}}</view>
 							</view>
 							<view class="zan-box" @click="like(item.id)">
-								<span :class="item.hasLike ? 'isLike' : 'notLike'">{{item.likeNum == 0 ? '抢首赞' : item.likeNum}}</span>
+								<span :class="item.hasLike ? 'isLike' : 'notLike'">{{item.likeNum == 0 ? ' ' : item.likeNum}}</span>
 								<img style="width: 14px; height: 14px;" v-if="!item.hasLike"
 									src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAApVJREFUWEfFlz9oFEEUxr93SWEhFkIaBUljo4WgATEaiI0GwVLBQg2EzLd3hSBqLI2lRgWLY+ftSSQgggoWNv5pImLUwjQBg1goqCCIIBqwueSeTLg7Ln9Mcmdub7vdnZnvN9+8fe+toMWXtFgfDQGMjo52zM7OHgMwIyLTg4ODk41upG4A7/0OEbkPYGdFVEQuOOeuNQJRN4CqBvGw+3dm9kZEBsrCPSRf1gvRCIAFETPrjqLodZIkY2Z2SkQmnHMHUgMgOQ8fx3FvJpMZB/CDZEfqACEgi8XidwA/SW5uKkCN2AzJTYscmCTZ1VQA7/2AiNwSkefOuYNBLEmSnJnlATwgebypAKr6CMBRANdJng9i3vu8iORE5Mrc3NyTlQDM7HMul/tYO2bNX0GhUDhRKpXumtlvAPuiKJouOzBuZr117HyBU6sCqOpeAH0AhssiwyQvVwTjOO5va2s7vRaAGtCrJC+GOVUAVb1UTjDVDLd4URHJOuf8WsSWG5MkSbeZTYR3lc+4CpAkyUpWht3fI/m+UfEwL5/Pb2xvb59ZFkBV5zNchazsSBBeYPn/ABQKhZ5SqfQCwBTJXYuPoOkAqnoGwE0Ad0ieTB3Ae39bRPoBDJEcSR1AVd8C2CMifc65p6kCmJkkSfIHwAYAW0h+SxVAVXcDmDSzL1EUbasEc20eaGoQVuoIgMckj6QOoKo3AJwFMEJyqBUAIegOAegnOdYKgK8AtmYyma7aLjqVGPDebxeRDwB+AeggWUzVAVV1ABTAK5L7l+0HVPUTgM7Q7VQGhPJZe99oHagpw4dJPvsXQPixONeoyErzRGTKzB7W9hFLjiA8iOO4M7iw3hDZbLbq6pIeY73F6l1v1Zas3gXrHf8XhhNvMGSmtPYAAAAASUVORK5CYII=" />
 								<img style="width: 14px; height: 14px;" v-else
@@ -62,19 +62,19 @@
 							<view class="foot-btn" @click="reply(item.nickName,item.nickName,item.id)">回复</view>
 							<view class="foot-btn" v-if="item.owner" @click="confirmDelete(item.id)">删除</view>
 						</view>
-						<!-- 父评论体-end -->
-						<!-- 子评论列表-start -->
+						<!-- 父故事体-end -->
+						<!-- 子故事列表-start -->
 						<view class="comment-sub-box">
 							<view class="comment-sub-item" v-for="each in item.children" :key='each.id'>
 								<view>
-									<image :src="each.avatarUrl || emptyAvatar" mode="aspectFill" class="avatar">
-									</image>
+									<!-- <image :src="each.avatarUrl || emptyAvatar" mode="aspectFill" class="avatar">
+									</image> -->
 								</view>
 								<view class="comment-main">
 									<view class="sub-comment-main-top">
 										<view class="nick-name">{{each.nickName}}</view>
 										<view class="zan-box" @click="like(each.id)">
-											<span :class="each.hasLike ? 'isLike' : 'notLike'">{{each.likeNum == 0 ? '抢首赞' : each.likeNum}}</span>
+											<span :class="each.hasLike ? 'isLike' : 'notLike'">{{each.likeNum == 0 ? ' ' : each.likeNum}}</span>
 											<img style="width: 14px; height: 14px;" v-if="!each.hasLike"
 												src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAApVJREFUWEfFlz9oFEEUxr93SWEhFkIaBUljo4WgATEaiI0GwVLBQg2EzLd3hSBqLI2lRgWLY+ftSSQgggoWNv5pImLUwjQBg1goqCCIIBqwueSeTLg7Ln9Mcmdub7vdnZnvN9+8fe+toMWXtFgfDQGMjo52zM7OHgMwIyLTg4ODk41upG4A7/0OEbkPYGdFVEQuOOeuNQJRN4CqBvGw+3dm9kZEBsrCPSRf1gvRCIAFETPrjqLodZIkY2Z2SkQmnHMHUgMgOQ8fx3FvJpMZB/CDZEfqACEgi8XidwA/SW5uKkCN2AzJTYscmCTZ1VQA7/2AiNwSkefOuYNBLEmSnJnlATwgebypAKr6CMBRANdJng9i3vu8iORE5Mrc3NyTlQDM7HMul/tYO2bNX0GhUDhRKpXumtlvAPuiKJouOzBuZr117HyBU6sCqOpeAH0AhssiwyQvVwTjOO5va2s7vRaAGtCrJC+GOVUAVb1UTjDVDLd4URHJOuf8WsSWG5MkSbeZTYR3lc+4CpAkyUpWht3fI/m+UfEwL5/Pb2xvb59ZFkBV5zNchazsSBBeYPn/ABQKhZ5SqfQCwBTJXYuPoOkAqnoGwE0Ad0ieTB3Ae39bRPoBDJEcSR1AVd8C2CMifc65p6kCmJkkSfIHwAYAW0h+SxVAVXcDmDSzL1EUbasEc20eaGoQVuoIgMckj6QOoKo3AJwFMEJyqBUAIegOAegnOdYKgK8AtmYyma7aLjqVGPDebxeRDwB+AeggWUzVAVV1ABTAK5L7l+0HVPUTgM7Q7VQGhPJZe99oHagpw4dJPvsXQPixONeoyErzRGTKzB7W9hFLjiA8iOO4M7iw3hDZbLbq6pIeY73F6l1v1Zas3gXrHf8XhhNvMGSmtPYAAAAASUVORK5CYII=" />
 											<img style="width: 14px; height: 14px;" v-else
@@ -100,19 +100,19 @@
 								</view>
 							</view>
 						</view>
-						<!-- 子评论列表-end -->
+						<!-- 子故事列表-end -->
 					</view>
 				</view>
 			</view>
-			<!-- 评论列表-end -->
+			<!-- 故事列表-end -->
 		</view>
-		<!-- 评论主体-end -->
-		<!-- 无评论-start -->
+		<!-- 故事主体-end -->
+		<!-- 无故事-start -->
 		<view class="comment-none" v-else>
-			暂无评论，<span @click="commentInput" style="color: #007AFF;">抢沙发</span>
+			暂无故事，<span @click="commentInput" style="color: #007AFF;">说出你的心声</span>
 		</view>
-		<!-- 无评论-end -->
-		<!-- 新增评论-start -->
+		<!-- 无故事-end -->
+		<!-- 新增故事-start -->
 		<view class="comment-submit-box" v-if="submit" @click="closeInput">
 			<!-- 下边的click.stop.prevent用于让上边的click不传下去，以防点到下边的空白处触发closeInput方法 -->
 			<view class="comment-add" @click.stop.prevent="stopPrevent" :style="'bottom:' + KeyboardHeight + 'px'">
@@ -120,7 +120,7 @@
 					<view class="btn-click cancel" @click="closeInput">取消</view>
 					<view>
 						<view class="replayTag" v-show="showTag">
-							<view>回复在 {{pUser}} 的评论下</view>
+							<view>回复在 {{pUser}} 的故事下</view>
 							<view @click="tagClose" class="replyTagClose">×</view>
 						</view>
 					</view>
@@ -132,7 +132,7 @@
 					@blur="blur" @focus="focusOn" :focus="focus" maxlength="800"></textarea>
 			</view>
 		</view>
-		<!-- 新增评论-end -->
+		<!-- 新增故事-end -->
 	</view>
 </template>
 
@@ -149,7 +149,7 @@
 			deleteTip: {
 				type: String,
 				default: () => {
-					return '操作不可逆，如果评论下有子评论，也将被一并删除，确认？';
+					return '操作不可逆，如果故事下有子故事，也将被一并删除，确认？';
 				}
 			},
 		},
@@ -165,15 +165,15 @@
 			return {
 				"emptyAvatar": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAABF5JREFUWEfFl11oHFUUx//nbmKwxdJ9qFL7YPEhRJC2gljjF60WG0WsoNkWfSnZ7Jy7FVPF0AoKpmBFqyIG3Jk7G1iIQXHbBz+KbbGtRfBbMe2LseKjiVDoiqIhwZ0jV3fb3cnM7kQCuU+7M+ec/+9+nHPPEJZ50DLrY1EApVJp9fz8/BYRuZ2INgDYWJvAWRE5R0RnZmZmPh4ZGZlPOrFEAMVi8e4gCPYSUZ+IXGGFgiCYIaJpKyQi1yql1orIFgAXARxRSvm5XO67diBtAYwxRQCDAE4RUUkpdWxwcNCKLBiu665TSj0kIpqIbgTgMzO3gmgJYIz5CMB9AIaZ+bXGQMVi8RoRuZeI/lZKHc1ms3/U34+Pj6+cnZ3dC+AggGPMfH8cRCyAMUZqThlmPlwPUCgU0qlUyq7Kww1BrbjHzPsahYwx/QDK9hkzR2pFPjTGnAWwIexkjOkRkRIR3Rozo5Miskdr/VMIxE7mHDPXD+2l1wsA6nseBMHmfD7/dSjQOwB2tTlYC/bddd1blFJfARhj5lyjfxNA7bSfitpz3/d3iYgFaDuUUjeHM8AY8zSAV5VS9+RyudP1IE0Axpj3Aaxk5m1hFc/zPiWiO9uq/2dwiJn3h22NMScB/MnMOxYAjI6Orurq6rpgU0hrXYpw/hFAd0KAD5n5wbCt7/t7ROT1ubm5NUNDQ7/b95dWwHXd7Uqp452dnVcPDAxciACwDlclAbAFynGcdRGr2EtEnwdB0JfP5080ARhjDhLRbY7jbI0SMcZUAKxOAgDgN2ZOx8SxGfEiMz/bBOD7/lgQBCu01o/GOH4PYFNCgElmvinK1vf9X2xxchzHVtfLW2CMOQpgipmHYwBeBtBUaOJgRKSgtX48Js63AH5l5geaADzPe1cpddFxnHyM42YAXyZYAXt+epn557iVFJHzWuudYYDnlFJ9juPcESfi+35JRHa3gdjPzIfibIwxNtPe0Fq/EAZ4hIhcZl4T5+y67nql1CcA1kfZENFnrSZQ6ycqItKvtT4SBthIRJMdHR092WzW5nzk8H1/WEReiQHY4TjOB3G+nuf9qyEim7TW9r65fAjL5fKVlUrlPICXmPnNFquwWym1oFBZ+yAItubz+TMtAJ4gon3pdLo7k8nMNgHYP7ZeE5EWkbuYeaYx0NjY2HXValUDeApAV4zIJIADzPxe+H2hULg+lUp9U6sBl3qLprugXC6nKpXKF0R02nGcZ2wQ3/e3ichOEckQ0aoEWQDbsgF4a3p6eqLeH3qeN0FE3el0ujeTyVTrcaKuY1uIjIg8CaCfiLYnEW1hY4WPi8gEgMeY+e1G27iGxHYxtptZynGYmTPhgK1asqWEiBRfcAjDdMaYpYCIFW8LUMuM54nIsb3/YvbDXskiYtuzA6382n4X1CDWAnCSgNSFa98ETakcWbwWMytjzAoAPUEQ3JBKpXrs75r/VLVanVJK/VC7Uf9KGjfRCiQN9n/slh3gHz9i4jC+FVL5AAAAAElFTkSuQmCC",
 				"commentData": null,
-				"placeholder": "请输入评论",
+				"placeholder": "说出你的心声",
 				"commentReq": {
-					"pId": null, // 评论父id
-					"content": null // 评论内容
+					"pId": null, // 故事父id
+					"content": null // 故事内容
 				},
 				"pUser": null, // 标签-回复人
 				"showTag": false, // 标签展示与否
 				"focus": false, // 输入框自动聚焦
-				"submit": false, // 弹出评论
+				"submit": false, // 弹出故事
 				"KeyboardHeight": 0 // 键盘高度
 			};
 		},
@@ -183,7 +183,7 @@
 			})
 		},
 		methods: {
-			// 初始化评论
+			// 初始化故事
 			init(cmData) {
 				// for (var i in cmData.comment) {
 				// 	cmData.comment[i].hasShowMore = false;
@@ -195,7 +195,7 @@
 			},
 			// 没用的方法，但不要删
 			stopPrevent() {},
-			// 回复评论
+			// 回复故事
 			reply(pUser, reUser, pId) {
 				this.pUser = pUser;
 				this.commentReq.pId = pId;
@@ -207,7 +207,7 @@
 				this.showTag = true;
 				this.commentInput();
 			},
-			// 删除评论前确认
+			// 删除故事前确认
 			confirmDelete(commentId) {
 				var that = this;
 				uni.showModal({
@@ -221,18 +221,18 @@
 					}
 				});
 			},
-			// 新增评论
+			// 新增故事
 			add() {
 				if (this.commentReq.content == null || this.commentReq.content.length < 2) {
 					uni.showToast({
-						title: '评论内容过短',
+						title: '故事内容过短',
 						duration: 2000
 					});
 					return
 				}
 				this.$emit('add', this.commentReq);
 			},
-			// 点赞评论
+			// 点赞故事
 			like(commentId) {
 				this.$emit('like', commentId);
 			},
@@ -262,7 +262,7 @@
 					}
 				}
 			},
-			// 删除完成-本地删除评论
+			// 删除完成-本地删除故事
 			deleteComplete(commentId) {
 				for (var i in this.commentData.comment) {
 					for (var j in this.commentData.comment[i].children) {
@@ -277,7 +277,7 @@
 					}
 				}
 			},
-			// 展开评论
+			// 展开故事
 			showMore(commentId) {
 				for (var i in this.commentData.comment) {
 					if (this.commentData.comment[i].id == commentId) {
@@ -309,7 +309,7 @@
 				this.pUser = null;
 				this.commentReq.pId = null;
 			},
-			// 输入评论
+			// 输入故事
 			commentInput() {
 				// TODO 调起键盘方法
 				this.submit = true;
@@ -317,7 +317,7 @@
 					this.focus = true;
 				}, 50)
 			},
-			// 关闭输入评论
+			// 关闭输入故事
 			closeInput() {
 				this.focus = false;
 				this.submit = false;
@@ -374,14 +374,14 @@
 	}
 
 	.comment-main-top {
-		width: 600rpx;
+		width: 680rpx;
 		padding-top: 6rpx;
 		display: flex;
 		justify-content: space-between;
 	}
 
 	.sub-comment-main-top {
-		width: 510rpx;
+		width: 660rpx;
 		padding-top: 6rpx;
 		display: flex;
 		justify-content: space-between;

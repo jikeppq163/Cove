@@ -1,10 +1,13 @@
 import authorize from "../utils/user.js"
 import * as Tone from "tone";
 //组合
-const synth = new Tone.Synth().toDestination();
+//const synth = new Tone.Synth().toDestination();
+import getInstrument from './instrument';
+import getNoteAtHeight from './getNode';
 
 let state={
 	version:'0.1.0',
+	server:'',
 	systemInfo:{},
 	openId:'',
 	getOpenId:false,
@@ -23,10 +26,10 @@ let state={
 		"min-height":"800rpx",
 	},
 	mood:[
-		['Happy','Sad','Annoyed','Strong','Anxous','Content','Excited'],
-		['Scared','Peaceful','Loved','Vulnerable','Regret','Overwhelmed','Hight'],
-		['Upset','Mature','Weak','Alone','Clouded','Lost','Grateful'],
-		['Low','Confused','Guilty','Depressed','Angry','Lonely']
+		['开心', '沮丧', '烦恼', '强烈', '焦虑', '满意', '兴奋'],
+				['害怕', '平静', '被爱', '受伤', '后悔', 'overwhelmed', 'height'],
+				['难过', '成熟', '脆弱', '孤单', '阴郁', '失落', '感激'],
+				['低沉', '困惑', '罪恶', '抑郁', '愤怒', '孤独']
 		],
 	//当前新增列表 project
 	project:{
@@ -184,7 +187,9 @@ let actions={
 	},
 	//初始化音乐
 	initPlayer({commit,state}){
-		state.synth = new Tone.Synth().toDestination();
+		
+		state.sampler = getInstrument('piano');
+		// state.synth = new Tone.Synth().toDestination();
 	},
 	setPlayer({commit,state,getters}){
 		//播放
@@ -243,19 +248,21 @@ let actions={
 		state.player.playbackRate = 0.25;
 	},
 	//插入音阶
-	synthGamut({commit,state}){
+	synthGamut({commit,state},yPct){
 		const now = Tone.now();
-		state.synth.triggerAttackRelease("C4", "8n", now);
+		const node = getNoteAtHeight(yPct);
+		
+		state.sampler.triggerAttack(node,now);
+		//state.synth.triggerAttackRelease(note, now);
 	},
 	runSynthGamut({state}){
-		if(state.project.synth!=[]){
+		if (state.project.synth != []) {
 			const now = Tone.now();
-			var i=0;
-			var yd = ['A4','B4','C5','B4','C5','E5','B4'];
-			var jp = ['8n','8n','2n','8n','4n','8n','2n'];
-			for(var item of state.project.synth){
-				state.synth.triggerAttackRelease(yd[i], jp[i], now + item.up);
-				i++;
+			for (var item of state.project.synth) {
+				const node = getNoteAtHeight(item.y);
+				
+				state.sampler.triggerAttack(node, now + item.up);
+				//playByInstrument(item.y, now + item.up);
 			}
 		}
 	},

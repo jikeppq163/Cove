@@ -9,7 +9,7 @@
 				:class="inputFocus=='title'? 'u-bg-malandy2':''" 
 				@click="handleClickChangeInput('title')"
 				>
-				<view class="u-p-b-5">PLEASE GIVE YOUR COVE A TITLE...</view>
+				<view class="u-p-b-5">作品标题...</view>
 				<view class="">
 					<input v-model="title" type="text" maxlength='100' @blur="inputBlur('title')"/>
 				</view>
@@ -18,7 +18,7 @@
 				:class="inputFocus=='thoughts'? 'u-bg-malandy2':''" 
 				@click= "handleClickChangeInput('thoughts')"
 				>
-				<view class="u-p-b-5">YOU CAN ADD SOME THOUGHTS ABOUT YOUR COVE...</view>
+				<view class="u-p-b-5">你可以记录下你的想法...</view>
 				<view class="">
 					<textarea v-model="thoughts" type="text" maxlength='300' auto-height  @blur="inputBlur('thoughts')"/>
 				</view>
@@ -27,22 +27,22 @@
 				:class="inputFocus=='location'? 'u-bg-malandy2':''" 
 				@click= "handleClickChangeInput('location')"
 				>
-				<view class="u-p-b-5">ADD LOCATION</view>
+				<view class="u-p-b-5">地址</view>
 				<view class="">
 					<input v-model="location" type="text" maxlength='100'  @blur="inputBlur('location')"/>
 				</view>
 			</view>
 			<view class="u-radius-3  u-font-white u-p-10 u-m-t-10 u-font-size-12"
 				>
-				<view class="u-p-b-5 text-center">DID MAKING A SONG CHANGE HOW YOU FEEL?</view>
-				<view class="u-p-b-5 text-center">ADD SOME NEW TAGS.</view>
+				<view class="u-p-b-5 text-center">你觉得心情好点了吗?</view>
+				<view class="u-p-b-5 text-center">加些新标签吧.</view>
 				<MoodList></MoodList>
 			</view>
 		</view>
 		<view class="flex center">
 			<view class="u-p-10 u-font-size-20 u-font-white u-border-1 u-radius-20 u-p-l-40 u-p-r-40 uni-shadow-lg" 
 				@click="handleClickNext">
-				SAVE
+				保存
 			</view>
 		</view>
 	</view>

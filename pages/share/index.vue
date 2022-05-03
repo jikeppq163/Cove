@@ -53,8 +53,8 @@
 					audio:'',
 					volume:10,
 					synth:[],
-					title:'今天过得很快',
-					thoughts:'因为又是忙碌的一天',
+					title:'疫情当下, 我们物业保安太难了',
+					thoughts:'疫情期间, 每天都得与各种各样的业主打交道，挨骂、遭受抱怨已经成了家常便饭，只要业主有需要，物业人就得到，电话24小时开机，生怕错过一个电话遭到投诉，没有一刻敢让自己放松下来。',
 					location:'深圳',
 					create_at:'2021-03-19 12:43'
 				},
@@ -214,6 +214,7 @@
 			},
 			// 获取评论
 			getComment(articleId) {
+				// 成语标签, https://wenku.baidu.com/view/689f4cf558fb770bf68a55a6.html
 				// TODO 接入真实接口
 				// this.$u.api.commentList(articleId).then(res => {
 				// this.commentData = {
@@ -226,62 +227,63 @@
 				// 下边假装请求成功
 				let res = {
 					"readNumer": 193,
-					"commentList": [{
-							"id": 1,
-							"owner": false,
-							"hasLike": false,
-							"likeNum": 2,
-							"avatarUrl": "https://img-cdn-tc.dcloud.net.cn/uploads/avatar/000/15/95/31_avatar_max.jpg",
-							"nickName": "超长昵称超长...",
-							"content": "啦啦啦啦",
-							"parentId": null,
-							"createTime": "2021-07-02 16:32:07"
-						},
-						{
-							"id": 2,
-							"owner": false,
-							"hasLike": false,
-							"likeNum": 2,
-							"avatarUrl": "https://img-cdn-tc.dcloud.net.cn/uploads/avatar/000/62/86/74_avatar_max.jpg",
-							"nickName": "寂寞无敌",
-							"content": "我是评论的评论",
-							"parentId": 1,
-							"createTime": "2021-07-02 17:05:50"
-						},
-						{
-							"id": 4,
-							"owner": true,
-							"hasLike": true,
-							"likeNum": 1,
-							"avatarUrl": "https://img-cdn-tc.dcloud.net.cn/uploads/avatar/000/07/05/34_avatar_max.jpg",
-							"nickName": "name111",
-							"content": "评论啦啦啦啦啦啦啦啦啦啦",
-							"parentId": null,
-							"createTime": "2021-07-13 09:37:50"
-						},
-						{
-							"id": 5,
-							"owner": false,
-							"hasLike": false,
-							"likeNum": 0,
-							"avatarUrl": "https://img-cdn-tc.dcloud.net.cn/uploads/avatar/000/15/95/31_avatar_max.jpg",
-							"nickName": "超长昵称超长...",
-							"content": "超长评论超长评论超长评论超长评论超长评论超长评论超长评论超长评论超长评论超长评论超长评论超长评论超长评论超长评论超长评论超长评论超长评论超长评论超长评论超长评论超长评论超长评论超长评论超长评论超长评论超长评论超长评论超长评论超长评论超长评论超长评论超长评论超长评论超长评论超长评论超长评论超长评论超长评论超长评论超长评论超长评论超长评论超长评论超长评论超长评论超长评论超长评论超长评论超长评论超长评论超长评论超长评论超长评论超长评论超长评论超长评论超长评论超长评论超长评论超长评论超长评论超长评论超长评论超长评论超长评论超长评论超长评论超长评论超长评论超长评论超长评论超长评论超长评论超长评论超长评论超长评论超长评论超长评论超长评论超长评论超长评论超长评论超长评论超长评论超长评论超长评论超长评论超长评论",
-							"parentId": null,
-							"createTime": "2021-07-13 16:04:35"
-						},
-						{
-							"id": 13,
-							"owner": false,
-							"hasLike": false,
-							"likeNum": 0,
-							"avatarUrl": "https://img-cdn-tc.dcloud.net.cn/uploads/avatar/000/93/95/05_avatar_max.jpg",
-							"nickName": "超长昵称超长...",
-							"content": "@寂寞无敌 你怕不是个大聪明",
-							"parentId": 1,
-							"createTime": "2021-07-14 11:01:23"
-						}
-					]
+					"commentList": 
+[{
+	"id": 1,
+	"owner": true,
+	"hasLike": true,
+	"likeNum": 239,
+	"avatarUrl": "https://img-cdn-tc.dcloud.net.cn/uploads/avatar/000/15/95/31_avatar_max.jpg",
+	"nickName": "粤语guo",
+	"content": "2020年抗疫，我加入青年突击队。2021年除夕夜独自一人吃泡面守着卡口。2022年10月，我的家乡又被疫情袭扰，因个人原因无法继续和战友们并肩作战。但我时刻牵挂着他们，我心与他们同在！我们一定会驱散阴霾！战友们，加油吧！为了人民安居乐业，为了人民幸福的笑脸！越是艰险越向前，理想信念高过天！",
+	"parentId": null,
+	"createTime": "2021-07-02 16:32:07"
+},
+{
+	"id": 2,
+	"owner": false,
+	"hasLike": false,
+	"likeNum": 2,
+	"avatarUrl": "https://img-cdn-tc.dcloud.net.cn/uploads/avatar/000/62/86/74_avatar_max.jpg",
+	"nickName": "寂寞无敌",
+	"content": "加油加油",
+	"parentId": 1,
+	"createTime": "2021-07-02 17:05:50"
+},
+{
+	"id": 4,
+	"owner": true,
+	"hasLike": true,
+	"likeNum": 51,
+	"avatarUrl": "https://img-cdn-tc.dcloud.net.cn/uploads/avatar/000/07/05/34_avatar_max.jpg",
+	"nickName": "name111",
+	"content": "疫情当下，需要大家的理解和支持，物业不是万能的，他们也不是神，每天超负荷的工作量，疲惫劳累，让我们给他们一个微笑！",
+	"parentId": null,
+	"createTime": "2021-07-13 09:37:50"
+},
+{
+	"id": 5,
+	"owner": false,
+	"hasLike": false,
+	"likeNum": 90,
+	"avatarUrl": "https://img-cdn-tc.dcloud.net.cn/uploads/avatar/000/15/95/31_avatar_max.jpg",
+	"nickName": "guv.",
+	"content": "兄弟, 我作为小区业主, 第一时间参加报名参加核酸点志愿者, 现在也在一线抗疫, 一起加油, 疫情终究会消散!",
+	"parentId": null,
+	"createTime": "2021-07-13 16:04:35"
+},
+{
+	"id": 13,
+	"owner": false,
+	"hasLike": false,
+	"likeNum": 0,
+	"avatarUrl": "https://img-cdn-tc.dcloud.net.cn/uploads/avatar/000/93/95/05_avatar_max.jpg",
+	"nickName": "粤语guo",
+	"content": "@寂寞无敌 谢谢",
+	"parentId": 1,
+	"createTime": "2021-07-14 11:01:23"
+}
+]
 				};
 				this.commentData = {
 					"readNumer": res.readNumer,

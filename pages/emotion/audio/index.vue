@@ -23,7 +23,7 @@
 		<view v-if='show' class="flex center">
 			<view class="u-p-10 u-font-size-20 u-font-white u-border-1 u-radius-20 u-p-l-40 u-p-r-40 uni-shadow-lg animation-fade" 
 				@click="handleClickNext">
-				NEXT
+				下一步
 			</view>
 		</view>
 	</view>
