@@ -33,7 +33,7 @@ let story = {
 	
 	byProject:function({parmas,success,fail}){
 		request({
-			url:"/h5/story/5",
+			url:"/h5/story/" + parmas.storyId,
 			method:"GET",
 			parmas,
 			success,

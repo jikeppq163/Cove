@@ -61,11 +61,10 @@ let project = {
 		})
 	},
 	
-	share:function({params,success,fail}){
+	share:function({id,success,fail}){
 		request({
-			url:"/h5/project/5",
+			url:"/h5/project/"+id,
 			method:"GET",
-			params,
 			success,
 			fail
 		})

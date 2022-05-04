@@ -5,6 +5,9 @@
 				{{project.rdata.title}}
 			</view>
 			<view class="u-p-3">
+				{{project.rdata.thoughts}}
+			</view>
+			<view class="u-p-3">
 				{{project.rdata.location}}
 			</view>
 			<view class="u-p-3">
@@ -39,6 +42,12 @@
 		</view>
 		<view class="share-view" @click="handleClickShareOpen">
 			<uni-icons type='paperplane-filled' size="30" color="#F4c587"></uni-icons>
+		</view>
+		<view>
+			<!-- 分享示例 -->
+			<uni-popup ref="share" type="share" safeArea backgroundColor="#fff">
+				<uni-popup-share title="分享到" @select="shareSelect"></uni-popup-share>
+			</uni-popup>
 		</view>
 	</view>
 </template>
@@ -75,7 +84,7 @@
 				}
 			},
 			handleClickShareOpen(){
-				this.$refs.popup.open('bottom');
+				//this.$refs.share.open();
 			},
 			handleClickDelete(){
 				var that =this;
@@ -108,9 +117,6 @@
 						console.log('reqProject.delete fail:',err);
 					}
 				})
-			},
-			shareSelect(){
-				//todo
 			},
 			getDate(value){
 				var date = new Date(value);
