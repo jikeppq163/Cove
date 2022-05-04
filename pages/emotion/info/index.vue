@@ -2,16 +2,16 @@
 	<view class="u-bg-malandy-g2" :style="defaultHeight">
 		<view class="text-center u-font-white">
 			<view class="u-font-size-20 u-p-20 u-p-t-60">
-				{{project.title}}
+				{{project.rdata.title}}
 			</view>
 			<view class="u-p-3">
-				{{project.location}}
+				{{project.rdata.location}}
 			</view>
 			<view class="u-p-3">
-				{{getDate(project.date)}}
+				{{getDate(project.updated_at)}}
 			</view>
 			<view class="u-p-3">
-				{{getTime(project.date)}}
+				{{getTime(project.updated_at)}}
 			</view>
 		</view>
 		<view class="flex center u-p-t-20">
@@ -22,15 +22,19 @@
 		<view class="u-m-10 u-m-t-20 u-p-40 u-bg-maka-g text-center u-font-gray2 shadow-lg">
 			配图
 		</view>
-		<view class="flex u-p-t-20">
-			<view class="u-p-10 u-font-white" v-for="item of project.mood" :key='item.id'>
+		<view class="flex u-p-20">
+			<view class="u-p-10 u-m-l-10 u-font-white u-bg-maka-g2 u-radius-5" v-for="item of project.rdata.mood" :key='item.id'>
 				{{item}}
 			</view>
 		</view>
-		<view class="">
-			<view class="u-m-10 u-p-10 u-radius-5 text-center u-bg-maka3 u-font-gray2"
+		<view class="flex space-between">
+			<view class="u-m-10 u-p-10 u-radius-5 text-center u-bg-maka3 u-font-gray2" style="width: 100%;"
 			 @click="handleClickDelete">
 				删除这个作品
+			</view>
+			<view class="u-m-10 u-p-10 u-radius-5 text-center u-bg-maka3 u-font-gray2" style="width: 100%;"
+			 @click="handleClickEdit">
+				编辑
 			</view>
 		</view>
 		<view class="share-view" @click="handleClickShareOpen">
@@ -41,20 +45,23 @@
 
 <script>
 	import {mapActions,mapGetters,mapState,mapMutations} from 'vuex';
+	import reqProject from "@/api/project.js";
 	export default {
 		computed:{
-			...mapState([
-				'project'
-			]),
+			...mapState(['index','project']),
 			// 使用对象展开运算符将 getter 混入 computed 对象中
 			...mapGetters(['defaultHeight','getPlayerState'])
 		},
 		mounted() {
-
+			if(this.index==-1){
+				uni.switchTab({
+					url:'/pages/index/index'
+				})
+			}
 		},
 		methods:{
-			...mapMutations(['setProject']),
-			...mapActions(['deleteProject','setPlayer','playerStop','runIntervals','runSynthGamut','clearIntervals']),
+			...mapMutations([]),
+			...mapActions(['setPlayer','playerStop','runIntervals','runSynthGamut','clearIntervals']),
 			handleClickPlay(){
 				if(this.getPlayerState=='stoped'){
 					this.setPlayer();
@@ -81,10 +88,24 @@
 							that.playerStop();
 							that.clearIntervals();
 							that.deleteProject();
-							uni.switchTab({
-								url:'../../index/index'
-							})
 						}
+					}
+				})
+			},
+			deleteProject(){
+				console.log(reqProject.delete)
+				reqProject.delete({
+					data:{
+						id:this.project.id
+					},
+					success:(res)=>{
+						console.log('reqProject.delete success:',res);
+						uni.switchTab({
+							url:'/pages/index/index'
+						})
+					},
+					fail:(err)=>{
+						console.log('reqProject.delete fail:',err);
 					}
 				})
 			},
@@ -100,6 +121,11 @@
 				var date = new Date(value);
 				var time = date.getHours() + ':' + date.getMinutes();
 				return time
+			},
+			handleClickEdit(){
+				uni.navigateTo({
+					url:'/pages/emotion/mood/index'
+				})
 			}
 		}
 	}

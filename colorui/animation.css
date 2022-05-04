@@ -11,7 +11,6 @@
   mix-blend-mode: multiply; 
 }
 
-
 /* Animation css */
 [class*=animation-] {
     animation-duration: .5s;
@@ -23,6 +22,12 @@
     animation-name: fade;
     animation-duration: .8s;
     animation-timing-function: linear
+}
+
+.animation-fade-ease-out {
+    animation-name: fade;
+    animation-duration: .8s;
+    animation-timing-function: ease-out
 }
 
 .animation-scale-up {

@@ -3,33 +3,28 @@
 		<scroll-view scroll-y="true" class="u-p-t-5 u-font-white uni-shadow-base" 
 			:style="'height:'+getWindowsHeight*0.8 +'px;'" 
 			>
-			<view class="u-radius-3 u-p-3 u-m-10 u-bg-maka-g uni-shadow-base" v-for="(item,index) of list" :key='item.id' @click="handleClickInfo(index)">
+			<view class="u-radius-3 u-p-3 u-m-10 u-bg-maka-g uni-shadow-base" v-for="(item,index) of list" :key='item.id' @click="handleClickInfo(item.id)">
 				<view class="u-p-3">
 					<uni-icons type="flag" color='#769A80'></uni-icons>
-					{{item.title}}
+					{{item.rdata.title}}
 				</view>
 				<view class="u-p-3">
 					<uni-icons type="compose" color='#769A80'></uni-icons>
-					{{item.thoughts}}
+					{{item.rdata.thoughts}}
 				</view>
 				<view class="u-p-3 flex space-between">
 					<view class="">
 					<uni-icons type="spinner-cycle" color='#769A80'></uni-icons>
-						{{getDate(item.date)}}
+						{{getDate(item.updated_at)}}
 					</view>
 					<view class="">
 						<uni-icons type="location" color='#769A80'></uni-icons>
-						{{item.location}}
+						{{item.rdata.location}}
 					</view>
 				</view>
 			</view>
 		</scroll-view>
 		<view class="u-bottom u-p-10 u-m-t-20 u-m-b-40 flex space-between u-bg-malandy-g2">
-			<view class="u-m-10 u-p-10 u-radius-5 text-center u-bg-maka3 u-font-gray2"
-			 style="width: 100%;"
-			 @click="handleClickDelete">
-				清空作品集
-			</view>
 			<view class="u-m-10 u-p-10 u-radius-5 text-center u-bg-maka3 u-font-gray2" 
 			 style="width: 100%;"
 			 @click="handleClickAdd">
@@ -41,6 +36,7 @@
 
 <script>
 	import authorize from "../utils/user.js";
+	import reqProject from "@/api/project.js";
 	import {mapState,mapGetters,mapMutations,mapActions} from 'vuex';
 	export default {
 		data() {
@@ -53,17 +49,31 @@
 				project:'project',
 				//总列表
 				list:'list',
-				listIndex:'index'
+				listIndex:'index',
+				openId:'openId'
 			}),
 			// 使用对象展开运算符将 getter 混入 computed 对象中
 			...mapGetters(['findMood','defaultHeight','getWindowsHeight'])
 		},
 		mounted() {
-			this.CLEAR_INDEX();
+			this.CLEAR_INDEX();	
+		},
+		onShow() {
+			//获取网络列表
+			reqProject.list({
+				params:{openid:this.openId},
+				success:(res)=>{
+					console.log('reqProject.list success:',res);
+					this.setProjectList(res);
+				},
+				fail:(err)=>{
+					console.log('reqProject.list fail:',err);
+				}
+			});
 		},
 		methods:{
 			...mapMutations(['CLEAR_INDEX','RESET_PROJECT','getLoginStatus']),
-			...mapActions(['getProject','setProjectFromId']),
+			...mapActions(['setProjectList','setProjectFromId']),
 			handleClickDelete(){
 				uni.showModal({
 					title:'删除全部',
@@ -77,13 +87,12 @@
 				})
 			},
 			handleClickAdd(){
-				var test = this.$route.query.test? true:false;
-				// if(authorize(this.$route.fullPath)){
+				 if(authorize(this.$route.fullPath)){
 					this.RESET_PROJECT();
 					uni.navigateTo({
 						url:'../emotion/mood/index'
 					})
-				// }
+				}
 			},
 			getDate(value){
 				var date = new Date(value);
@@ -91,8 +100,8 @@
 				var time = date.getHours() + ':' + date.getMinutes();
 				return dates + ' ' + time
 			},
-			handleClickInfo(index){
-				this.setProjectFromId(index);
+			handleClickInfo(id){
+				this.setProjectFromId(id);
 				uni.navigateTo({
 					url:'../emotion/info/index'
 				})

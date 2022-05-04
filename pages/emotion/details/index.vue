@@ -50,7 +50,8 @@
 
 <script>
 import {mapState,mapGetters,mapMutations,mapActions} from 'vuex';
-import MoodList from '../../components/mood.vue'
+import MoodList from '@/pages/components/mood.vue';
+import reqProject from "@/api/project.js";
 export default {
 	data(){
 		return{
@@ -65,12 +66,18 @@ export default {
 	},
 	components:{MoodList},
 	computed:{
+		...mapState(['openId','project']),
 		...mapGetters(['defaultHeight'])
 	},
 	mounted() {
 		var date = new Date();
 		this.date = date.getFullYear() + '-' +(date.getMonth() + 1) + '-' + date.getDate();
 		this.time = date.getHours() + ':' + date.getMinutes();
+		if(this.project.id!=-1){
+			this.title = this.project.rdata.title;
+			this.location = this.project.rdata.location;
+			this.thoughts = this.project.rdata.thoughts;
+		}
 	},
 	methods:{
 		...mapActions(['saveInfo','saveProject']),
@@ -80,10 +87,39 @@ export default {
 				thoughts:this.thoughts,
 				location:this.location
 			});
-			this.saveProject();
-			uni.switchTab({
-				url:'../../index/index'
-			})
+			var data = {};
+			data.id = this.project.id;
+			data.openid = this.openId;
+			data.rdata = JSON.stringify(this.project.rdata);
+			if(this.project.id ==-1){
+				reqProject.create({
+					data:data,
+					success:(res)=>{
+						console.log('reqProject.create success:',res);
+						uni.switchTab({
+							url:'/pages/index/index'
+						})
+					},
+					fail:(err)=>{
+						console.log('reqProject.create fail:',err);
+					}
+				})
+			}
+			else{
+				reqProject.updata({
+					data:data,
+					success:(res)=>{
+						console.log('reqProject.create success:',res);
+						uni.switchTab({
+							url:'/pages/index/index'
+						})
+					},
+					fail:(err)=>{
+						console.log('reqProject.create fail:',err);
+					}
+				})
+			}
+			//this.saveProject();
 		},
 		handleClickChangeInput(value){
 			this.inputFocus = value;

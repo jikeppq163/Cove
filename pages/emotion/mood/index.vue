@@ -6,7 +6,7 @@
 			</view>
 		</view>
 		<MoodView></MoodView>
-		<view v-if="list.mood.length" class="u-p-t-60 flex center">
+		<view v-if="project.rdata.mood.length" class="u-p-t-60 flex center">
 			<view class="u-p-10 u-font-size-20 u-font-white u-border-1 u-radius-20 u-p-l-40 u-p-r-40 uni-shadow-lg animation-fade" 
 				@click="handleClickNext">
 				下一步
@@ -27,7 +27,7 @@
 		computed:{
 			...mapState({
 				//选中的情绪列表
-				list:'project'
+				project:'project'
 			}),
 			// 使用对象展开运算符将 getter 混入 computed 对象中
 			...mapGetters(['defaultHeight'])

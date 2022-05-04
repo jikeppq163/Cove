@@ -18,7 +18,7 @@
 			</view>
 		</view>
 		<view class="u-p-10">
-			<slider v-if='show' :value="project.volume" block-color='#F4c587' min="0" max="30"  @changing='sliderChanging'/>
+			<slider v-if='show' :value="project.rdata.volume" block-color='#F4c587' min="0" max="30"  @changing='sliderChanging'/>
 		</view>
 		<view v-if='show' class="flex center">
 			<view class="u-p-10 u-font-size-20 u-font-white u-border-1 u-radius-20 u-p-l-40 u-p-r-40 uni-shadow-lg animation-fade" 
@@ -62,8 +62,15 @@
 			...mapGetters(['findMood','defaultHeight','getPlayerState','getWindowsHeight'])
 		},
 		mounted() {
+			var that =this;
 			//Eruda.init();
 			//this.defaultHeight['height'] = this.defaultHeight['min-height'];
+			if(that.project.id!=-1){
+				that.show = true;
+				that.setProjectAudio(that.project.rdata.audio);
+				that.indexs = that.audioList.findIndex(item=> item[0] == that.project.rdata.audio[0]);
+				that.setPlayer();
+			}
 		},
 		methods:{
 			...mapMutations(['setProjectAudio']),
@@ -73,7 +80,7 @@
 			},
 			handleClickNext(){
 				uni.navigateTo({
-					url:'../tone/index'
+					url:'/pages/emotion/tone/index'
 				})
 			},
 			handleClickImg(value){

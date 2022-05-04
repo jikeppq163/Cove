@@ -1,18 +1,39 @@
 import {tansParams} from "../utils/func.js"
 
-function uni_request({url,method,header,data,parmas,success,fail}){
-	if(method=='GET') url = url + "?" + tansParams(parmas);
+function uni_request({url,method,header,data,params,success,fail}){
+	if(method=='GET' && params) url ='https://metamusic.toob.net.cn/api' + url + "?" + tansParams(params);
+	else{
+		url ='https://metamusic.toob.net.cn/api' + url
+	}
+	console.log('parmas',url);
+	if(!data) data = {};
+	data.openid = localStorage.getItem('openId');
 	uni.request({
-		url:'https://metamusic.toob.net.cn/api'+url,
-		header:header? header:[],
+		url,
+		header:header? header:{},
 		method:method? method:'GET',
-		data: data? data:'',
+		data,
 		success:(res)=>{
-			if(res.state==200){
+			if(res.statusCode==200){
 				//需要自己测试了
-				if(success) success(res.data);
+				if(res.data.code==200){
+					if(success) success(res.data.data);
+				}
+				else{
+					uni.showModal({
+						title:'出错了:'+res.data.code,
+						content:res.data.msg,
+						showCancel:false
+					})
+					if(fail) fail(res.data);
+				}
 			}
 			else{
+				uni.showModal({
+					title:'服务器故障:' + res.statusCode,
+					content:res,
+					showCancel:false
+				})
 				if(fail) fail(res);
 			}
 		},

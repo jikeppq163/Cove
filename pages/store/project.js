@@ -9,15 +9,15 @@ let state={
 	version:'0.1.0',
 	server:'',
 	systemInfo:{},
-	openId:'',
+	openId:'333',
 	getOpenId:false,
 	userInfo:{
-		"id": "",
+		"id": "1",
 		"nickname": "用户名",
 		"avatar": "https://thirdwx.qlogo.cn/mmopen/vi_32/4FYsd8bWiaR8otxj1cNzib0ibL975Ug8zGvJicPT0yZYIh4ox41pmiaUc8GeKl6kw9Q4q26Mab0TzYp9SaKDic55iavIQ/132",
 		"email": null,
 		"raw": {
-			"openid": "",
+			"openid": "333",
 			"sex": 0,
 		}
 	},
@@ -33,16 +33,10 @@ let state={
 		],
 	//当前新增列表 project
 	project:{
-		mood:[],
-		audio:'',
-		volume:10,
-		synth:[],
-		title:'NOTHING...',
-		thoughts:'NOTHING...',
-		location:'NOTHING...',
-	},
-	//模版
-	template:{
+		"created_at": "2022-05-04 04:42:02",
+		"updated_at": "2022-05-04 04:54:11",
+		"deleted_at": "2022-05-04 04:54:11",
+		rdata:{
 			mood:[],
 			audio:'',
 			volume:10,
@@ -50,6 +44,20 @@ let state={
 			title:'NOTHING...',
 			thoughts:'NOTHING...',
 			location:'NOTHING...',
+		}
+	},
+	//模版
+	template:{
+		id:-1,
+		rdata:{
+			mood:[],
+			audio:'',
+			volume:10,
+			synth:[],
+			title:'NOTHING...',
+			thoughts:'NOTHING...',
+			location:'NOTHING...',
+		}
 	},
 	//所有过往记录列表 list
 	list:[
@@ -117,10 +125,10 @@ let state={
 
 let mutations={
 	addMood(state,value){
-		state.project.mood.push(value);
+		state.project.rdata.mood.push(value);
 	},
 	deleteMood(state,value){
-		state.project.mood.splice(value,1);
+		state.project.rdata.mood.splice(value,1);
 	},
 	setSystemInfo(state,value){
 		state.systemInfo = value;
@@ -128,7 +136,7 @@ let mutations={
 		state.defaultHeight['min-height'] = (value.windowHeight)+"px";
 	},
 	setProjectAudio(state,value){
-		state.project.audio = value;
+		state.project.rdata.audio = value;
 	},
 	//todo
 	setProject(state,value){
@@ -153,7 +161,7 @@ let getters={
 		return state.systemInfo.windowHeight - 43
 	},
 	findMood:(state)=>(value)=>{
-		return state.project.mood.findIndex(item=>{
+		return state.project.rdata.mood.findIndex(item=>{
 					return item === value
 				});
 	},
@@ -162,6 +170,9 @@ let getters={
 	},
 	getPlayerState(state){
 		return state.player? state.player.state:'stoped'
+	},
+	getProject:state=>id=>{
+		return state.list.find(item=>item.id == id);
 	}
 }
 
@@ -185,9 +196,12 @@ let actions={
 			return true;
 		}
 	},
+	//初始化列表
+	initList(){
+		
+	},
 	//初始化音乐
 	initPlayer({commit,state}){
-		
 		state.sampler = getInstrument('piano');
 		// state.synth = new Tone.Synth().toDestination();
 	},
@@ -209,7 +223,7 @@ let actions={
 		}
 		function set(){
 			state.player = new Tone.Player({
-				url:'/static/mp3/'+state.project.audio+'.mp3',
+				url:'/static/mp3/'+state.project.rdata.audio+'.mp3',
 				autostart: true,
 				loop:true
 			}).toDestination();
@@ -240,7 +254,7 @@ let actions={
 		var {volume,step} = value;
 		if(getters.getPlayerState=='started'){
 			state.player.volume.value = volume;
-			state.project.volume = volume;
+			state.project.rdata.volume = volume;
 		}
 	},
 	playerbackRate({commit,state,getters}){
@@ -256,9 +270,9 @@ let actions={
 		//state.synth.triggerAttackRelease(note, now);
 	},
 	runSynthGamut({state}){
-		if (state.project.synth != []) {
+		if (state.project.rdata.synth != []) {
 			const now = Tone.now();
-			for (var item of state.project.synth) {
+			for (var item of state.project.rdata.synth) {
 				const node = getNoteAtHeight(item.y);
 				
 				state.sampler.triggerAttack(node, now + item.up);
@@ -267,17 +281,17 @@ let actions={
 		}
 	},
 	saveSynthGamut({state},Arr){
-		state.project.synth = Arr;
+		state.project.rdata.synth = Arr;
 	},
-	setProjectFromId({state},index){
-		state.project = state.list[index];
-		state.index = index;
+	setProjectFromId({state},id){
+		state.project = state.list.find(item =>item.id==id);
+		state.index = id;
 	},
 	saveInfo({state},Obj){
 		var {title,thoughts,location} = Obj;
-		if(title) state.project.title = title;
-		if(thoughts) state.project.thoughts = thoughts;
-		if(location) state.project.location = location;
+		if(title) state.project.rdata.title = title;
+		if(thoughts) state.project.rdata.thoughts = thoughts;
+		if(location) state.project.rdata.location = location;
 	},
 	deleteProject({state}){
 		if(state.index!=-1){
@@ -291,10 +305,13 @@ let actions={
 			});
 		}
 	},
-	saveProject({commit,state,getters}){
+	saveProject({commit,state,getters,dispatch}){
 		//console.log('saveProject',state.project);
 		state.project.id = 'id_' + Date.now();
-		state.project.date = new Date();
+		state.project.rdata.date = new Date();
+		//dispatch('saveListToStorage');
+	},
+	saveListToStorage({commit,state,getters}){
 		state.list.push(state.project);
 		uni.setStorage({
 			key:'list',
@@ -302,8 +319,12 @@ let actions={
 			success:(res)=>{
 				console.log('setStorage 存储数据:',res);
 			}
-			});
+		});
 	},
+	setProjectList({commit,state,getters},value){
+		if(value) state.list = value;
+	},
+	//获取本地list
 	getProject({commit,state,getters}){
 		uni.getStorage({
 			key:'list',

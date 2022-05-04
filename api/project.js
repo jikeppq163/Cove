@@ -3,7 +3,7 @@ import request from './request.js'
 let project = {
 	create: function ({data,success,fail}){
 		request({
-			url:"/project/5",
+			url:"/h5/project",
 			method:"POST",
 			data,
 			success,
@@ -13,18 +13,17 @@ let project = {
 	
 	delete:function ({data,success,fail}){
 		request({
-			url:"/h5/project/5",
-			method:"DEL",
-			data,
+			url:"/h5/project/"+data.id,
+			method:"DELETE",
 			success,
 			fail
 		})
 	},
 	
-	update:function({data,success,fail}){
+	updata:function({data,success,fail}){
 		request({
-			url:"/h5/project/5",
-			method:"POST",
+			url:"/h5/project/"+data.id,
+			method:"PUT",
 			data,
 			success,
 			fail
@@ -52,11 +51,11 @@ let project = {
 	},
 	
 
-	list:function({data,success,fail}){
+	list:function({params,success,fail}){
 		request({
 			url:"/h5/project",
-			method:"DEL",
-			data,
+			method:"GET",
+			params,
 			success,
 			fail
 		})

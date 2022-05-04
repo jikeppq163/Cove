@@ -1,5 +1,5 @@
 <template>
-	<view class="u-bg-malandy-g3" :style="defaultHeight">
+	<view class="bg-color" :style="defaultHeight">
 		<view class="u-font-white text-center">点击屏幕创作你的情绪旋律</view>
 		<view id = "particles" class="" 
 			:style="'height:'+getWindowsHeight*0.8 +'px;'"
@@ -17,7 +17,7 @@
 			@change="change">
 			</view>
 		</view>
-		<view v-if='show' class="flex center">
+		<view v-if='show' class="flex center" style="position:fixed;bottom: 50rpx;width: 100%;">
 			<view class="u-p-10 u-font-size-20 u-font-white u-border-1 u-radius-20 u-p-l-40 u-p-r-40 uni-shadow-lg animation-fade"
 				@click="handleClickNext">
 				NEXT
@@ -41,11 +41,11 @@
 		data(){
 			return{
 				synthList:[],
-				animation: 'animation-fade',
+				animation: 'animation-fade-ease-out',
 			}
 		},
 		computed:{
-			...mapState(['Interval']),
+			...mapState(['Interval',"project"]),
 			// 使用对象展开运算符将 getter 混入 computed 对象中
 			...mapGetters(['defaultHeight','getWindowsHeight']),
 			show(){
@@ -53,13 +53,39 @@
 			}
 		},
 		mounted() {
+			var that =this;
 			particlesJS.load('particles','./static/particles_nasa.json');
 			this.initPlayer();
+			if(that.project.id != -1){
+				setTimeout(()=>{
+					if(!everClick){
+						that.everClick = true;
+						that.synthList = that.project.rdata.synth;
+						that.saveSynthGamut(that.synthList);
+						//that.runSynthGamut();
+						that.runSynt();
+					}
+				},2000);
+			}
 		},
 		methods:{
 			...mapActions([
 				'synthGamut','initPlayer','runSynthGamut','saveSynthGamut','playerStop','clearIntervals','runIntervals'
 			]),
+			runSynt(){
+				this.runIntervals(()=>{
+						//Reset delay count
+						loopStartTime = Date.now();
+						
+						//console.log('清空动画');
+						this.animation ="";
+						setTimeout(()=>{
+							//console.log('启动动画');
+							this.animation='animation-fade-ease-out';
+							this.runSynthGamut();
+						},10);
+				})
+			},
 			handleChickSet(e){
 				//播放音阶
 				var clientHeight = this.$refs.container.$el.clientHeight;
@@ -69,18 +95,7 @@
 				}
 				
 				if (!everClick) {
-					this.runIntervals(()=>{
-						//Reset delay count
-						loopStartTime = Date.now();
-						
-						//console.log('清空动画');
-						this.animation ="";
-						setTimeout(()=>{
-							//console.log('启动动画');
-							this.animation='animation-fade';
-							this.runSynthGamut();
-						},10);
-					})
+					this.runSynt()
 				}
 				
 				//Calculate intervals
@@ -144,5 +159,9 @@
 	      background-repeat: no-repeat;
 	      background-size: cover;
 	      background-position: center center;
+	}
+	
+	.bg-color{
+		background-color: #000022;
 	}
 </style>

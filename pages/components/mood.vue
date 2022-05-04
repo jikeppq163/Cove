@@ -26,7 +26,7 @@ export default{
 		...mapState({
 			mood:'mood',
 			//选中的情绪列表
-			list:'project'
+			project:'project'
 		}),
 		// 使用对象展开运算符将 getter 混入 computed 对象中
 		...mapGetters(['findMood','defaultHeight'])
@@ -37,7 +37,7 @@ export default{
 	methods:{
 		...mapMutations(['addMood','deleteMood']),
 		handleClickMood(value){
-			var index = this.list.mood.findIndex(item=>{
+			var index = this.project.rdata.mood.findIndex(item=>{
 				return item === value
 			});
 			if(index == -1){
