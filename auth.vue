@@ -36,6 +36,10 @@
 		},
 		mounted() {
 			var that =this;
+			let demoData =
+				`{"openid":"o_cGP5oEgf4j5U8_4itil0Jf5Hio","nickname":"Jack(XiaJF)","sex":0,"language":"","city":"","province":"","country":"",
+				"headimgurl":"https:\/\/thirdwx.qlogo.cn\/mmopen\/vi_32\/4FYsd8bWiaR8otxj1cNzib0ibL975Ug8zGvJicPT0yZYIh4ox41pmiaUc8GeKl6kw9Q4q26Mab0TzYp9SaKDic55iavIQ\/132",
+				"privilege":[],"unionid":"ojrNT1qbB6qco98Jl4gWbDaV0lRo"}`;
 			// 如果连接中有微信返回的 code，则用此 code 调用后端接口，向微信服务器请求用户信息
 			let redirectUrl = sessionStorage.getItem("wxRedirectUrl");
 			that.code = that.$route.query.code;
@@ -45,37 +49,28 @@
 					uni.request({
 						url: 'https://metamusic.toob.net.cn/api/oauth/wechat/oalogin?code=' + that.code,
 						success: (res) => {
-							let demoData =
-								'{"openid":"o_cGP5oEgf4j5U8_4itil0Jf5Hio","nickname":"Jack(XiaJF)","sex":0,"language":"","city":"","province":"","country":"","headimgurl":"https:\/\/thirdwx.qlogo.cn\/mmopen\/vi_32\/4FYsd8bWiaR8otxj1cNzib0ibL975Ug8zGvJicPT0yZYIh4ox41pmiaUc8GeKl6kw9Q4q26Mab0TzYp9SaKDic55iavIQ\/132","privilege":[],"unionid":"ojrNT1qbB6qco98Jl4gWbDaV0lRo"}';
 							if (res.data.raw.openid.length > 0) {
 								that.msg = 'success~~~' + JSON.stringify(res.data.raw);
 								//将一些信息存储到本地
-								const token = res.headers['access_token'];
-								localStorage.setItem('token', token);
+								// const token = res.headers['access_token'];
+								// localStorage.setItem('token', token);
 								localStorage.setItem("wxUserInfo", JSON.stringify(res.data.raw));
 								localStorage.setItem("openId", res.data.raw.openid);
-								// uni.setStorage({
-								// 	key: 'openId',
-								// 	data: res.data.raw.openid
-								// })
-								// uni.setStorage({
-								// 	key: 'userInfo',
-								// 	data: JSON.stringify(res.data.raw)
-								// });
-								that.switchTab = '测试阶段2 ' + redirectUrl;
+								uni.setStorage({
+									key: 'openId',
+									data: res.data.raw.openid
+								})
+								uni.setStorage({
+									key: 'userInfo',
+									data: JSON.stringify(res.data.raw)
+								});
 								if (redirectUrl) {
 									uni.switchTab({
-										url: redirectUrl,
-										complete: (res) => {
-											that.switchTab = JSON.stringify(res);
-										}
+										url: redirectUrl
 									})
 								} else {
 									uni.switchTab({
-										url: "/",
-										complete: (res) => {
-											that.switchTab = JSON.stringify(res);
-										}
+										url: "/"
 									})
 								}
 							} else {
