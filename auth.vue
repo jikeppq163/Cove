@@ -50,8 +50,8 @@
 								//将一些信息存储到本地
 								// const token = res.headers['access_token'];
 								// localStorage.setItem('token', token);
-								localStorage.setItem("wxUserInfo", JSON.stringify(res.data.raw));
-								localStorage.setItem("openId", res.data.raw.openid);
+								//localStorage.setItem("userInfo", JSON.stringify(res.data.raw));
+								//localStorage.setItem("openId", res.data.raw.openid);
 								uni.setStorage({
 									key: 'openId',
 									data: res.data.raw.openid
