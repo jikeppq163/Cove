@@ -72,7 +72,10 @@
 									})
 								} else {
 									uni.switchTab({
-										url: "/"
+										url: "/",
+										complete: (res) => {
+											that.switchTab = JSON.stringify(res);
+										}
 									})
 								}
 							} else {
