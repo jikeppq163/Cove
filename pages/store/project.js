@@ -150,7 +150,13 @@ let mutations={
 	},
 	RESET_PROJECT(state){
 		state.project = JSON.parse(JSON.stringify(state.template))
-	}
+	},
+	setOpenId(state,value){
+		state.openId = value;
+	},
+	setUserInfo(state,value){
+		state.userInfo = value;
+	},
 }
 
 let getters={
@@ -187,7 +193,7 @@ let actions={
 			var openId = uni.getStorageSync('openId');
 			if(openId){
 				state.openId = openId;
-				state.userInfo = uni.getStorageSync('userInfo');
+				state.userInfo = JSON.parse(uni.getStorageSync('userInfo'));
 				return true;
 			}
 			else {

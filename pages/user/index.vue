@@ -15,8 +15,7 @@
 		</view>
 		<view class="u-bg-white u-p-10 u-m-t-10">
 			<button @click="logintest()" >logintest</button>
-		</view>
-									
+		</view>					
 	</view>
 </template>
 
@@ -35,11 +34,12 @@ import {login} from '@/api/login.js'
 		},
 		mounted() {
 			//authorize(this.$route.fullPath);
-
+			this.getLoginStatus();
 		},
 		methods:{
+			...mapActions(['getLoginStatus']),
 			logintest(){
-				login()
+				this.getLoginStatus();
 			}
 		}
 	}

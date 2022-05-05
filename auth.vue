@@ -21,6 +21,7 @@
 	import {
 		login
 	} from '@/api/login.js'
+	import {mapActions} from 'vuex';
 	export default {
 		name: "Auth",
 		data() {
@@ -29,6 +30,9 @@
 				redirectUrl: '/',
 				msg: '',
 			}
+		},
+		methods:{
+			...mapActions(['getLoginStatus'])
 		},
 		mounted() {
 			var that =this;
@@ -50,16 +54,19 @@
 								//将一些信息存储到本地
 								// const token = res.headers['access_token'];
 								// localStorage.setItem('token', token);
-								//localStorage.setItem("userInfo", JSON.stringify(res.data.raw));
-								//localStorage.setItem("openId", res.data.raw.openid);
-								uni.setStorage({
-									key: 'openId',
-									data: res.data.raw.openid
-								})
-								uni.setStorage({
-									key: 'userInfo',
-									data: JSON.stringify(res.data.raw)
-								});
+								localStorage.setItem("userInfo", JSON.stringify(res.data.raw));
+								localStorage.setItem("openId", res.data.raw.openid);
+								// this.setOpenId(res.data.raw.openid);
+								// this.setUserInfo(res.data.raw);
+								// uni.setStorage({
+								// 	key: 'openId',
+								// 	data: res.data.raw.openid
+								// })
+								// uni.setStorage({
+								// 	key: 'userInfo',
+								// 	data: JSON.stringify(res.data.raw)
+								// });
+								this.getLoginStatus();
 								if (redirectUrl) {
 									uni.switchTab({
 										url: redirectUrl,
