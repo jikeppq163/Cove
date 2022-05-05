@@ -31,7 +31,7 @@
 				code: '',
 				redirectUrl: '/',
 				msg: '',
-				switchTab:''
+				switchTab:'测试'
 			}
 		},
 		mounted() {
@@ -54,14 +54,15 @@
 								localStorage.setItem('token', token);
 								localStorage.setItem("wxUserInfo", JSON.stringify(res.data.raw));
 								localStorage.setItem("openId", res.data.raw.openid);
-								uni.setStorage({
-									key: 'openId',
-									data: res.data.raw.openid
-								})
-								uni.setStorage({
-									key: 'userInfo',
-									data: JSON.stringify(res.data.raw)
-								});
+								// uni.setStorage({
+								// 	key: 'openId',
+								// 	data: res.data.raw.openid
+								// })
+								// uni.setStorage({
+								// 	key: 'userInfo',
+								// 	data: JSON.stringify(res.data.raw)
+								// });
+								that.switchTab = '测试阶段2';
 								if (redirectUrl) {
 									uni.switchTab({
 										url: redirectUrl,
