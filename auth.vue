@@ -24,7 +24,7 @@ export default {
   data(){
 	  return{
 		  code:'',
-		  redirectUrl:'',
+		  redirectUrl:'/',
 		  msg:''
 	  }
   },
@@ -35,23 +35,63 @@ export default {
   	this.redirectUrl = redirectUrl;
   	if (this.$route.query.code) {
   	  try {
-		login({
-				code:this.$route.query.code,
-				success: (res) => {
-					//this.msg = 'success' + JSON.stringify(res);
-					//console.log('auth 重定向地址:',redirectUrl);
+		  uni.request({
+		  	url: 'https://metamusic.toob.net.cn/api/oauth/wechat/oalogin?code='+ this.code,
+		  	success:(res)=>{
+				if(res.data.raw.openid.length>0){
+					this.msg = 'success~~~' + JSON.stringify(res.data.raw) ;
+					 //将一些信息存储到本地
+				  const token = res.headers['access_token'];
+				  localStorage.setItem('token', token);
+				  localStorage.setItem("wxUserInfo", JSON.stringify(res.data.raw));
+				  localStorage.setItem("openId", res.data.raw.openid);
+				  uni.setStorage({
+					key:'openId',
+					data:res.data.raw.openid
+				  })
+				  uni.setStorage({
+					key:'userInfo',
+					data:JSON.stringify(res.data.raw)
+				  });
 					if(redirectUrl){
-						this.$router.replace(redirectUrl); //跳转到业务页面
+						uni.navigateTo({
+							url:redirectUrl
+						})
 					}
 					else{
-						this.$router.replace("./");
+						uni.navigateTo({
+							url:"./"
+						})
 					}
-				},
-				fail: (err) => {
-					//this.msg ='auth fail' + JSON.stringify(err);
-					console.log('auth fail',err);
 				}
-			})
+				else{
+					this.msg = 'fail~~~' + JSON.stringify(res.data) ;
+					fail(res)
+				}
+		  	},
+		  	fail:(err)=>{
+		  		if(fail) fail(err);
+		  	}
+		  })
+		  
+		  
+		// login({
+		// 		code:this.$route.query.code,
+		// 		success: (res) => {
+		// 			this.msg = 'success' + JSON.stringify(res);
+		// 			//console.log('auth 重定向地址:',redirectUrl);
+					// if(redirectUrl){
+					// 	this.$router.replace(redirectUrl); //跳转到业务页面
+					// }
+					// else{
+					// 	this.$router.replace("./");
+					// }
+		// 		},
+		// 		fail: (err) => {
+		// 			this.msg ='auth fail' + JSON.stringify(err);
+		// 			console.log('auth fail',err);
+		// 		}
+		// 	})
   	  } catch (error) {
   	    console.log(error);
   	  }

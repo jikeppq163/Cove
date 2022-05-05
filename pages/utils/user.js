@@ -10,7 +10,7 @@ function authorize(fullPath){
 	       //请求微信授权,并跳转到 /auth 路由
 	        let appId = 'wx98f8c9efa066cb6e';
 			//let servers = 'metamusic.toob.net.cn/index.html';
-			let ip = '192.168.2.4';
+			let ip = '192.168.31.251';
 			let servers = 'https://metamusic.toob.net.cn/ttt?url='+ip;
 			//let servers = 'metamusic.toob.net.cn/index.html#/auth';
 	        let redirectUrl = encodeURIComponent(`${servers}`);
@@ -22,7 +22,7 @@ function authorize(fullPath){
 			&state=123
 			&redirect_uri=${redirectUrl}#wechat_redirect`;
 			console.log('authorize',url);
-			//window.location.href = url;
+			window.location.href = url;
 			return false;
 	  } else {
 			return true;

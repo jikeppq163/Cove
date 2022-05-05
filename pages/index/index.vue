@@ -87,6 +87,7 @@
 				})
 			},
 			handleClickAdd(){
+				console.log(this.$route.fullPath)
 				 if(authorize(this.$route.fullPath)){
 					this.RESET_PROJECT();
 					uni.navigateTo({
