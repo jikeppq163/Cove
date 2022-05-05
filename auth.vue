@@ -13,9 +13,6 @@
 		<view class="">
 			msg {{msg}}
 		</view>
-		<view class="">
-			switchTab {{switchTab}}
-		</view>
 	</view>
 </template>
 
@@ -31,7 +28,6 @@
 				code: '',
 				redirectUrl: '/',
 				msg: '',
-				switchTab:'测试'
 			}
 		},
 		mounted() {
@@ -66,7 +62,12 @@
 								});
 								if (redirectUrl) {
 									uni.switchTab({
-										url: redirectUrl
+										url: redirectUrl,
+										fail:()=>{
+											uni.navigateTo({
+												url: redirectUrl
+											})
+										}
 									})
 								} else {
 									uni.switchTab({
