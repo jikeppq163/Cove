@@ -9,7 +9,7 @@ let state={
 	version:'0.1.0',
 	server:'',
 	systemInfo:{},
-	openId:'333',
+	openId:'',
 	getOpenId:false,
 	userInfo:{
 		"id": "1",
@@ -173,6 +173,9 @@ let getters={
 	},
 	getProject:state=>id=>{
 		return state.list.find(item=>item.id == id);
+	},
+	getLogin:state=>{
+		return state.openId!=""? true:false; 
 	}
 }
 

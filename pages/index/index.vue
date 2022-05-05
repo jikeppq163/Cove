@@ -53,23 +53,25 @@
 				openId:'openId'
 			}),
 			// 使用对象展开运算符将 getter 混入 computed 对象中
-			...mapGetters(['findMood','defaultHeight','getWindowsHeight'])
+			...mapGetters(['findMood','defaultHeight','getWindowsHeight','getLogin'])
 		},
 		mounted() {
 			this.CLEAR_INDEX();	
 		},
 		onShow() {
-			//获取网络列表
-			reqProject.list({
-				params:{openid:this.openId},
-				success:(res)=>{
-					console.log('reqProject.list success:',res);
-					this.setProjectList(res);
-				},
-				fail:(err)=>{
-					console.log('reqProject.list fail:',err);
-				}
-			});
+			if(this.getLogin){
+				//获取网络列表
+				reqProject.list({
+					params:{openid:this.openId},
+					success:(res)=>{
+						console.log('reqProject.list success:',res);
+						this.setProjectList(res);
+					},
+					fail:(err)=>{
+						console.log('reqProject.list fail:',err);
+					}
+				});
+			}
 		},
 		methods:{
 			...mapMutations(['CLEAR_INDEX','RESET_PROJECT','getLoginStatus']),
@@ -87,11 +89,11 @@
 				})
 			},
 			handleClickAdd(){
-				console.log(this.$route.fullPath)
+				 //console.log(this.$route.fullPath)
 				 if(authorize(this.$route.fullPath)){
 					this.RESET_PROJECT();
 					uni.navigateTo({
-						url:'../emotion/mood/index'
+						url:'/pages/emotion/mood/index'
 					})
 				}
 			},
@@ -104,7 +106,7 @@
 			handleClickInfo(id){
 				this.setProjectFromId(id);
 				uni.navigateTo({
-					url:'../emotion/info/index'
+					url:'/pages/emotion/info/index'
 				})
 			}
 		}

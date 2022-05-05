@@ -16,8 +16,8 @@
 			this.$store.dispatch('getProject');
 			
 			//测试
-			localStorage.setItem('authDebug',1);
-			localStorage.setItem('openId','333');
+			localStorage.setItem('authDebug',0);
+			//localStorage.setItem('openId','333');
 		},
 		onShow: function() {
 			//console.log('App Show')

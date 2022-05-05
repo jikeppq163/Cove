@@ -12,3 +12,4 @@ let state ={
 const store = new Vuex.Store(project)
 
 export default store;
+
