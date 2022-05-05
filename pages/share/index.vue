@@ -97,9 +97,10 @@
 			if(!that.reqFlag){
 				that.reqFlag = true;
 				reqProject.share(
-				{	id:this.projectId,
+				{	
+					id:this.projectId,
 					success: (res) => {
-						console.log('success',res);
+						//console.log('success',res);
 						that.project = res;
 						that.reqFlag = false;
 					},
@@ -150,13 +151,15 @@
 				}
 				this.reqFlag = true;
 				// TODO 接入真实接口
+				var data = {
+					project_id:this.projectId,
+					story:JSON.stringify(req.content),
+					nickname:'王大锤',
+					parent_id:req.pId,
+				}
+				//console.log('data',data);
 				reqStory.create({
-					data:{
-						project_id:this.projectId,
-						story:JSON.stringify(req.content),
-						nickname:'王大锤',
-						parent_id:req.pId? req.pId:null,
-					},
+					data,
 					success:(res)=>{
 						console.log('reqStory.create',res);
 						// 下边假装请求成功
@@ -243,7 +246,7 @@
 								createTime: item.created_at,
 								likeNum: item.likes_count,
 								hasLike:false,
-								parentId: item.parent_id? item.perent_id:null,
+								parentId: item.parent_id? item.parent_id:null,
 							})
 						})
 						
