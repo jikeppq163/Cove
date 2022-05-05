@@ -62,7 +62,7 @@
 								// 	key: 'userInfo',
 								// 	data: JSON.stringify(res.data.raw)
 								// });
-								that.switchTab = '测试阶段2';
+								that.switchTab = '测试阶段2 ' + redirectUrl;
 								if (redirectUrl) {
 									uni.switchTab({
 										url: redirectUrl,
