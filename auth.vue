@@ -38,6 +38,8 @@ export default {
 		  uni.request({
 		  	url: 'https://metamusic.toob.net.cn/api/oauth/wechat/oalogin?code='+ this.code,
 		  	success:(res)=>{
+				
+				let demoData='{"openid":"o_cGP5oEgf4j5U8_4itil0Jf5Hio","nickname":"Jack(XiaJF)","sex":0,"language":"","city":"","province":"","country":"","headimgurl":"https:\/\/thirdwx.qlogo.cn\/mmopen\/vi_32\/4FYsd8bWiaR8otxj1cNzib0ibL975Ug8zGvJicPT0yZYIh4ox41pmiaUc8GeKl6kw9Q4q26Mab0TzYp9SaKDic55iavIQ\/132","privilege":[],"unionid":"ojrNT1qbB6qco98Jl4gWbDaV0lRo"}';
 				if(res.data.raw.openid.length>0){
 					this.msg = 'success~~~' + JSON.stringify(res.data.raw) ;
 					 //将一些信息存储到本地
