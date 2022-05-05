@@ -11,11 +11,10 @@ let story = {
 		})
 	},
 	
-	delete:function({data,success,fail}){
+	delete:function({id,success,fail}){
 		request({
-			url:"/h5/story/5",
-			method:"DEL",
-			data,
+			url:"/h5/story/"+id,
+			method:"DELETE",
 			success,
 			fail
 		})
@@ -23,13 +22,23 @@ let story = {
 	
 	like:function({data,success,fail}){
 		request({
-			url:"/h5/story/2",
+			url:"/h5/story/"+data.id,
 			method:"PUT",
 			data,
 			success,
 			fail
 		})
 	},
+	
+	getLikeList:function({data,success,fail}){
+		request({
+			url:"/h5/myactions/"+data.id,
+			method:"PUT",
+			success,
+			fail
+		})
+	},
+	
 	
 	byProject:function({parmas,success,fail}){
 		request({

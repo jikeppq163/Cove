@@ -186,16 +186,22 @@
 					return
 				}
 				this.reqFlag = true;
-				// TODO 接入真实接口
-				// this.$u.api.commentLike(commentId).then(res => {
-				// 	this.$refs.hbComment.likeComplete(commentId);
-				// 	this.reqFlag = false;
-				// }).catch(res => {
-				// 	this.reqFlag = false;
-				// })
-				// 下边假装请求成功
-				this.reqFlag = false;
-				this.$refs.hbComment.likeComplete(commentId);
+				var data = {
+					id:commentId,
+					project_id:this.projectId,
+				};
+				reqStory.like({
+					data,
+					success:(res)=>{
+						console.log('reqStory.like success',res);
+						// 下边假装请求成功
+						this.reqFlag = false;
+						this.$refs.hbComment.likeComplete(commentId);
+					},
+					fail:(err)=>{
+						console.log('reqStory.like fail',err);
+					}
+				})
 			},
 			// 删除评论
 			del(commentId) {
@@ -210,16 +216,18 @@
 					return
 				}
 				this.reqFlag = true;
-				// TODO 接入真实接口
-				// this.$u.api.commentDelete(commentId).then(res => {
-				// 	this.reqFlag = false;
-				// 	this.$refs.hbComment.deleteComplete(commentId);
-				// }).catch(res => {
-				// 	this.reqFlag = false;
-				// })
+				reqStory.delete({
+					id:commentId,
+					success:(res)=>{
+						console.log('reqStory.delete success',res);
+						this.reqFlag = false;
+						this.$refs.hbComment.deleteComplete(commentId);
+					},
+					fail:(err)=>{
+						console.log('reqStory.delete fail',err);
+					}
+				})
 				// 下边假装请求成功
-				this.reqFlag = false;
-				this.$refs.hbComment.deleteComplete(commentId);
 			},
 			// 获取评论
 			getComment(articleId) {
@@ -246,29 +254,38 @@
 								createTime: item.created_at,
 								likeNum: item.likes_count,
 								hasLike:false,
-								parentId: item.parent_id? item.parent_id:null,
+								parentId: item.parent_id,
 							})
 						})
-						
-						// "id": 1, // 唯一主键
-						// "owner": false, // 是否是拥有者，为true则可以删除，管理员全部为true
-						// "hasLike": false, // 是否点赞
-						// "likeNum": 2, // 点赞数量
-						// "avatarUrl": "https://inews.gtimg.com/newsapp_ls/0/13797755537/0", // 评论者头像地址
-						// "nickName": "超长昵称超长...", // 评论者昵称，昵称过长请在后端截断
-						// "content": "啦啦啦啦", // 评论内容
-						// "parentId": null, // 所属评论的唯一主键
-						// "createTime": "2021-07-02 16:32:07" // 创建时间
-						
+						that.getLike(list);
+					},
+					fail:(err)=>{
+						console.log('reqStory.byProject fail',err);
+					},
+				})
+			},
+			getLike(list){
+				var that = this;
+				reqStory.getLikeList({
+					data:{
+						id:this.projectId
+					},
+					success:(res)=>{
+						console.log('reqStory.getLikeList sucess',res);
+						var likeList = res.filter(item=>item.action_id==1);
+						likeList.forEach(item=>{
+							var index =  list.findIndex(items=>items.id == item.story_id);
+							list[index].hasLike =true;
+						})
 						that.commentData = {
 							"readNumer": list.length,
 							"commentSize": list.length,
 							"comment": that.getTree(list)
 						};
-						console.log('commentData', list)
+						console.log('commentData',list);
 					},
 					fail:(err)=>{
-						console.log('reqStory.byProject fail',err);
+						console.log('reqStory.getLikeList fail',err);
 					},
 				})
 			},

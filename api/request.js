@@ -8,6 +8,7 @@ function uni_request({url,method,header,data,params,success,fail}){
 	console.log('parmas',url);
 	if(!data) data = {};
 	data.openid = localStorage.getItem('openId');
+	console.log('url:',url,' method:',method,' 发送的数据:',data);
 	uni.request({
 		url,
 		header:header? header:{},
