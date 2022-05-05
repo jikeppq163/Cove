@@ -30,11 +30,10 @@ let project = {
 		})
 	},
 	
-	star:function ({params,success,fail}){
+	star:function ({success,fail}){
 		request({
 			url:"/h5/project/create",
 			method:"GET",
-			params,
 			success,
 			fail
 		})
