@@ -34,12 +34,12 @@ import {login} from '@/api/login.js'
 		},
 		mounted() {
 			//authorize(this.$route.fullPath);
-			this.getLoginStatus();
+			this.getLoginStatus(this.$route.fullPath);
 		},
 		methods:{
 			...mapActions(['getLoginStatus']),
 			logintest(){
-				this.getLoginStatus();
+				this.getLoginStatus(this.$route.fullPath);
 			}
 		}
 	}

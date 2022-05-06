@@ -51,11 +51,12 @@
 						success: (res) => {
 							if (res.data.raw.openid.length > 0) {
 								that.msg = 'success~~~' + JSON.stringify(res.data.raw);
+								console.log('res.data',res.data);
 								//将一些信息存储到本地
 								// const token = res.headers['access_token'];
 								// localStorage.setItem('token', token);
-								localStorage.setItem("userInfo", JSON.stringify(res.data.raw));
 								localStorage.setItem("openId", res.data.raw.openid);
+								localStorage.setItem("userInfo", JSON.stringify(res.data.raw));
 								// this.setOpenId(res.data.raw.openid);
 								// this.setUserInfo(res.data.raw);
 								// uni.setStorage({
@@ -67,20 +68,20 @@
 								// 	data: JSON.stringify(res.data.raw)
 								// });
 								this.getLoginStatus();
-								if (redirectUrl) {
-									uni.switchTab({
-										url: redirectUrl,
-										fail:()=>{
-											uni.navigateTo({
-												url: redirectUrl
-											})
-										}
-									})
-								} else {
-									uni.switchTab({
-										url: "/"
-									})
-								}
+								// if (redirectUrl) {
+								// 	uni.switchTab({
+								// 		url: redirectUrl,
+								// 		fail:()=>{
+								// 			uni.navigateTo({
+								// 				url: redirectUrl
+								// 			})
+								// 		}
+								// 	})
+								// } else {
+								// 	uni.switchTab({
+								// 		url: "/"
+								// 	})
+								// }
 							} else {
 								that.msg = 'fail~~~' + JSON.stringify(res.data);
 								//fail(res)

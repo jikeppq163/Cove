@@ -86,6 +86,7 @@
 		onShow(){
 			this.style.height = (this.$store.getters.getWindowsHeight*2 *0.8 ) +'rpx';
 			console.log('defaultHeight',this.style);
+			this.$store.dispatch('getLoginStatus');
 			var that = this;
 			reqProject.star({
 				success:(res)=>{

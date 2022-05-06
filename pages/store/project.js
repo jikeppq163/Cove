@@ -6,7 +6,7 @@ import getInstrument from './instrument';
 import getNoteAtHeight from './getNode';
 
 let state={
-	version:'0.1.0',
+	version:'0.2.3',
 	server:'',
 	systemInfo:{},
 	openId:'',
@@ -121,6 +121,8 @@ let state={
 	synth:false,	//音阶组合播放器
 	source:false,
 	Interval:false, //循环
+	getOpenId:false
+	
 }
 
 let mutations={
@@ -187,22 +189,25 @@ let getters={
 
 let actions={
 	//获取登录信息
-	getLoginStatus(state){
-		if(!state.getOpenId){
-			state.getOpenId = true;
-			var openId = uni.getStorageSync('openId');
-			if(openId){
-				state.openId = openId;
-				state.userInfo = JSON.parse(uni.getStorageSync('userInfo'));
-				return true;
-			}
-			else {
-				authorize();
-				return false;
-			}
-		}
-		else{
+	getLoginStatus({commit,state},url){
+		var openId = uni.getStorageSync('openId');
+		let authDebug = localStorage.getItem('authDebug')*1;
+		if(authDebug || openId){
+			state.openId = openId;
+			var userInfo = uni.getStorageSync('userInfo');
+			if(userInfo)state.userInfo = JSON.parse(userInfo);
 			return true;
+		}
+		else {
+			if(!state.getOpenId || !url){
+				state.getOpenId = true;
+				return false
+			}
+			else{
+				if(!url) url = "/";
+				authorize(url);
+				//return true;
+			}
 		}
 	},
 	//初始化列表
