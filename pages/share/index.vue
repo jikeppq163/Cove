@@ -25,8 +25,20 @@
 				</view>
 			</view>
 		</view>
-		<view class="u-m-10 u-m-t-20 u-p-40 u-bg-maka-g text-center u-font-gray2 shadow-lg">
-			配图
+		<view class="u-m-10 u-m-t-20 u-bg-maka-g text-center u-font-gray2 shadow-lg" style="width: 700rpx;height: 400rpx;">
+			<image v-if='project.rdata.image' :src="project.rdata.image" mode="aspectFill" style="width: 100%; height: 100%;"></image>
+		</view>
+		<view v-if="project.openid == openId" class="u-bottom u-p-10 u-m-t-10 u-m-b-10 flex flex-end">
+			<view class="u-p-5 u-p-l-20 u-p-r-20 u-radius-5 text-center u-bg-maka3 u-font-gray2"
+			 @click="handleClickDelete">
+				<uni-icons type="trash"></uni-icons>
+				删除
+			</view>
+			<view class="u-m-l-10 u-p-5 u-p-l-20 u-p-r-20 u-radius-5 text-center u-bg-maka3 u-font-gray2" 
+			 @click="handleClickEdit">
+				<uni-icons type="compose"></uni-icons>
+				编辑
+			</view>
 		</view>
 		<view class="u-bg-white">
 			<hb-comment ref="hbComment" @add="add" @del="del" @like="like" @focusOn="focusOn" :deleteTip="'确认删除？'"
@@ -49,7 +61,6 @@
 		data() {
 			return {
 				// 使用对象展开运算符将 getter 混入 computed 对象中
-				...mapGetters(['defaultHeight', 'getWindowsHeight']),
 				projectId:-1,
 				project: {
 					rdata:{
@@ -63,6 +74,7 @@
 					},
 					created_at: ''
 				},
+				imageUrl:'',
 				"reqFlag": false, // 请求标志，防止重复操作，true表示请求中
 				//评论区
 				commentData: {
@@ -90,6 +102,10 @@
 				immediate: true
 			}
 		},
+		computed:{
+			...mapState(['openId']),
+			...mapGetters(['defaultHeight', 'getWindowsHeight']),
+		},
 		mounted() {
 			var that = this;
 			this.projectId = that.$route.query.id;
@@ -100,36 +116,44 @@
 				{	
 					id:this.projectId,
 					success: (res) => {
-						//console.log('success',res);
+						console.log('reqProject.share success',res);
 						that.project = res;
+						that.setProject(res);
 						that.reqFlag = false;
+						if(!that.project.rdata.image){
+							reqProject.image({
+								params:{
+									q:'love'
+								},
+								success:(res)=>{
+									that.project.rdata.image = res[0];
+								},
+								fail: (err) => {
+									console.log('reqProject.image fail',err);
+								}
+							})
+						}
+						else{
+							
+						}
 					},
 					fail: (err) => {
-						console.log('fail',err);
+						console.log('reqProject.share fail',err);
 					}
 				})
 			}
-			this.getComment();
+			this.getComment(this.projectId);
 		},
 		methods: {
+			...mapMutations(['setProject']),
+			...mapActions(['setPlayer','playerStop','runIntervals','runSynthGamut','clearIntervals','getLoginStatus']),
 			// 登录校验
 			checkLogin() {
 				// TODO 此处填写登录校验逻辑
-				if (true) {
+				if (this.openId) {
 					return true;
 				} else {
-					uni.showModal({
-						title: '提示',
-						content: '请先登录',
-						confirmText: '前往登录',
-						success: function(res) {
-							if (res.confirm) {
-								// uni.redirectTo({
-								// 	url: '/pages/login/login'
-								// });
-							}
-						}
-					});
+					this.getLoginStatus();
 					return false;
 				}
 			},
@@ -165,7 +189,7 @@
 						// 下边假装请求成功
 						this.reqFlag = false;
 						this.$refs.hbComment.addComplete();
-						this.getComment();
+						this.getComment(this.projectId);
 					},
 					fail:(err)=>{
 						console.log('reqStory.create fail',err);
@@ -236,7 +260,7 @@
 				// TODO 接入真实接口
 				reqStory.byProject({
 					parmas:{
-						storyId: 17,
+						storyId: articleId,
 						project_id:that.projectId
 					},
 					success:(res)=>{
@@ -271,7 +295,7 @@
 						id:this.projectId
 					},
 					success:(res)=>{
-						console.log('reqStory.getLikeList sucess',res);
+						//console.log('reqStory.getLikeList sucess',res);
 						var likeList = res.filter(item=>item.action_id==1);
 						likeList.forEach(item=>{
 							var index =  list.findIndex(items=>items.id == item.story_id);
@@ -282,7 +306,7 @@
 							"commentSize": list.length,
 							"comment": that.getTree(list)
 						};
-						console.log('commentData',list);
+						console.log('reqStory.getLikeList sucess',list);
 					},
 					fail:(err)=>{
 						console.log('reqStory.getLikeList fail',err);
@@ -304,6 +328,42 @@
 					}
 				});
 				return result;
+			},
+			handleClickDelete(){
+				var that =this;
+				uni.showModal({
+					title:'WARING!!!',
+					content:'ARE YOU SURE DELETE?',
+					confirmColor: 'red',
+					success:(res)=>{
+						if(res.confirm){
+							that.playerStop();
+							that.clearIntervals();
+							that.deleteProject();
+						}
+					}
+				})
+			},
+			deleteProject(){
+				reqProject.delete({
+					data:{
+						id:this.project.id
+					},
+					success:(res)=>{
+						console.log('reqProject.delete success:',res);
+						uni.switchTab({
+							url:'/pages/index/index'
+						})
+					},
+					fail:(err)=>{
+						console.log('reqProject.delete fail:',err);
+					}
+				})
+			},
+			handleClickEdit(){
+				uni.navigateTo({
+					url:'/pages/emotion/mood/index'
+				})
 			}
 		}
 	}

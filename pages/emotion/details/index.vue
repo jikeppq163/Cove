@@ -38,6 +38,17 @@
 				<view class="u-p-b-5 text-center">加些新标签吧.</view>
 				<MoodList></MoodList>
 			</view>
+			<view class="">
+				<uni-file-picker 
+				:value="fileLists" 
+				return-type='object' 
+				:imageStyles="imageStyles" 
+				file-mediatype="image"
+				limit='1'
+				title='选择一张图片'
+				@select='selectImage'
+				></uni-file-picker>
+			</view>
 		</view>
 		<view class="flex center">
 			<view class="u-p-10 u-font-size-20 u-font-white u-border-1 u-radius-20 u-p-l-40 u-p-r-40 uni-shadow-lg" 
@@ -61,7 +72,19 @@ export default {
 			inputFocus:'',
 			location:'',
 			thoughts:'',
-			title:''
+			title:'',
+			//image 上传组件
+			fileLists:{},
+			imageStyles:{
+				width:64,
+				height:64,
+				border:{
+					color:"#ff5a5f",
+					width:2,
+					style:'dashed',
+					radius:'2px'
+				}
+			}
 		}
 	},
 	components:{MoodList},
@@ -126,6 +149,9 @@ export default {
 		},
 		inputBlur(value){
 			if(this.inputFocus==value) this.inputFocus = '';
+		},
+		selectImage(e){
+			console.log('selectImage',e);
 		}
 	}
 }

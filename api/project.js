@@ -1,9 +1,11 @@
 import request from './request.js'
 
+const api = '/api/h5';
+
 let project = {
 	create: function ({data,success,fail}){
 		request({
-			url:"/h5/project",
+			url:api+"/project",
 			method:"POST",
 			data,
 			success,
@@ -13,7 +15,7 @@ let project = {
 	
 	delete:function ({data,success,fail}){
 		request({
-			url:"/h5/project/"+data.id,
+			url:api+"/project/"+data.id,
 			method:"DELETE",
 			success,
 			fail
@@ -22,7 +24,7 @@ let project = {
 	
 	updata:function({data,success,fail}){
 		request({
-			url:"/h5/project/"+data.id,
+			url:api+"/project/"+data.id,
 			method:"PUT",
 			data,
 			success,
@@ -32,7 +34,7 @@ let project = {
 	
 	star:function ({success,fail}){
 		request({
-			url:"/h5/project/create",
+			url:api+"/project/create",
 			method:"GET",
 			success,
 			fail
@@ -41,7 +43,7 @@ let project = {
 	
 	view:function({params,success,fail}){
 		request({
-			url:"/h5/project/5/edit",
+			url:api+"/project/5/edit",
 			method:"GET",
 			params,
 			success,
@@ -52,7 +54,7 @@ let project = {
 
 	list:function({params,success,fail}){
 		request({
-			url:"/h5/project",
+			url:api+"/project",
 			method:"GET",
 			params,
 			success,
@@ -62,12 +64,33 @@ let project = {
 	
 	share:function({id,success,fail}){
 		request({
-			url:"/h5/project/"+id,
+			url:api+"/project/"+id,
 			method:"GET",
 			success,
 			fail
 		})
-	}
+	},
+	
+	
+	image:function({params,success,fail}){
+		request({
+			url:api+"/imgapi",
+			method:"GET",
+			params,
+			success,
+			fail
+		})
+	},
+	
+	imageUpdata:function ({data,success,fail}){
+		request({
+			url:api+"/imgupdate",
+			method:"POST",
+			data,
+			success,
+			fail
+		})
+	},
 }
 
 export default project

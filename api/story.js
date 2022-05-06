@@ -1,9 +1,11 @@
 import request from './request.js'
 
+const api = '/api/h5';
+
 let story = {
 	create:function({data,success,fail}){
 		request({
-			url:"/h5/story",
+			url: api +"/story",
 			method:"POST",
 			data,
 			success,
@@ -13,7 +15,7 @@ let story = {
 	
 	delete:function({id,success,fail}){
 		request({
-			url:"/h5/story/"+id,
+			url:api +"/story/"+id,
 			method:"DELETE",
 			success,
 			fail
@@ -22,7 +24,7 @@ let story = {
 	
 	like:function({data,success,fail}){
 		request({
-			url:"/h5/story/"+data.id,
+			url:api +"/story/"+data.id,
 			method:"PUT",
 			data,
 			success,
@@ -32,7 +34,7 @@ let story = {
 	
 	getLikeList:function({data,success,fail}){
 		request({
-			url:"/h5/myactions/"+data.id,
+			url:api +"/myactions/"+data.id,
 			method:"PUT",
 			success,
 			fail
@@ -42,7 +44,7 @@ let story = {
 	
 	byProject:function({parmas,success,fail}){
 		request({
-			url:"/h5/story/" + parmas.storyId,
+			url:api +"/story/" + parmas.storyId,
 			method:"GET",
 			parmas,
 			success,

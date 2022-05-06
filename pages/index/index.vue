@@ -107,7 +107,7 @@
 			handleClickInfo(id){
 				this.setProjectFromId(id);
 				uni.navigateTo({
-					url:'/pages/emotion/info/index'
+					url:'/pages/share/index?id='+id
 				})
 			}
 		}

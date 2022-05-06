@@ -10,7 +10,7 @@ let state={
 	server:'',
 	systemInfo:{},
 	openId:'',
-	getOpenId:false,
+	getOpenIdFirst:false,
 	userInfo:{
 		"id": "1",
 		"nickname": "用户名",
@@ -26,11 +26,11 @@ let state={
 		"min-height":"800rpx",
 	},
 	mood:[
-		['开心', '沮丧', '烦恼', '强烈', '焦虑', '满意', '兴奋'],
+				['开心', '沮丧', '烦恼', '强烈', '焦虑', '满意', '兴奋'],
 				['害怕', '平静', '被爱', '受伤', '后悔', 'overwhelmed', 'height'],
 				['难过', '成熟', '脆弱', '孤单', '阴郁', '失落', '感激'],
 				['低沉', '困惑', '罪恶', '抑郁', '愤怒', '孤独']
-		],
+	],
 	//当前新增列表 project
 	project:{
 		"created_at": "2022-05-04 04:42:02",
@@ -121,8 +121,6 @@ let state={
 	synth:false,	//音阶组合播放器
 	source:false,
 	Interval:false, //循环
-	getOpenId:false
-	
 }
 
 let mutations={
@@ -190,7 +188,7 @@ let getters={
 let actions={
 	//获取登录信息
 	getLoginStatus({commit,state},url){
-		var openId = uni.getStorageSync('openId');
+		var openId = uni.getStorageSync('openId')? uni.getStorageSync('openId'):false;
 		let authDebug = localStorage.getItem('authDebug')*1;
 		if(authDebug || openId){
 			state.openId = openId;
@@ -199,14 +197,14 @@ let actions={
 			return true;
 		}
 		else {
-			if(!state.getOpenId || !url){
-				state.getOpenId = true;
-				return false
-			}
-			else{
+			console.log('!state.getOpenIdFirst || !url',!state.getOpenIdFirst || url,!state.getOpenIdFirst,!url);
+			if(!state.getOpenIdFirst || url){
+				state.getOpenIdFirst = true;
 				if(!url) url = "/";
 				authorize(url);
-				//return true;
+			}
+			else{
+				return false;
 			}
 		}
 	},
