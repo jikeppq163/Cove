@@ -4,6 +4,7 @@
 			auth 本机调试
 		</view>
 		<view class=""><input :value="openid" /></view>
+		<view class=""><input :value="url" /></view>
 		<view class=""><input :value="nickname" /></view>
 		<view class=""><input :value="sex" /></view>
 		<view class=""><input :value="unionid" /></view>
@@ -26,6 +27,7 @@
 		data() {
 			return {
 				openid: this.$route.query.openid,
+				url: this.$route.query.url,
 				nickname: this.$route.query.nickname,
 				sex: this.$route.query.sex,
 				unionid: this.$route.query.unionid,

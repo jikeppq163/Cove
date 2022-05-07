@@ -37,7 +37,7 @@ import {login} from '@/api/login.js'
 			this.getLoginStatus(this.$route.fullPath);
 		},
 		methods:{
-			// ...mapActions(['getLoginStatus'])
+			...mapActions(['getLoginStatus'])
 		}
 	}
 </script>
