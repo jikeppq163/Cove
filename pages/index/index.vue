@@ -28,7 +28,7 @@
 			<view class="u-m-10 u-p-10 u-radius-5 text-center u-bg-maka3 u-font-gray2" 
 			 style="width: 100%;"
 			 @click="handleClickAdd">
-				新增作品
+				新增作品 {{openId}}
 			</view>
 		</view>
 	</view>
@@ -41,6 +41,7 @@
 	export default {
 		data() {
 			return {
+				openId:localStorage.getItem('openId')
 			}
 		},
 		computed:{
@@ -59,6 +60,7 @@
 			this.CLEAR_INDEX();	
 		},
 		onShow() {
+			authorize(this.$route.fullPath);
 			if(this.getLoginStatus()){
 				//获取网络列表
 				reqProject.list({

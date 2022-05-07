@@ -13,8 +13,8 @@
 			<uni-icons class='u-m-r-10' type="tune-filled"></uni-icons>
 			设置
 		</view>
-		<view class="u-bg-white u-p-10 u-m-t-10">
-			<button @click="logintest()" >logintest</button>
+		<view class="u-bg-white u-p-10 u-m-t-10"><!-- 
+			<button @click="logintest()" >logintest</button> -->
 		</view>					
 	</view>
 </template>
@@ -37,10 +37,7 @@ import {login} from '@/api/login.js'
 			this.getLoginStatus(this.$route.fullPath);
 		},
 		methods:{
-			...mapActions(['getLoginStatus']),
-			logintest(){
-				this.getLoginStatus(this.$route.fullPath);
-			}
+			// ...mapActions(['getLoginStatus'])
 		}
 	}
 </script>

@@ -15,7 +15,7 @@
 			//获取存储的数据
 			this.$store.dispatch('getProject');
 			
-			if(true){ //测试
+			if(false){ //测试
 				uni.showToast({
 					title:'测试模式'+ this.$store.state.version
 				})
