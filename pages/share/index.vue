@@ -26,7 +26,7 @@
 			</view>
 		</view>
 		<view class="u-m-10 u-m-t-20 u-bg-maka-g text-center u-font-gray2 shadow-lg" style="width: 700rpx;height: 400rpx;">
-			<image v-if='project.rdata.image' :src="project.rdata.image" mode="aspectFill" style="width: 100%; height: 100%;"></image>
+			<image v-if='imageUrl' :src="imageUrl" mode="aspectFill" style="width: 100%; height: 100%;"></image>
 		</view>
 		<view v-if="project.openid == openId" class="u-bottom u-p-10 u-m-t-10 u-m-b-10 flex flex-end">
 			<view class="u-p-5 u-p-l-20 u-p-r-20 u-radius-5 text-center u-bg-maka3 u-font-gray2"
@@ -122,11 +122,10 @@
 						that.reqFlag = false;
 						if(!that.project.rdata.image){
 							reqProject.image({
-								params:{
-									q:'love'
-								},
+								params:{q:'love'},
 								success:(res)=>{
-									that.project.rdata.image = res[0];
+									that.imageUrl = res.list[0];
+									that.project.rdata.image = res.list[0];
 								},
 								fail: (err) => {
 									console.log('reqProject.image fail',err);
@@ -134,7 +133,7 @@
 							})
 						}
 						else{
-							
+							that.imageUrl = that.project.rdata.image;
 						}
 					},
 					fail: (err) => {

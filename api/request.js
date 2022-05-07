@@ -6,8 +6,9 @@ function uni_request({url,method,header,data,params,success,fail}){
 	else{
 		src ='https://metamusic.toob.net.cn' + url
 	}
+	var openid = localStorage.getItem('openId');
 	if(!data) data = {};
-	data.openid = localStorage.getItem('openId');
+	if(openid) data.openid = localStorage.getItem('openId');
 	console.log('url:',url,' method:',method,' 发送的数据:',data);
 	uni.request({
 		url:src,
@@ -17,7 +18,7 @@ function uni_request({url,method,header,data,params,success,fail}){
 		success:(res)=>{
 			if(res.statusCode==200){
 				//需要自己测试了
-				//console.log('uni.request',url,res);
+				console.log('uni.request',url,res);
 				if(res.data.code==200){
 					if(success) success(res.data.data);
 				}
