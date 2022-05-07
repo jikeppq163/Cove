@@ -40,20 +40,19 @@
 			</view>
 			<view class="">
 				<view class="u-p-b-5 text-center u-font-white">你可以用一张图片表达你的心情</view>
-				<uni-file-picker
-					:value="fileLists" 
-					return-type='object' 
-					:imageStyles="imageStyles" 
-					file-mediatype="image"
-					limit='1'
-					@select='selectImage'
-				></uni-file-picker>
-			</view>
-			<view v-if='imageUrl' class="u-m-t-20 u-bg-maka-g text-center u-font-gray2 shadow-lg" style="width: 700rpx;height: 400rpx;">
-				<image :src="imageUrl" mode="aspectFill" style="width: 100%; height: 100%;"></image>
+				<view class="flex center">
+					<uni-file-picker
+						:value="fileLists" 
+						return-type='object' 
+						:imageStyles="imageStyles" 
+						file-mediatype="image"
+						limit='1'
+						@select='selectImage'
+					></uni-file-picker>
+				</view>
 			</view>
 		</view>
-		<view class="flex center">
+		<view class="flex center u-m-t-20">
 			<view class="u-p-10 u-font-size-20 u-font-white u-border-1 u-radius-20 u-p-l-40 u-p-r-40 uni-shadow-lg" 
 				@click="handleClickNext">
 				保存
@@ -80,11 +79,11 @@ export default {
 			//image 上传组件
 			fileLists:{},
 			imageStyles:{
-				width:64,
-				height:64,
+				width:120,
+				height:80,
 				border:{
-					color:"#ff5a5f",
-					width:2,
+					color:"#fff",
+					width:1,
 					style:'dashed',
 					radius:'2px'
 				}
@@ -161,36 +160,24 @@ export default {
 			if(e.tempFiles[0]){
 				var files =e.tempFiles[0];
 				if(files.name){
-					var data = {
-						url:'https://metamusic.toob.net.cn/api/h5/imgupdate?openId='+this.openId,
-						file:files.file,
-						filePath:files.path,
-						name:files.name,
-						header:{
-							"Content-Type":"multipart/form-data"
-						}
-					};
-					console.log('uploadFile',data);
-					// uni.uploadFile(data)
-					
 					uni.uploadFile({
 					  url: 'https://metamusic.toob.net.cn/api/h5/imgupdate?openId='+this.openId,
 					  filePath: files.path,
 					  name: 'file',
 					  success(res) {
-						  console.log(res)
+						  if(res.statusCode==200){
+							  var {data,code} = JSON.parse(res.data);
+							  if(code==200){
+								  that.setProjectImage(data);
+							  }
+						  }
+						  else{
+							  console.log('uni.uploadFile statusCode',res)
+						  }
 					  },
 					  fail(res) {
-						  console.log(res)
-						return false
+						  console.log('uni.uploadFile fail',res)
 					  }
-					})
-					.then(res=>{
-						console.log('uni.uploadFile success:',res);
-						//that.setProjectImage();
-					})
-					.catch(err=>{
-						console.log('uni.uploadFile error:',err);
 					})
 				}
 			}

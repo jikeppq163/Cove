@@ -14,23 +14,21 @@
 			this.$store.dispatch('initPlayer');
 			//获取存储的数据
 			this.$store.dispatch('getProject');
-			//测试
-			localStorage.setItem('authDebug',1);
-			localStorage.setItem('openId','333');
-			// if(false){
-			// 	uni.showToast({
-			// 		title:'测试模式'+ this.$store.state.version
-			// 	})
-			// 	localStorage.setItem('authDebug',1);
-			// 	localStorage.setItem('openId','333');
-			// 	this.$store.commit('setOpenId','333');
-			// }
-			// else{
-			// 	// var test = localStorage.getItem('openId');
-			// 	// if(test=='333') localStorage.setItem('openId','');
-			// 	localStorage.setItem('authDebug',0);
-			// 	this.$store.dispatch('getLoginStatus');
-			// }
+			
+			if(true){ //测试
+				uni.showToast({
+					title:'测试模式'+ this.$store.state.version
+				})
+				localStorage.setItem('authDebug',1);
+				localStorage.setItem('openId','333');
+				this.$store.commit('setOpenId','333');
+			}
+			else{ //正式
+				var test = localStorage.getItem('openId');
+				if(test=='333') localStorage.setItem('openId','');
+				localStorage.setItem('authDebug',0);
+				this.$store.dispatch('getLoginStatus');
+			}
 		},
 		onShow: function() {
 			//console.log('App Show')

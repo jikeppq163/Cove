@@ -11,9 +11,8 @@
 					</view>
 				</view>
 				<view class="u-p-t-10">
-					<view class="u-p-10 u-radius-5 u-bg-malandy2 text-center" style="height: 40px;width: 60px;"
-						@click="handleClickPlay">
-						<uni-icons type='videocam' size="30" color="#fff"></uni-icons>
+					<view class="u-p-10 u-radius-5 u-bg-malandy2 text-center" style="height: 40px;width: 40px;">
+						<uni-icons custom-prefix="iconfont" type='icon-fenxiang' size="20" color="#fff"></uni-icons>
 					</view>
 				</view>
 			</view>
@@ -27,6 +26,10 @@
 		</view>
 		<view class="u-m-10 u-m-t-20 u-bg-maka-g text-center u-font-gray2 shadow-lg" style="width: 700rpx;height: 400rpx;">
 			<image v-if='imageUrl' :src="imageUrl" mode="aspectFill" style="width: 100%; height: 100%;"></image>
+			<view class="u-p-10 u-radius-5 text-center relative" style="height: 60px;width: 60px;left:300rpx;top:-250rpx;"
+				@click="handleClickPlay">
+				<uni-icons custom-prefix="iconfont" type='icon-bofang' size="40" color="#fff"></uni-icons>
+			</view>
 		</view>
 		<view v-if="project.openid == openId" class="u-bottom u-p-10 u-m-t-10 u-m-b-10 flex flex-end">
 			<view class="u-p-5 u-p-l-20 u-p-r-20 u-radius-5 text-center u-bg-maka3 u-font-gray2"
@@ -368,5 +371,6 @@
 	}
 </script>
 
-<style>
+<style Scope>
+@import '@/static/share/iconfont.css';
 </style>
