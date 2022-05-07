@@ -76,7 +76,6 @@
 				this.runIntervals(()=>{
 						//Reset delay count
 						loopStartTime = Date.now();
-						
 						//console.log('清空动画');
 						this.animation ="";
 						setTimeout(()=>{

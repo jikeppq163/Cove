@@ -2,6 +2,7 @@
   "dependencies": {
     "particles.js": "^2.0.0",
     "tonal": "^2.2.2",
-    "tone": "^14.7.77"
+    "tone": "^14.7.77",
+    "weixin-js-sdk": "^1.6.0"
   }
 }

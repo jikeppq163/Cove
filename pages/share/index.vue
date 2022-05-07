@@ -1,7 +1,12 @@
 <template>
 	<view class="u-bg-malandy-g2" :style="defaultHeight">
+		<view class="flex flex-end u-p-t-20 u-p-r-10 u-font-gray4 u-font-size-12">
+			<view class="">
+				点上分链接分享*
+			</view>
+		</view>
 		<view class="u-font-white">
-			<view class="u-p-t-20 u-p-l-20 u-p-r-20 flex-row space-between">
+			<view class="u-p-l-20 u-p-r-20 flex-row space-between">
 				<view class="">
 					<view class="u-font-size-20 u-p-3">
 						{{project.rdata.title}}
@@ -12,7 +17,9 @@
 				</view>
 				<view class="u-p-t-10">
 					<view class="u-p-10 u-radius-5 u-bg-malandy2 text-center" style="height: 40px;width: 40px;">
-						<uni-icons custom-prefix="iconfont" type='icon-fenxiang' size="20" color="#fff"></uni-icons>
+						<uni-icons custom-prefix="iconfont" type='icon-fenxiang' size="20" color="#fff"
+						@click="handleClickShare"
+						></uni-icons>
 					</view>
 				</view>
 			</view>
@@ -28,7 +35,12 @@
 			<image v-if='imageUrl' :src="imageUrl" mode="aspectFill" style="width: 100%; height: 100%;"></image>
 			<view class="u-p-10 u-radius-5 text-center relative" style="height: 60px;width: 60px;left:300rpx;top:-250rpx;"
 				@click="handleClickPlay">
-				<uni-icons custom-prefix="iconfont" type='icon-bofang' size="40" color="#fff"></uni-icons>
+				<uni-icons 	v-if="imageUrl" 
+							custom-prefix="iconfont" 
+							:type='getPlayerState=="stoped"? "icon-bofang":"icon-zanting"' 
+							size="40" 
+							color="#fff">
+				</uni-icons>
 			</view>
 		</view>
 		<view v-if="project.openid == openId" class="u-bottom u-p-10 u-m-t-10 u-m-b-10 flex flex-end">
@@ -43,10 +55,7 @@
 				编辑
 			</view>
 		</view>
-		<view class="u-bg-white">
-			<hb-comment ref="hbComment" @add="add" @del="del" @like="like" @focusOn="focusOn" :deleteTip="'确认删除？'"
-				:cmData="commentData" v-if="commentData"></hb-comment>
-		</view>
+		<uComment :projectId='projectId'></uComment>
 	</view>
 </template>
 
@@ -58,7 +67,9 @@
 		mapMutations
 	} from 'vuex';
 	import reqProject from "@/api/project.js";
-	import reqStory from "@/api/story.js"
+	import reqStory from "@/api/story.js";
+	import uComment from "@/components/u-comment/index.vue";
+	import wx from 'weixin-js-sdk';
 	export default {
 		name: 'comment-eg',
 		data() {
@@ -78,13 +89,7 @@
 					created_at: ''
 				},
 				imageUrl:'',
-				"reqFlag": false, // 请求标志，防止重复操作，true表示请求中
-				//评论区
-				commentData: {
-					
-				},
-				pages:1,
-				size:10
+				initPlay:false,
 			}
 		},
 		props: {
@@ -105,9 +110,10 @@
 				immediate: true
 			}
 		},
+		components:{uComment},
 		computed:{
 			...mapState(['openId']),
-			...mapGetters(['defaultHeight', 'getWindowsHeight']),
+			...mapGetters(['defaultHeight', 'getWindowsHeight','getPlayerState']),
 		},
 		mounted() {
 			var that = this;
@@ -115,8 +121,89 @@
 			if (!this.projectId) this.projectId = '17';
 			if(!that.reqFlag){
 				that.reqFlag = true;
-				reqProject.share(
-				{	
+				that.getProject();
+			}
+		},
+		methods: {
+			...mapMutations(['setProject']),
+			...mapActions(['initPlayer','setPlayer','playerStop','runIntervals','runSynthGamut','clearIntervals','getLoginStatus']),
+			handleClickPlay(){
+				if(this.imageUrl){
+					if(!this.initPlay){
+						this.initPlay = true;
+						//this.initPlayer();
+						this.setPlayer();
+					}
+					else{
+						if(this.getPlayerState=='stoped'){
+								this.playerStart();
+						}
+						else{
+							this.playerStop();
+							this.getPlayerState;
+							//this.clearIntervals();
+						}
+					}
+				}
+			},
+			handleClickShare(){
+				//// #ifdef H5
+					this.wechatJs();
+					// uni.share({
+					// 	provider: "weixin",
+					// 	scene: "WXSceneSession",
+					// 	type: 0,
+					// 	title:this.project.rdata.title,
+					// 	href:'http://metamusic.toob.net.cn/index.html#/pages/share/index?id=20',
+					// 	imageUrl: "https://metamusic.toob.net.cn/app/project//20220507/jx6tX61T51gL6JFe5E5LngkH4DZ21CKSC40UBkRl.jpg",
+					// 	success: function (res) {
+					// 		console.log("success:" + JSON.stringify(res));
+					// 	},
+					// 	fail: function (err) {
+					// 		console.log("fail:" + JSON.stringify(err));
+					// 		uni.showModal({
+					// 			title:"error",
+					// 			content:JSON.stringify(err),
+					// 			showCancel:false
+					// 		})
+					// 	}
+					// });
+				//// #endif
+			},
+			handleClickDelete(){
+				var that =this;
+				uni.showModal({
+					title:'WARING!!!',
+					content:'ARE YOU SURE DELETE?',
+					confirmColor: 'red',
+					success:(res)=>{
+						if(res.confirm){
+							that.playerStop();
+							that.clearIntervals();
+							that.deleteProject();
+						}
+					}
+				})
+			},
+			wechatJs(){
+				uni.request({
+				 method: 'post',
+				 url: 'http://my.service.com/index.php/opcode/6002',
+				 data:{ url:'http://metamusic.toob.net.cn'} //向服务端提供授权url参数，并且不需要#后面的部分
+				}).then((res)=>{
+				 wx.config({
+				  debug: true, // 开启调试模式,
+				  appid: res.appid, // 必填，企业号的唯一标识，此处填写企业号corpid
+				  timestamp: res.timestamp, // 必填，生成签名的时间戳
+				  noncestr: res.noncestr, // 必填，生成签名的随机串
+				  signature: res.signature,// 必填，签名，见附录1
+				  jsapilist: ['scanqrcode'] // 必填，需要使用的js接口列表，所有js接口列表见附录2
+				 });
+				})
+			},
+			getProject(){
+				var that =this;
+				reqProject.share({
 					id:this.projectId,
 					success: (res) => {
 						console.log('reqProject.share success',res);
@@ -125,7 +212,9 @@
 						that.reqFlag = false;
 						if(!that.project.rdata.image){
 							reqProject.image({
-								params:{q:'love'},
+								params:{
+									q:'love',
+								},
 								success:(res)=>{
 									that.imageUrl = res.list[0];
 									that.project.rdata.image = res.list[0];
@@ -141,208 +230,6 @@
 					},
 					fail: (err) => {
 						console.log('reqProject.share fail',err);
-					}
-				})
-			}
-			this.getComment(this.projectId);
-		},
-		methods: {
-			...mapMutations(['setProject']),
-			...mapActions(['setPlayer','playerStop','runIntervals','runSynthGamut','clearIntervals','getLoginStatus']),
-			// 登录校验
-			checkLogin() {
-				// TODO 此处填写登录校验逻辑
-				if (this.openId) {
-					return true;
-				} else {
-					this.getLoginStatus();
-					return false;
-				}
-			},
-			// 输入框聚焦
-			focusOn() {
-				this.checkLogin();
-			},
-			// 新增评论 改为分享你的故事 - 他的心情很「XX」，分享你的故事，帮帮Ta
-			add(req) {
-				if (!this.checkLogin()) {
-					return
-				}
-				if (this.reqFlag) {
-					uni.showToast({
-						title: '操作频繁',
-						duration: 1000
-					});
-					return
-				}
-				this.reqFlag = true;
-				// TODO 接入真实接口
-				var data = {
-					project_id:this.projectId,
-					story:JSON.stringify(req.content),
-					nickname:'王大锤',
-					parent_id:req.pId,
-				}
-				//console.log('data',data);
-				reqStory.create({
-					data,
-					success:(res)=>{
-						console.log('reqStory.create',res);
-						// 下边假装请求成功
-						this.reqFlag = false;
-						this.$refs.hbComment.addComplete();
-						this.getComment(this.projectId);
-					},
-					fail:(err)=>{
-						console.log('reqStory.create fail',err);
-					}
-				})
-
-			},
-			// 点赞评论
-			like(commentId) {
-				if (!this.checkLogin()) {
-					return
-				}
-				if (this.reqFlag) {
-					uni.showToast({
-						title: '操作频繁',
-						duration: 1000
-					});
-					return
-				}
-				this.reqFlag = true;
-				var data = {
-					id:commentId,
-					project_id:this.projectId,
-				};
-				reqStory.like({
-					data,
-					success:(res)=>{
-						console.log('reqStory.like success',res);
-						// 下边假装请求成功
-						this.reqFlag = false;
-						this.$refs.hbComment.likeComplete(commentId);
-					},
-					fail:(err)=>{
-						console.log('reqStory.like fail',err);
-					}
-				})
-			},
-			// 删除评论
-			del(commentId) {
-				if (!this.checkLogin()) {
-					return
-				}
-				if (this.reqFlag) {
-					uni.showToast({
-						title: '操作频繁',
-						duration: 1000
-					});
-					return
-				}
-				this.reqFlag = true;
-				reqStory.delete({
-					id:commentId,
-					success:(res)=>{
-						console.log('reqStory.delete success',res);
-						this.reqFlag = false;
-						this.$refs.hbComment.deleteComplete(commentId);
-					},
-					fail:(err)=>{
-						console.log('reqStory.delete fail',err);
-					}
-				})
-				// 下边假装请求成功
-			},
-			// 获取评论
-			getComment(articleId) {
-				var that =this;
-				// 成语标签, https://wenku.baidu.com/view/689f4cf558fb770bf68a55a6.html
-				// TODO 接入真实接口
-				reqStory.byProject({
-					parmas:{
-						storyId: articleId,
-						project_id:that.projectId
-					},
-					success:(res)=>{
-						console.log('reqStory.byProject success',res);
-						// 下边假装请求成功
-						var list = [];
-						var openId = localStorage.getItem('openId');
-						res.forEach(item=>{
-							list.push({
-								id:item.id,
-								owner: item.openid == openId,
-								content: item.story,
-								avatarUrl: "https://thirdwx.qlogo.cn/mmopen/vi_32/4FYsd8bWiaR8otxj1cNzib0ibL975Ug8zGvJicPT0yZYIh4ox41pmiaUc8GeKl6kw9Q4q26Mab0TzYp9SaKDic55iavIQ/132",
-								nickName: item.nickname,
-								createTime: item.created_at,
-								likeNum: item.likes_count,
-								hasLike:false,
-								parentId: item.parent_id,
-							})
-						})
-						that.getLike(list);
-					},
-					fail:(err)=>{
-						console.log('reqStory.byProject fail',err);
-					},
-				})
-			},
-			getLike(list){
-				var that = this;
-				reqStory.getLikeList({
-					data:{
-						id:this.projectId
-					},
-					success:(res)=>{
-						//console.log('reqStory.getLikeList sucess',res);
-						var likeList = res.filter(item=>item.action_id==1);
-						likeList.forEach(item=>{
-							var index =  list.findIndex(items=>items.id == item.story_id);
-							list[index].hasLike =true;
-						})
-						that.commentData = {
-							"readNumer": list.length,
-							"commentSize": list.length,
-							"comment": that.getTree(list)
-						};
-						console.log('reqStory.getLikeList sucess',list);
-					},
-					fail:(err)=>{
-						console.log('reqStory.getLikeList fail',err);
-					},
-				})
-			},
-			getTree(data) {
-				let result = [];
-				let map = {};
-				data.forEach(item => {
-					map[item.id] = item;
-				});
-				data.forEach(item => {
-					let parent = map[item.parentId];
-					if (parent) {
-						(parent.children || (parent.children = [])).push(item);
-					} else {
-						result.push(item);
-					}
-				});
-				return result;
-			},
-			handleClickDelete(){
-				var that =this;
-				uni.showModal({
-					title:'WARING!!!',
-					content:'ARE YOU SURE DELETE?',
-					confirmColor: 'red',
-					success:(res)=>{
-						if(res.confirm){
-							that.playerStop();
-							that.clearIntervals();
-							that.deleteProject();
-						}
 					}
 				})
 			},
