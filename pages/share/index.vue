@@ -1,11 +1,6 @@
 <template>
 	<view class="u-bg-malandy-g2" :style="defaultHeight">
-		<view class="flex flex-end u-p-t-20 u-p-r-10 u-font-gray4 u-font-size-12">
-			<view class="">
-				点上分链接分享*
-			</view>
-		</view>
-		<view class="u-font-white">
+		<view class="u-font-white u-m-t-20">
 			<view class="u-p-l-20 u-p-r-20 flex-row space-between">
 				<view class="">
 					<view class="u-font-size-20 u-p-3">
