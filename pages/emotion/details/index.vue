@@ -171,7 +171,20 @@ export default {
 						}
 					};
 					console.log('uploadFile',data);
-					uni.uploadFile(data)
+					// uni.uploadFile(data)
+					
+					uni.uploadFile({
+					  url: 'https://metamusic.toob.net.cn/api/h5/imgupdate?openId='+this.openId,
+					  filePath: files.path,
+					  name: 'file',
+					  success(res) {
+						  console.log(res)
+					  },
+					  fail(res) {
+						  console.log(res)
+						return false
+					  }
+					})
 					.then(res=>{
 						console.log('uni.uploadFile success:',res);
 						//that.setProjectImage();
