@@ -18,11 +18,11 @@ function uni_request({url,method,header,data,params,success,fail}){
 		success:(res)=>{
 			if(res.statusCode==200){
 				//需要自己测试了
-				console.log('uni.request',url,res);
 				if(res.data.code==200){
 					if(success) success(res.data.data);
 				}
 				else{
+					console.log('uni.request 服务接口出错',url,res);
 					uni.showModal({
 						title:'出错了:'+res.data.code,
 						content:res.data,
@@ -32,6 +32,7 @@ function uni_request({url,method,header,data,params,success,fail}){
 				}
 			}
 			else{
+				console.log('uni.request 服务器故障',url,res);
 				uni.showModal({
 					title:'服务器故障:' + res.statusCode,
 					content:res,
@@ -41,6 +42,7 @@ function uni_request({url,method,header,data,params,success,fail}){
 			}
 		},
 		fail:(err)=>{
+			console.log('uni.request 请求出错',url,res);
 			if(fail) fail(err);
 		}
 	})

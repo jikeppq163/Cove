@@ -6,7 +6,7 @@ import getInstrument from './instrument';
 import getNoteAtHeight from './getNode';
 
 let state={
-	version:'0.2.3',
+	version:'0.2.4',
 	server:'',
 	systemInfo:{},
 	openId:'',
@@ -141,6 +141,9 @@ let mutations={
 	//todo
 	setProject(state,value){
 		state.project =value;
+	},
+	setProjectImage(state,value){
+		state.project.rdata.image =value;
 	},
 	CLEAR_INDEX(){
 		state.index = -1;

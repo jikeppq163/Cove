@@ -39,15 +39,18 @@
 				<MoodList></MoodList>
 			</view>
 			<view class="">
-				<uni-file-picker 
-				:value="fileLists" 
-				return-type='object' 
-				:imageStyles="imageStyles" 
-				file-mediatype="image"
-				limit='1'
-				title='选择一张图片'
-				@select='selectImage'
+				<view class="u-p-b-5 text-center u-font-white">你可以用一张图片表达你的心情</view>
+				<uni-file-picker
+					:value="fileLists" 
+					return-type='object' 
+					:imageStyles="imageStyles" 
+					file-mediatype="image"
+					limit='1'
+					@select='selectImage'
 				></uni-file-picker>
+			</view>
+			<view v-if='imageUrl' class="u-m-t-20 u-bg-maka-g text-center u-font-gray2 shadow-lg" style="width: 700rpx;height: 400rpx;">
+				<image :src="imageUrl" mode="aspectFill" style="width: 100%; height: 100%;"></image>
 			</view>
 		</view>
 		<view class="flex center">
@@ -73,6 +76,7 @@ export default {
 			location:'',
 			thoughts:'',
 			title:'',
+			imageUrl:'',
 			//image 上传组件
 			fileLists:{},
 			imageStyles:{
@@ -103,6 +107,7 @@ export default {
 		}
 	},
 	methods:{
+		...mapMutations(['setProjectImage']),
 		...mapActions(['saveInfo','saveProject']),
 		handleClickNext(){
 			this.saveInfo({
@@ -151,7 +156,31 @@ export default {
 			if(this.inputFocus==value) this.inputFocus = '';
 		},
 		selectImage(e){
+			var that = this;
 			console.log('selectImage',e);
+			if(e.tempFiles[0]){
+				var files =e.tempFiles[0];
+				if(files.name){
+					var data = {
+						url:'https://metamusic.toob.net.cn/api/h5/imgupdate?openId='+this.openId,
+						file:files.file,
+						filePath:files.path,
+						name:files.name,
+						header:{
+							"Content-Type":"multipart/form-data"
+						}
+					};
+					console.log('uploadFile',data);
+					uni.uploadFile(data)
+					.then(res=>{
+						console.log('uni.uploadFile success:',res);
+						//that.setProjectImage();
+					})
+					.catch(err=>{
+						console.log('uni.uploadFile error:',err);
+					})
+				}
+			}
 		}
 	}
 }
