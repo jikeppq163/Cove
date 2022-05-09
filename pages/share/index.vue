@@ -120,7 +120,7 @@
 		mounted() {
 			var that = this;
 			this.projectId = that.$route.query.id;
-			this.$store.dispatch('initStatus',this.$route.fullPath);
+			//this.$store.dispatch('initStatus',this.$route.fullPath);
 			if (this.projectId){
 				if(!that.reqFlag){
 					that.reqFlag = true;
@@ -133,20 +133,18 @@
 			...mapActions(['initPlayer','setPlayer','playerStart','playerStop','runIntervals','runSynthGamut','clearIntervals','getLoginStatus']),
 			handleClickPlay(){
 				if(this.imageUrl){
-					if(!this.initPlay){
-						this.initPlay = true;
-						//this.initPlayer();
-						this.setPlayer();
+					if(this.getPlayerState=='stopped'){
+							this.playerStart();
+					}
+					else if(this.getPlayerState=='started'){
+						this.playerStop();
+						//this.clearIntervals();
 					}
 					else{
-						if(this.getPlayerState=='stopped'){
-								this.playerStart();
-						}
-						else{
-							this.playerStop();
-							this.getPlayerState;
-							//this.clearIntervals();
-						}
+						uni.showToast({
+							icon:'error',
+							title:'加载中...'
+						})
 					}
 				}
 			},
@@ -213,6 +211,7 @@
 						console.log('reqProject.share success',res);
 						that.project = res;
 						that.setProject(res);
+						that.setPlayer(true);
 						that.reqFlag = false;
 						if(!that.project.rdata.image){
 							reqProject.image({

@@ -242,9 +242,10 @@ let actions={
 		state.sampler = getInstrument('piano');
 		// state.synth = new Tone.Synth().toDestination();
 	},
-	setPlayer({commit,state,getters}){
+	setPlayer({commit,state,getters},closeAutostart){
 		//播放
-		if(!state.player){
+		if(!state.player || state.player.name){
+			console.log('setPlayer 播放状态',getters.getPlayerState,state.player.name);
 			if(getters.getPlayerState=='stopped'){
 				set();
 			}
@@ -261,7 +262,7 @@ let actions={
 		function set(){
 			state.player = new Tone.Player({
 				url:'/static/mp3/'+state.project.rdata.audio+'.mp3',
-				autostart: true,
+				autostart: closeAutostart? false:true,
 				loop:true
 			}).toDestination();
 			state.source = new Tone.PWMOscillator().toDestination();

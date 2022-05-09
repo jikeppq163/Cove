@@ -53,9 +53,13 @@
 			</view>
 		</view>
 		<view class="flex center u-m-t-20">
-			<view class="u-p-10 u-font-size-20 u-font-white u-border-1 u-radius-20 u-p-l-40 u-p-r-40 uni-shadow-lg" 
+			<view v-if='!uploadImage' class="u-p-10 u-font-size-20 u-font-white u-border-1 u-radius-20 u-p-l-40 u-p-r-40 uni-shadow-lg" 
 				@click="handleClickNext">
-				保存
+				保存故事
+			</view>
+			<view v-if='uploadImage' class="u-p-10 u-font-size-20 u-font-white u-border-1 u-radius-20 u-p-l-40 u-p-r-40 uni-shadow-lg"
+				>
+				图片上传中...
 			</view>
 		</view>
 	</view>
@@ -78,6 +82,7 @@ export default {
 			imageUrl:'',
 			//image 上传组件
 			fileLists:{},
+			uploadImage:false,
 			imageStyles:{
 				width:120,
 				height:80,
@@ -160,6 +165,7 @@ export default {
 			if(e.tempFiles[0]){
 				var files =e.tempFiles[0];
 				if(files.name){
+					that.uploadImage = true;
 					uni.uploadFile({
 					  url: 'https://metamusic.toob.net.cn/api/h5/imgupdate?openId='+this.openId,
 					  filePath: files.path,
@@ -168,6 +174,7 @@ export default {
 						  if(res.statusCode==200){
 							  var {data,code} = JSON.parse(res.data);
 							  if(code==200){
+								  that.uploadImage = false;
 								  that.setProjectImage(data);
 							  }
 						  }
@@ -176,6 +183,7 @@ export default {
 						  }
 					  },
 					  fail(res) {
+						  that.uploadImage = false;
 						  console.log('uni.uploadFile fail',res)
 					  }
 					})

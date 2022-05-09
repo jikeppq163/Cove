@@ -8,7 +8,7 @@
 		</view>
 		<view class="">
 			<swiper indicator-dots :current="swiperCurrent" previous-margin='40px' next-margin='40px' :style="style">
-				<swiper-item v-for="(item,index) of swiperData" :key="item.id" @click="handleClickSwiper(index)">
+				<swiper-item v-for="(item,index) of swiperData" v-if="item.openid" :key="item.id" @click="handleClickSwiper(index)">
 					<view class="flex center" style="height: 100%;">
 						<view class="flex-column center" style="height: 100%;">
 							<view class="u-bg-malandy-g1 u-radius-20 shadow-blur" style="width: 500rpx;height: 900rpx;">
@@ -94,6 +94,7 @@
 			this.style.height = (this.$store.getters.getWindowsHeight * 2 * 0.8) + 'rpx';
 			console.log('defaultHeight', this.style);
 			this.$store.dispatch('getLoginStatus');
+			this.$store.dispatch('playerStop');
 			var that = this;
 			reqProject.star({
 				success: (res) => {
