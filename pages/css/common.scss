@@ -79,6 +79,9 @@
 	white-space: nowrap;
 }
 
+.widthFull{
+	width: 100%;
+}
 
 @for $i from 1 to 80 {
 	.left-#{$i} {

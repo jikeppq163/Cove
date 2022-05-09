@@ -1,8 +1,10 @@
 {
   "dependencies": {
+    "eruda": "^2.4.1",
     "particles.js": "^2.0.0",
     "tonal": "^2.2.2",
     "tone": "^14.7.77",
+    "vconsole": "^3.14.6",
     "weixin-js-sdk": "^1.6.0"
   }
 }

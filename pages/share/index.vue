@@ -1,12 +1,13 @@
 <template>
 	<view class="u-bg-malandy-g2" :style="defaultHeight">
-					<view class="share-point u-radius-3 u-bg-malandy2 u-font-gray2" style="float: right;padding: 5px;margin: 3px;">
-						点击 ... 分享 ⬆
-						<!-- <uni-icons custom-prefix="iconfont" type='icon-fenxiang' size="20" color="#fff"
-						@click="handleClickShare"
-						></uni-icons> -->
-					</view>
-		<view class="u-font-white u-m-t-20">
+		<view class="u-p-10"></view>
+		<view class=" share-point u-radius-3 u-bg-malandy2 u-font-gray2 u-m-r-15" style="float: right;padding: 5px;">
+			点击 ... 分享 ⬆
+			<!-- <uni-icons custom-prefix="iconfont" type='icon-fenxiang' size="20" color="#fff"
+			@click="handleClickShare"
+			></uni-icons> -->
+		</view>
+		<view class="u-font-white">
 			<view class="u-p-l-20 u-p-r-20 flex-row space-between">
 				<view class="">
 					<view class="u-font-size-20 u-p-3">
@@ -38,13 +39,13 @@
 				@click="handleClickPlay">
 				<uni-icons 	v-if="imageUrl" 
 							custom-prefix="iconfont" 
-							:type='getPlayerState=="stoped"? "icon-bofang":"icon-zanting"' 
+							:type='getPlayerState=="stopped"? "icon-bofang":"icon-zanting"' 
 							size="40" 
 							color="#fff">
 				</uni-icons>
 			</view>
 		</view>
-		<view v-if="project.openid == openId" class="u-bottom u-p-10 u-m-t-10 u-m-b-10 flex flex-end">
+		<view v-if="project.openid == openId" class="u-bottom u-p-10 u-m-t-10 u-m-b-10 flex flex-end widthFull">
 			<view class="u-p-5 u-p-l-20 u-p-r-20 u-radius-5 text-center u-bg-maka3 u-font-gray2"
 			 @click="handleClickDelete">
 				<uni-icons type="trash"></uni-icons>
@@ -119,15 +120,17 @@
 		mounted() {
 			var that = this;
 			this.projectId = that.$route.query.id;
-			if (!this.projectId) this.projectId = '17';
-			if(!that.reqFlag){
-				that.reqFlag = true;
-				that.getProject();
+			this.$store.dispatch('initStatus',this.$route.fullPath);
+			if (this.projectId){
+				if(!that.reqFlag){
+					that.reqFlag = true;
+					that.getProject();
+				}
 			}
 		},
 		methods: {
 			...mapMutations(['setProject']),
-			...mapActions(['initPlayer','setPlayer','playerStop','runIntervals','runSynthGamut','clearIntervals','getLoginStatus']),
+			...mapActions(['initPlayer','setPlayer','playerStart','playerStop','runIntervals','runSynthGamut','clearIntervals','getLoginStatus']),
 			handleClickPlay(){
 				if(this.imageUrl){
 					if(!this.initPlay){
@@ -136,7 +139,7 @@
 						this.setPlayer();
 					}
 					else{
-						if(this.getPlayerState=='stoped'){
+						if(this.getPlayerState=='stopped'){
 								this.playerStart();
 						}
 						else{

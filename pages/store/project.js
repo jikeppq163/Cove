@@ -11,6 +11,7 @@ let state={
 	systemInfo:{},
 	openId:'',
 	getOpenIdFirst:false,
+	lastUrl:'',
 	userInfo:{
 		"id": "1",
 		"nickname": "用户名",
@@ -176,7 +177,7 @@ let getters={
 		return state.defaultHeight
 	},
 	getPlayerState(state){
-		return state.player? state.player.state:'stoped'
+		return state.player? state.player.state:'stopped'
 	},
 	getProject:state=>id=>{
 		return state.list.find(item=>item.id == id);
@@ -194,8 +195,8 @@ let actions={
 		//console.log('openId',authDebug,openId,authDebug || openId);
 		if(authDebug || openId){
 			state.openId = openId;
-			var userInfo = uni.getStorageSync('userInfo');
-			if(userInfo)state.userInfo = JSON.parse(userInfo);
+			var userInfo = localStorage.getItem('userInfo');
+			if(userInfo) state.userInfo = JSON.parse(userInfo);
 			return true;
 		}
 		else {
@@ -210,6 +211,28 @@ let actions={
 			}
 		}
 	},
+	/**
+	 * 页面状态检查
+	 */
+	initStatus({commit,state},url){
+		var one = [
+			"/",
+			"/pages/index/index",
+			"/pages/emotion/tone/index",
+			"/pages/emotion/details/index",
+			"/pages/emotion/audio/index",
+			"/pages/emotion/mood/index",
+			"/pages/emotion/info/index",
+			"/auth",
+			"/pages/login/index",
+			"/pages/stars/index",
+			"/pages/user/index",
+			"/pages/ucharts/index",
+			"/pages/share/index"
+		]
+		var url = url.split('?')[0];
+		console.log('initStatus',url,one.findIndex(item=>item==url));
+	},
 	//初始化列表
 	initList(){
 		
@@ -222,7 +245,7 @@ let actions={
 	setPlayer({commit,state,getters}){
 		//播放
 		if(!state.player){
-			if(getters.getPlayerState=='stoped'){
+			if(getters.getPlayerState=='stopped'){
 				set();
 			}
 			else if(getters.getPlayerState=='started'){
@@ -246,10 +269,10 @@ let actions={
 	},
 	//播放音乐
 	playerStart({commit,state,getters}){
-		if(getters.getPlayerState=='stoped'){
+		if(getters.getPlayerState=='stopped'){
 			Tone.loaded().then(() => {
 				state.player.start();
-				commit('PLAYER_START');
+				//commit('PLAYER_START');
 			});
 		}
 		else{
@@ -259,6 +282,7 @@ let actions={
 	playerStop({commit,state,getters}){
 		if(getters.getPlayerState=='started'){
 			state.player.stop();
+			console.log('播放状态:',getters.getPlayerState);
 		}
 		else{
 			console.log('播放状态:',getters.getPlayerState);

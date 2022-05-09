@@ -27,6 +27,9 @@ export default {
 			this.getComment(this.projectId);
 		}
 	},
+	computed:{
+		...mapState(['userInfo'])
+	},
 	methods:{
 		...mapActions(['getLoginStatus']),
 		// 输入框聚焦
@@ -50,7 +53,7 @@ export default {
 			var data = {
 				project_id:this.projectId,
 				story:JSON.stringify(req.content),
-				nickname:'王大锤',
+				nickname:this.userInfo.nickname,
 				parent_id:req.pId,
 			}
 			//console.log('data',data);

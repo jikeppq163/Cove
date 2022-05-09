@@ -1,12 +1,14 @@
 <script>
-//	import Eruda from 'eruda'
+import {getPlatform} from '@/utils/index.js'
+//import Eruda from 'eruda'
 	export default {
 		onLaunch: function() {
-			// Eruda.init();
+			//Eruda.init();
+			
 			//获取设备基础信息
 			uni.getSystemInfo({
 				success: (res) => {
-					console.log('Cove version:'+this.$store.state.version,res);
+					console.log('Cove version:'+this.$store.state.version,'系统',getPlatform(),res);
 					this.$store.commit('setSystemInfo',res);
 				}
 			})
@@ -15,7 +17,8 @@
 			//获取存储的数据
 			this.$store.dispatch('getProject');
 			
-			if(false){ //测试
+			//测试
+			if(false){ 
 				uni.showToast({
 					title:'测试模式'+ this.$store.state.version
 				})
@@ -23,11 +26,12 @@
 				localStorage.setItem('openId','333');
 				this.$store.commit('setOpenId','333');
 			}
-			else{ //正式
+			//正式
+			else{ 
 				var test = localStorage.getItem('openId');
 				if(test=='333') localStorage.setItem('openId','');
 				localStorage.setItem('authDebug',0);
-				this.$store.dispatch('getLoginStatus');
+				//this.$store.dispatch('getLoginStatus');
 			}
 		},
 		onShow: function() {

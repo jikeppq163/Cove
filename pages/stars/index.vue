@@ -57,7 +57,7 @@
 								<view class="absolute right-20 bottom-10" style="">
 									<view
 										class="u-p-l-10 u-p-r-10 u-radius-3 uni-shadow-lg u-bg-maka2 u-bg-white u-font-gray4 text-center"
-										@click="goto('/pages/share/index')">
+										@click="handelClickInfo(item.id)">
 										详情
 									</view>
 								</view>
@@ -139,9 +139,9 @@
 				if (text.length > length) return text.substr(0, length) + '...'
 				return text
 			},
-			goto(url) {
+			handelClickInfo(id) {
 				uni.navigateTo({
-					url: url
+					url: '/pages/share/index?id='+id
 				})
 			},
 			tabClick() {

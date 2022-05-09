@@ -13,8 +13,8 @@
 			<uni-icons class='u-m-r-10' type="tune-filled"></uni-icons>
 			设置
 		</view>
-		<view class="u-bg-white u-p-10 u-m-t-10">
-			<button @click="getLoginStatus()" >logintest</button>
+		<view class="flex flex-center u-bg-white u-p-10 u-m-t-10">
+			<button size="mini" @click="getLogin()" >登录</button>
 		</view>					
 	</view>
 </template>
@@ -33,11 +33,13 @@
 			...mapState(['userInfo'])
 		},
 		mounted() {
-			//authorize(this.$route.fullPath);
-			//this.getLoginStatus(this.$route.fullPath);
+			this.getLoginStatus(this.$route.fullPath);
 		},
 		methods:{
-			...mapActions(['getLoginStatus'])
+			...mapActions(['getLoginStatus']),
+			getLogin(){
+				authorize(this.$route.fullPath);
+			}
 		}
 	}
 </script>

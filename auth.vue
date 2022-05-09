@@ -5,8 +5,11 @@
 			{{text}}
 		</view>
 		<view v-if="debug" class="u-p-10 uni-shadow-base">用户ID:{{openid}}</view>
-		<view v-if="debug" class="u-p-10 uni-shadow-base">访问的页面:{{redirectUrl}}</view>
+		<view v-if="debug" class="u-p-10 uni-shadow-base">将要访问的页面:{{redirectUrl}}</view>
 		<view v-if="debug" class="u-p-10 u-m-t-10 uni-shadow-base">服务端信息:{{msg}}</view>
+		<view class="flex flex-center u-p-10 u-m-t-10 ">
+			<button v-if="debug" size="mini" @click="handleClickTo">跳转</button>
+		</view>
 	</view>
 </template>
 
@@ -20,7 +23,7 @@
 			return {
 				msg:"",
 				openid:"",
-				debug:false,
+				debug:true,
 				redirectUrl:'',
 				text:'准备中...'
 			}
@@ -28,8 +31,8 @@
 		mounted() {
 			var that =this;
 			// 如果连接中有微信返回的 code，则用此 code 调用后端接口，向微信服务器请求用户信息
-			let redirectUrl = sessionStorage.getItem("wxRedirectUrl");
 			that.openid = that.$route.query.openid;
+			let redirectUrl = sessionStorage.getItem("wxRedirectUrl");
 			that.redirectUrl = redirectUrl;
 			//that.msg = JSON.stringify(that.$route.query);
 			if (that.openid) {
@@ -85,7 +88,30 @@
 			}
 		},
 		methods:{
-			...mapActions(['getLoginStatus'])
+			...mapActions(['getLoginStatus']),
+			handleClickTo(){
+				var that =this;
+				if (that.redirectUrl) {
+					uni.switchTab({
+						url: that.redirectUrl,
+						fail:()=>{
+							uni.navigateTo({
+								url: that.redirectUrl
+							})
+						},
+						complete: (err) => {
+							that.msg = JSON.stringify(err);
+						}
+					})
+				} else {
+					uni.switchTab({
+						url: "/",
+						complete: (err) => {
+							that.msg = JSON.stringify(err);
+						}
+					})
+				}
+			}
 		},
 	}
 </script>

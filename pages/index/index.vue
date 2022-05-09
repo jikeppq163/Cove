@@ -58,6 +58,7 @@
 		},
 		mounted() {
 			this.CLEAR_INDEX();	
+			this.$store.dispatch('initStatus',this.$route.fullPath);
 		},
 		onShow() {
 			if(this.getLoginStatus()){
@@ -76,7 +77,7 @@
 		},
 		methods:{
 			...mapMutations(['CLEAR_INDEX','RESET_PROJECT']),
-			...mapActions(['setProjectList','setProjectFromId','getLoginStatus']),
+			...mapActions(['setProjectList','setProjectFromId','getLoginStatus','initStatus']),
 			handleClickDelete(){
 				uni.showModal({
 					title:'删除全部',
