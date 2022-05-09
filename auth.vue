@@ -1,10 +1,12 @@
 <template>
 	<view class="">
+		<div class="loading"></div>
 		<view class="u-p-10 text-center">
-			auth 本机调试
+			{{text}}
 		</view>
-		<view class="u-p-10 uni-shadow-base">openid:{{openid}}</view>
-		<view class="u-p-10 u-m-t-10 uni-shadow-base">msg:{{msg}}</view>
+		<view v-if="debug" class="u-p-10 uni-shadow-base">用户ID:{{openid}}</view>
+		<view v-if="debug" class="u-p-10 uni-shadow-base">访问的页面:{{redirectUrl}}</view>
+		<view v-if="debug" class="u-p-10 u-m-t-10 uni-shadow-base">服务端信息:{{msg}}</view>
 	</view>
 </template>
 
@@ -17,7 +19,10 @@
 		data() {
 			return {
 				msg:"",
-				openid:""
+				openid:"",
+				debug:false,
+				redirectUrl:'',
+				text:'准备中...'
 			}
 		},
 		mounted() {
@@ -30,30 +35,44 @@
 			if (that.openid) {
 				try {
 					localStorage.setItem("openId",that.openid);
+					that.text = "登录中...";
 					user.getUserinfo({
 							openId:that.openid,
 							success:(res)=>{
 								localStorage.setItem("userInfo", JSON.stringify(res));
 								localStorage.setItem("unionid",res.unionid);
 								that.getLoginStatus();
-								if (redirectUrl) {
-									that.msg = JSON.stringify(res);
-									uni.switchTab({
-										url: redirectUrl,
-										fail:()=>{
-											uni.navigateTo({
-												url: redirectUrl
-											})
-										}
-									})
-								} else {
-									uni.switchTab({
-										url: "/"
-									})
+								that.msg = JSON.stringify(res);
+								that.text = "跳转中...";
+								if(!that.debug){
+									if (redirectUrl) {
+										uni.switchTab({
+											url: redirectUrl,
+											fail:()=>{
+												uni.navigateTo({
+													url: redirectUrl
+												})
+											},
+											complete: (err) => {
+												that.msg = JSON.stringify(err);
+											}
+										})
+									} else {
+										uni.switchTab({
+											url: "/",
+											complete: (err) => {
+												that.msg = JSON.stringify(err);
+											}
+										})
+									}
+								}
+								else{
+									that.text = "测试模式不跳转";
 								}
 							},
 							fail:()=>{
-								
+								that.text = "登录失败";
+								that.msg = JSON.stringify(res);
 							}
 						})
 				} catch (error) {
@@ -72,4 +91,53 @@
 </script>
 
 <style lang="scss" scoped>
+	.loading2 {
+	    margin: 20% auto;
+	    z-index: 1000;
+	    height: 42px;
+	    width: 70px;
+	    background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA0MDAgMjQwIj48cmVjdCBmaWxsPSIjMDhhMWVmIiB4PSI0IiB5PSI0IiB3aWR0aD0iMzkyIiBoZWlnaHQ9IjIzMiIvPjxjaXJjbGUgaWQ9ImFjdG9yXzMiIGN4PSIwIiBjeT0iMCIgcj0iMzAiIGZpbGw9IiM5QUQ2NEIiPjxhbmltYXRlTW90aW9uIHBhdGg9Ik0zOSwxMjBMNzgsNTBIMTYxTDIzOSwxOTBIMzIyTDM2MSwxMjBMMzIyLDUwSDIzOUwxNjEsMTkwSDc4TDM5LDEyMCIgZHVyPSIxcyIgcmVwZWF0Q291bnQ9ImluZGVmaW5pdGUiLz48L2NpcmNsZT48cGF0aCBkPSJNMCwyNDBWMGg0MDB2MjQwSDB6IE0zMzAuNzY5LDM0aC05OC40NjJsLTgxLjUzOCwxNDEuMzQ1SDg2LjE1NEw1My44NDYsMTE5LjVsMzIuMzA4LTU1Ljg0NWg2NC42MTVsMjMuODQ2LDQwLjgyNGwxNi45MjMtMjkuMjdMMTY3LjY5MiwzNEg2OS4yMzFMMjAsMTE5LjVMNjkuMjMxLDIwNWg5OC40NjFsODEuNTM4LTE0MS4zNDVoNjQuNjE1bDMyLjMwOCw1NS44NDVsLTMyLjMwOCw1NS44NDVoLTY0LjYxNWwtMjMuODQ2LTQwLjgyNGwtMTYuOTIzLDI5LjI3TDIzMi4zMDgsMjA1aDk4LjQ2MkwzODAsMTE5LjVMMzMwLjc2OSwzNHoiIGZpbGw9IiNmZmZmZmYiLz48L3N2Zz4=);
+	}
+	
+	.loading {
+	  margin: 20% auto;
+	  width:0;
+	  height:0;
+	  border-right:1rem solid #fff;
+	  border-top:1rem solid #21af27;
+	  border-left:1rem solid #fff;
+	  border-bottom:1rem solid #21af27;
+	  border-radius: 1rem;
+	  -moz-border-radius: 1rem;
+	  -webkit-border-radius: 1rem;
+	  /* Animate and rotate the spinner using CSS3 Animations */
+	
+	  animation: bganim 1.6s linear 0s infinite;
+	  /* moz: Vendor prefixe for Mozilla Firefox */
+	  -moz-animation: bganim 1.6s linear 0s infinite;
+	  /* webkit: Vendor prefixe for Google Chrome, Chromium, Apple Safari... */
+	  -webkit-animation: bganim 1.6s linear 0s infinite;
+	
+	}
+	
+	@keyframes bganim {
+	
+	  /* Rotate the div 360° */
+	
+	  from { transform:rotate(0deg); } to { transform:rotate(360deg); }
+	
+	}
+	
+	@-moz-keyframes bganim {
+	
+	  from { -moz-transform:rotate(0deg); } to { -moz-transform:rotate(360deg); }
+	
+	}
+	
+	@-webkit-keyframes bganim {
+	
+	  from { -webkit-transform:rotate(0deg); } to { -webkit-transform:rotate(360deg); }
+	
+	}
+	
 </style>
