@@ -79,6 +79,7 @@
 	white-space: nowrap;
 }
 
+
 @for $i from 1 to 80 {
 	.left-#{$i} {
 		left: $i+px; 

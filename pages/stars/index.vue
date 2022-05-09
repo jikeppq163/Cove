@@ -4,44 +4,48 @@
 			社区作品
 		</view>
 		<view class="flex space-between u-font-gray2 u-p-l-20 u-p-r-20">
-			 <liuyuno-tabs :tabData="titleTag" :defaultIndex="defaultIndex" @tabClick='tabClick' />
+			<liuyuno-tabs :tabData="titleTag" :defaultIndex="defaultIndex" @tabClick='tabClick' />
 		</view>
 		<view class="">
-			<swiper indicator-dots :current="swiperCurrent" previous-margin='40px' next-margin='40px' :style="style" >
+			<swiper indicator-dots :current="swiperCurrent" previous-margin='40px' next-margin='40px' :style="style">
 				<swiper-item v-for="(item,index) of swiperData" :key="item.id" @click="handleClickSwiper(index)">
 					<view class="flex center" style="height: 100%;">
 						<view class="flex-column center" style="height: 100%;">
 							<view class="u-bg-malandy-g1 u-radius-20 shadow-blur" style="width: 500rpx;height: 900rpx;">
 								<view class="flex u-p-10">
 									<view class="u-p-10">
-										<view class="u-radius-20" style="width: 120rpx;height: 120rpx;overflow: hidden;">
-											<img :src="item.userInfo.avatarUrl" style="width: 100%;height: 100%;" alt="">
+										<view class="u-radius-20"
+											style="width: 120rpx;height: 120rpx;overflow: hidden;">
+											<img :src="item.userInfo.avatarUrl" style="width: 100%;height: 100%;"
+												alt="">
 										</view>
 									</view>
-									<view class="text-center u-font-gray4 u-p-10 flex-column center nowrap" >
-										<text class="u-p-3 u-font-size-14" >
-											{{item.rdata.title}}
+									<view class="text-center u-font-gray4 u-p-10 flex-column center nowrap">
+										<text class="u-p-3 u-font-size-20">
+											{{textLine(item.rdata.title)}}
 										</text>
-										<text class="u-p-3 u-font-size-12 nowrap" >
-											{{item.userInfo.nickName}}
-										</text>
-										<view class="">
-											<uni-icons type="location" color='#fff'></uni-icons>
-											<text class="u-p-3 nowrap">{{item.rdata.location}}</text>
+										<view class="flex space-between u-m-t-10">
+											<text class="u-p-3 u-font-size-12 nowrap">
+												{{item.userInfo.nickName}}
+											</text>
+											<view class="">
+												<uni-icons type="location" color='#fff'></uni-icons>
+												<text class=" nowrap u-font-size-12">{{item.rdata.location}}</text>
+											</view>
 										</view>
 									</view>
 								</view>
-								<view class="text-center u-p-t-20 u-font-gray2">
-									<text class="u-font-size-30">“</text>
-									<text class="u-font-gray4">{{item.rdata.thoughts}} </text>
-									<text class="u-font-size-30">”</text>
-								</view>
-								<view class="u-m-10 u-m-t-20 u-p-40 u-bg-maka-g text-center u-font-gray2 shadow-lg">
-									配图
-								</view>
-								<view class="flex absolute bottom-40">
-									<view class="u-p-5 u-m-l-10 u-font-white u-bg-maka-g2 u-radius-5" v-for="item_mood of item.rdata.mood" :key='item_mood.id'>
-										{{item_mood}}
+								<view class="bg-image" :style="getStyle(item.rdata,index)">
+									<view class="text-center u-p-t-40 u-font-gray2">
+										<text class="u-font-size-30">“</text>
+										<text class="u-font-gray4 text-shadow">{{item.rdata.thoughts}} </text>
+										<text class="u-font-size-30">”</text>
+									</view>
+									<view class="flex absolute bottom-60">
+										<view class="u-p-5 u-m-l-10 u-font-white u-bg-maka-g2 u-radius-5"
+											v-for="item_mood of item.rdata.mood" :key='item_mood.id'>
+											{{item_mood}}
+										</view>
 									</view>
 								</view>
 								<view class="absolute left-20 bottom-10" style="">
@@ -51,7 +55,9 @@
 									</view>
 								</view>
 								<view class="absolute right-20 bottom-10" style="">
-									<view class="u-p-l-10 u-p-r-10 u-radius-3 uni-shadow-lg u-bg-maka2 u-bg-white u-font-gray4 text-center" @click="goto('/pages/share/index')">
+									<view
+										class="u-p-l-10 u-p-r-10 u-radius-3 uni-shadow-lg u-bg-maka2 u-bg-white u-font-gray4 text-center"
+										@click="goto('/pages/share/index')">
 										详情
 									</view>
 								</view>
@@ -71,60 +77,81 @@
 	export default {
 		data() {
 			return {
-				titleTag:['生活','情感','校园','职场','其他'],
-				defaultIndex:0,
-				swiperCurrent:1,
+				titleTag: ['生活', '情感', '校园', '职场', '其他'],
+				defaultIndex: 0,
+				swiperCurrent: 1,
 				swiperData: [],
-				style:{
-					"height":'1200rpx'
+				imageList: [],
+				style: {
+					"height": '1200rpx'
 				}
 			}
 		},
 		components: {
-		        liuyunoTabs
+			liuyunoTabs
 		},
-		onShow(){
-			this.style.height = (this.$store.getters.getWindowsHeight*2 *0.8 ) +'rpx';
-			console.log('defaultHeight',this.style);
+		onShow() {
+			this.style.height = (this.$store.getters.getWindowsHeight * 2 * 0.8) + 'rpx';
+			console.log('defaultHeight', this.style);
 			this.$store.dispatch('getLoginStatus');
 			var that = this;
 			reqProject.star({
-				success:(res)=>{
+				success: (res) => {
 					//console.log('reqProject.star success',res);
-					var list =[];
-					res.forEach(item=>{
+					var list = [];
+					res.forEach(item => {
 						var a = {
 							userInfo: {
 								"avatarUrl": "https://img-cdn-tc.dcloud.net.cn/uploads/avatar/000/62/86/74_avatar_max.jpg",
 								"nickName": "寂寞无敌",
 							},
-							comment:23,
+							comment: 23,
 						}
-						a = Object.assign(a,item);
+						a = Object.assign(a, item);
 						list.push(a);
 					})
 					that.swiperData = list;
-					console.log('res.forEach',list);
+					console.log('res.forEach', list);
 				},
-				fail:(err)=>{
-					console.log('reqProject.star fail',err);
+				fail: (err) => {
+					console.log('reqProject.star fail', err);
+				}
+			})
+			reqProject.image({
+				params: {
+					q: 'love',
+				},
+				success: (res) => {
+					that.imageList = res.list;
+				},
+				fail: (err) => {
+					console.log('reqProject.image fail', err);
 				}
 			})
 		},
-		methods:{
+		methods: {
+			getStyle(item,index) {
+				if (item.image) return "background-image:url(" + item.image + ');';
+				if (this.imageList) return "background-image:url(" + this.imageList[index%10] + ');';
+			},
+			textLine(text,length) {
+				if(!length) length =6;
+				if (text.length > length) return text.substr(0, length) + '...'
+				return text
+			},
 			goto(url) {
 				uni.navigateTo({
-					url:url
+					url: url
 				})
 			},
-			tabClick(){
+			tabClick() {
 				//todo
 			},
 			/**
 			 * @param {Object} index
 			 * 点击侧边卡片可以切换 看效果是否需要
 			 */
-			handleClickSwiper(index){
+			handleClickSwiper(index) {
 				this.swiperCurrent = index;
 			}
 		}
@@ -132,6 +159,14 @@
 </script>
 
 <style scope lang="scss">
+	.bg-image{
+		height: 600rpx;
+		background-repeat: no-repeat;
+		background-blend-mode: darken; //定义了背景层的混合模式（图片与颜色）
+		background-color: #AAA; // 解决小白边
+		background-position:center;
+	}
+	
 	.view_animation {
 		width: 100px;
 		height: 50px;
