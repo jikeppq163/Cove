@@ -1,19 +1,27 @@
 import request from './request.js'
+
+const api = '/api/h5';
+
 /**
  * 先拿到code
  * @param {Object} code
  */
-function getCode(code, success) {
+const getCode=(code, success)=>{
 	request({
 		url: '/oauth/wechat/oalogin?code=' + code
 	}, success)
 }
 
-function login({
-	url,
-	success,
-	fail
-}) {
+const getUserinfo=({openId,success,fail})=>{
+	request({
+		url:api+"/user/"+openId,
+		method:"GET",
+		success,
+		fail
+	})
+}
+
+const login=({url,success,fail})=>{
 	request({
 		url: '/oauth/wechat/oalogin?code=' + code,
 		success: (res) => {
@@ -43,5 +51,6 @@ function login({
 
 export default {
 	getCode,
-	login
+	login,
+	getUserinfo
 }

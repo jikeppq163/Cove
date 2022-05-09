@@ -1,86 +1,23 @@
 <template>
 	<view class="">
-		<view class="">
+		<view class="u-p-10 text-center">
 			auth 本机调试
 		</view>
-		<view class="">
-			code
-			<input :value="code" />
-		</view>
-		<view class="">
-			redirectUrl {{redirectUrl}}
-		</view>
-		<view class="">
-			msg {{msg}}
-		</view>
+		<view class="u-p-10 uni-shadow-base">openid:{{openid}}</view>
+		<view class="u-p-10 u-m-t-10 uni-shadow-base">msg:{{msg}}</view>
 	</view>
 </template>
 
 <script>
 	//import Axios from 'axios';
-	import {
-		login
-	} from '@/api/login.js'
+	import user from '@/api/login.js'
 	import {mapActions} from 'vuex';
 	export default {
 		name: "Auth",
 		data() {
 			return {
-				code: '',
-				redirectUrl: '/',
-				msg: '',
-			}
-		},
-		methods:{
-			...mapActions(['getLoginStatus']),
-			reqGet(){
-				uni.request({
-					url: 'https://metamusic.toob.net.cn/api/oauth/wechat/oalogin?code=' + that.code,
-					success: (res) => {
-						if (res.data.raw.openid.length > 0) {
-							that.msg = 'success~~~' + JSON.stringify(res.data.raw);
-							console.log('res.data',res.data);
-							//将一些信息存储到本地
-							// const token = res.headers['access_token'];
-							// localStorage.setItem('token', token);
-							localStorage.setItem("openId", res.data.raw.openid);
-							localStorage.setItem("userInfo", JSON.stringify(res.data.raw));
-							// this.setOpenId(res.data.raw.openid);
-							// this.setUserInfo(res.data.raw);
-							// uni.setStorage({
-							// 	key: 'openId',
-							// 	data: res.data.raw.openid
-							// })
-							// uni.setStorage({
-							// 	key: 'userInfo',
-							// 	data: JSON.stringify(res.data.raw)
-							// });
-							this.getLoginStatus();
-							// if (redirectUrl) {
-							// 	uni.switchTab({
-							// 		url: redirectUrl,
-							// 		fail:()=>{
-							// 			uni.navigateTo({
-							// 				url: redirectUrl
-							// 			})
-							// 		}
-							// 	})
-							// } else {
-							// 	uni.switchTab({
-							// 		url: "/"
-							// 	})
-							// }
-						} else {
-							that.msg = 'fail~~~' + JSON.stringify(res.data);
-							//fail(res)
-						}
-					},
-					fail: (err) => {
-						that.msg = 'fail~~~2' + JSON.stringify(err);
-						//if (fail) fail(err);
-					}
-				})
-				
+				msg:"",
+				openid:""
 			}
 		},
 		mounted() {
@@ -89,10 +26,36 @@
 			let redirectUrl = sessionStorage.getItem("wxRedirectUrl");
 			that.openid = that.$route.query.openid;
 			that.redirectUrl = redirectUrl;
-			that.msg = JSON.stringify(that.$route.query);
+			//that.msg = JSON.stringify(that.$route.query);
 			if (that.openid) {
 				try {
-					
+					localStorage.setItem("openId",that.openid);
+					user.getUserinfo({
+							openId:that.openid,
+							success:(res)=>{
+								localStorage.setItem("userInfo", JSON.stringify(res));
+								localStorage.setItem("unionid",res.unionid);
+								that.getLoginStatus();
+								if (redirectUrl) {
+									that.msg = JSON.stringify(res);
+									uni.switchTab({
+										url: redirectUrl,
+										fail:()=>{
+											uni.navigateTo({
+												url: redirectUrl
+											})
+										}
+									})
+								} else {
+									uni.switchTab({
+										url: "/"
+									})
+								}
+							},
+							fail:()=>{
+								
+							}
+						})
 				} catch (error) {
 					console.log(error);
 				}
@@ -101,6 +64,9 @@
 				// 如果不是从微信重定向过来的，没有带着微信的 code，则直接进入首页
 				this.$router.replace("/");
 			}
+		},
+		methods:{
+			...mapActions(['getLoginStatus'])
 		},
 	}
 </script>

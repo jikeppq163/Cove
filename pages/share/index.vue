@@ -1,5 +1,11 @@
 <template>
 	<view class="u-bg-malandy-g2" :style="defaultHeight">
+					<view class="share-point u-radius-3 u-bg-malandy2 u-font-gray2" style="float: right;padding: 5px;margin: 3px;">
+						点击 ... 分享 ⬆
+						<!-- <uni-icons custom-prefix="iconfont" type='icon-fenxiang' size="20" color="#fff"
+						@click="handleClickShare"
+						></uni-icons> -->
+					</view>
 		<view class="u-font-white u-m-t-20">
 			<view class="u-p-l-20 u-p-r-20 flex-row space-between">
 				<view class="">
@@ -10,13 +16,13 @@
 						{{project.rdata.thoughts}}
 					</view>
 				</view>
-				<view class="u-p-t-10">
+				<!-- <view class="u-p-t-10">
 					<view class="u-p-10 u-radius-5 u-bg-malandy2 text-center" style="height: 40px;width: 40px;">
 						<uni-icons custom-prefix="iconfont" type='icon-fenxiang' size="20" color="#fff"
 						@click="handleClickShare"
 						></uni-icons>
 					</view>
-				</view>
+				</view> -->
 			</view>
 			<view class="u-p-l-23 u-p-r-20 flex-row space-between">
 				<uni-dateformat :date="project.created_at" :threshold="[60000,3600000]"></uni-dateformat>

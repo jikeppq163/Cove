@@ -6,6 +6,7 @@
 </template>
 
 <script>
+import {mapState,mapActions} from "vuex";
 import reqStory from "@/api/story.js";
 export default {
 	data(){
@@ -27,23 +28,14 @@ export default {
 		}
 	},
 	methods:{
-		// 登录校验
-		checkLogin() {
-			// TODO 此处填写登录校验逻辑
-			if (this.openId) {
-				return true;
-			} else {
-				this.$store.dispatch('getLoginStatus');
-				return false;
-			}
-		},
+		...mapActions(['getLoginStatus']),
 		// 输入框聚焦
 		focusOn() {
-			this.checkLogin();
+			this.getLoginStatus();
 		},
 		// 新增评论 改为分享你的故事 - 他的心情很「XX」，分享你的故事，帮帮Ta
 		add(req) {
-			if (!this.checkLogin()) {
+			if (!this.getLoginStatus()) {
 				return
 			}
 			if (this.reqFlag) {
@@ -78,7 +70,7 @@ export default {
 		},
 		// 点赞评论
 		like(commentId) {
-			if (!this.checkLogin()) {
+			if (!this.getLoginStatus()) {
 				return
 			}
 			if (this.reqFlag) {
@@ -108,7 +100,7 @@ export default {
 		},
 		// 删除评论
 		del(commentId) {
-			if (!this.checkLogin()) {
+			if (!this.getLoginStatus()) {
 				return
 			}
 			if (this.reqFlag) {

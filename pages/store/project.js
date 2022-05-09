@@ -16,10 +16,8 @@ let state={
 		"nickname": "用户名",
 		"avatar": "https://thirdwx.qlogo.cn/mmopen/vi_32/4FYsd8bWiaR8otxj1cNzib0ibL975Ug8zGvJicPT0yZYIh4ox41pmiaUc8GeKl6kw9Q4q26Mab0TzYp9SaKDic55iavIQ/132",
 		"email": null,
-		"raw": {
-			"openid": "333",
-			"sex": 0,
-		}
+		"openid": "333",
+		"sex": 0,
 	},
 	defaultHeight:{
 		//最低高度
@@ -193,6 +191,7 @@ let actions={
 	getLoginStatus({commit,state},url){
 		var openId = uni.getStorageSync('openId')? uni.getStorageSync('openId'):false;
 		let authDebug = localStorage.getItem('authDebug')*1;
+		//console.log('openId',authDebug,openId,authDebug || openId);
 		if(authDebug || openId){
 			state.openId = openId;
 			var userInfo = uni.getStorageSync('userInfo');
@@ -200,7 +199,7 @@ let actions={
 			return true;
 		}
 		else {
-			console.log('!state.getOpenIdFirst || !url',!state.getOpenIdFirst || url,!state.getOpenIdFirst,!url);
+			console.log('校验:authDebug || openId',authDebug,openId,'第一次登录?',state.getOpenIdFirst);
 			if(!state.getOpenIdFirst || url){
 				state.getOpenIdFirst = true;
 				if(!url) url = "/";

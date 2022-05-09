@@ -41,6 +41,7 @@
 	export default {
 		data() {
 			return {
+				
 			}
 		},
 		computed:{
@@ -89,7 +90,6 @@
 				})
 			},
 			handleClickAdd(){
-				 //console.log(this.$route.fullPath)
 				 if(this.getLoginStatus(this.$route.fullPath)){
 					this.RESET_PROJECT();
 					uni.navigateTo({
