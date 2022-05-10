@@ -1,8 +1,6 @@
 <template>
-	<view class="u-bg-white">
-		<hb-comment ref="hbComment" @add="add" @del="del" @like="like" @focusOn="focusOn" :deleteTip="'确认删除？'"
-			:cmData="commentData" v-if="commentData"></hb-comment>
-	</view>
+	<hb-comment ref="hbComment" @add="add" @del="del" @like="like" @focusOn="focusOn" :deleteTip="'确认删除？'"
+		:cmData="commentData" v-if="commentData"></hb-comment>
 </template>
 
 <script>
