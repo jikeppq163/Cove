@@ -16,20 +16,20 @@ import {getPlatform} from '@/utils/index.js'
 			this.$store.dispatch('initPlayer');
 			//获取存储的数据
 			this.$store.dispatch('getProject');
-			
+			localStorage.setItem('openId','');
 			//测试
 			if(true){ 
 				uni.showToast({
 					title:'测试模式'+ this.$store.state.version
 				})
 				localStorage.setItem('authDebug',1);
-				localStorage.setItem('openId','333');
-				this.$store.commit('setOpenId','333');
+				localStorage.setItem('openId','o_cGP5sxh4TH6i5jBvgtRH9PcsMs');
+				this.$store.commit('setOpenId','o_cGP5sxh4TH6i5jBvgtRH9PcsMs');
 			}
 			//正式
 			else{ 
 				var test = localStorage.getItem('openId');
-				if(test=='333') localStorage.setItem('openId','');
+				if(test=='o_cGP5sxh4TH6i5jBvgtRH9PcsMs') localStorage.setItem('openId','');
 				localStorage.setItem('authDebug',0);
 				//this.$store.dispatch('getLoginStatus');
 			}
