@@ -1,11 +1,11 @@
 <template>
 	<view>
 		<view class="u-p-20 text-center u-font-size-16">
-			社区作品
+			与同伴们一起, 寻找你心路旅程的故事吧!
 		</view>
-		<view class="flex space-between u-font-gray2 u-p-l-20 u-p-r-20">
+		<!-- <view class="flex space-between u-font-gray2 u-p-l-20 u-p-r-20">
 			<liuyuno-tabs :tabData="titleTag" :defaultIndex="defaultIndex" @tabClick='tabClick' />
-		</view>
+		</view> -->
 		<view class="">
 			<swiper indicator-dots :current="swiperCurrent" previous-margin='40px' next-margin='40px' :style="style">
 				<swiper-item v-for="(item,index) of swiperData" v-if="item.openid" :key="item.id" @click="handleClickSwiper(index)">
@@ -13,24 +13,24 @@
 						<view class="flex-column center" style="height: 100%;">
 							<view class="u-bg-malandy-g1 u-radius-20 shadow-blur" style="width: 500rpx;height: 900rpx;">
 								<view class="flex u-p-10">
-									<view class="u-p-10">
+									<!-- <view class="u-p-10">
 										<view class="u-radius-20"
 											style="width: 120rpx;height: 120rpx;overflow: hidden;">
 											<img :src="item.userInfo.avatarUrl" style="width: 100%;height: 100%;"
 												alt="">
 										</view>
-									</view>
+									</view> -->
 									<view class="text-center u-font-gray4 u-p-10 flex-column center nowrap">
 										<text class="u-p-3 u-font-size-20">
 											{{textLine(item.rdata.title)}}
 										</text>
 										<view class="flex space-between u-m-t-10">
-											<text class="u-p-3 u-font-size-12 nowrap">
+											<!-- <text class="u-p-3 u-font-size-12 nowrap">
 												{{item.userInfo.nickName}}
-											</text>
-											<view class="">
-												<uni-icons type="location" color='#fff'></uni-icons>
-												<text class=" nowrap u-font-size-12">{{item.rdata.location}}</text>
+											</text> -->
+											<view class="u-p-5 u-m-l-5 u-font-white u-bg-malandy-g1 u-radius-50"
+												v-for="item_mood of item.rdata.mood" :key='item_mood.id'>
+												{{item_mood}}
 											</view>
 										</view>
 									</view>
@@ -41,10 +41,10 @@
 										<text class="u-font-gray4 text-shadow">{{item.rdata.thoughts}} </text>
 										<text class="u-font-size-30">”</text>
 									</view>
-									<view class="flex absolute bottom-60">
-										<view class="u-p-5 u-m-l-10 u-font-white u-bg-maka-g2 u-radius-5"
-											v-for="item_mood of item.rdata.mood" :key='item_mood.id'>
-											{{item_mood}}
+									<view class="flex absolute left-10 bottom-60">
+										<view class="">
+											<uni-icons type="location" color='#fff'></uni-icons>
+											<text class=" nowrap u-font-size-12">{{item.rdata.location}}</text>
 										</view>
 									</view>
 								</view>
@@ -56,9 +56,9 @@
 								</view>
 								<view class="absolute right-20 bottom-10" style="">
 									<view
-										class="u-p-l-10 u-p-r-10 u-radius-3 uni-shadow-lg u-bg-maka2 u-bg-white u-font-gray4 text-center"
+										class="u-p-7 u-radius-3 uni-shadow-lg u-bg-blue u-font-size-30 u-font-gray4 text-center"
 										@click="handelClickInfo(item.id)">
-										详情
+										➪
 									</view>
 								</view>
 							</view>
@@ -101,15 +101,15 @@
 					//console.log('reqProject.star success',res);
 					var list = [];
 					res.forEach(item => {
-						var a = {
-							userInfo: {
-								"avatarUrl": "https://img-cdn-tc.dcloud.net.cn/uploads/avatar/000/62/86/74_avatar_max.jpg",
-								"nickName": "寂寞无敌",
-							},
-							comment: 23,
-						}
-						a = Object.assign(a, item);
-						list.push(a);
+						// var a = {
+						// 	userInfo: {
+						// 		"avatarUrl": "https://img-cdn-tc.dcloud.net.cn/uploads/avatar/000/62/86/74_avatar_max.jpg",
+						// 		"nickName": "寂寞无敌",
+						// 	},
+						// 	comment: 23,
+						// }
+						// a = Object.assign(a, item);
+						list.push(item);
 					})
 					that.swiperData = list;
 					console.log('res.forEach', list);
@@ -163,7 +163,7 @@
 	.bg-image{
 		height: 600rpx;
 		background-repeat: no-repeat;
-		background-blend-mode: darken; //定义了背景层的混合模式（图片与颜色）
+		background-blend-mode: color; //定义了背景层的混合模式（图片与颜色）
 		background-color: #AAA; // 解决小白边
 		background-position:center;
 	}

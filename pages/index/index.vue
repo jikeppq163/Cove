@@ -1,5 +1,8 @@
 <template>
 	<view class="u-bg-malandy-g2" :style="defaultHeight">
+		<view class="u-p-20 text-center u-font-size-16">
+			用音乐记录你的情绪, 探索情绪背后的故事吧!
+		</view>
 		<scroll-view scroll-y="true" class="u-p-t-5 u-font-white uni-shadow-base"
 			:style="'height:'+getWindowsHeight*0.8 +'px;'">
 			<view class="u-radius-3 u-p-3 u-m-10 u-bg-maka-g uni-shadow-base" v-for="(item,index) of list"

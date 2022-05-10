@@ -1,21 +1,22 @@
 <template>
 	<view class="">
-		<uni-card :title="userInfo.nickname" :sub-title="userInfo.sex? '女':'男'" :isFull="true" :thumbnail="userInfo.headimgurl">
-			<text class="uni-body">额外描述</text>
+		<uni-card :title="userInfo.nickname" :sub-title="1?'新手 Lv 1':0" :isFull="true" :thumbnail="userInfo.headimgurl">
+		<!-- :sub-title="userInfo.sex? '女':'男'" -->
+			<!-- <text class="uni-body">额外描述</text> -->
 		</uni-card>
 
 		<view class="u-bg-white u-p-10 u-m-t-10">
 			<uni-icons class='u-m-r-10' type="wallet-filled"></uni-icons>
-			服务
+			隐私管理 (即将上线) 
 		</view>
 
 		<view class="u-bg-white u-p-10 u-m-t-10">
 			<uni-icons class='u-m-r-10' type="tune-filled"></uni-icons>
-			设置
+			设置 (即将上线) 
 		</view>
-		<view class="flex flex-center u-bg-white u-p-10 u-m-t-10">
+		<!-- <view class="flex flex-center u-bg-white u-p-10 u-m-t-10">
 			<button size="mini" @click="getLogin()" >登录</button>
-		</view>					
+		</view>	 -->				
 	</view>
 </template>
 

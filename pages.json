@@ -46,17 +46,11 @@
 			"pagePath": "pages/index/index",
 			"iconPath": "static/image/menu.png",
 			"selectedIconPath": "static/image/menu_fill.png"
-		},
-		{
+		},{
 			"pagePath": "pages/stars/index",
 			"iconPath": "static/image/tianwen.png",
 			"selectedIconPath": "static/image/tianwen_fill.png"
 		},{
-			"pagePath": "pages/ucharts/index",
-			"iconPath": "static/image/stitetic.png",
-			"selectedIconPath": "static/image/stitetic_fill.png"
-		},
-		{
 			"pagePath": "pages/user/index",
 			"iconPath": "static/image/set.png",
 			"selectedIconPath": "static/image/set_fill.png"
@@ -65,11 +59,11 @@
 	"globalStyle": {
 		"navigationBarTextStyle": "white",
 		"navigationBarTitleText": "心乐星记",
-		"navigationBarBackgroundColor": "#333333",
-		"backgroundColor": "#333333",
+		"navigationBarBackgroundColor": "#000000",
+		"backgroundColor": "#000000",
 		"navigationStyle": "custom",
 		"app-plus": {
-			"background": "#333333"
+			"background": "#000000"
 		}
 	}
 }

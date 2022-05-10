@@ -18,7 +18,7 @@ import {getPlatform} from '@/utils/index.js'
 			this.$store.dispatch('getProject');
 			
 			//测试
-			if(false){ 
+			if(true){ 
 				uni.showToast({
 					title:'测试模式'+ this.$store.state.version
 				})
