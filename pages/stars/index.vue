@@ -57,7 +57,7 @@
 								</view>
 								<view class="absolute right-20 bottom-10" style="">
 									<view
-										class="u-p-7 u-radius-3 uni-shadow-lg u-bg-blue u-font-size-30 u-font-gray4 text-center"
+										class="u-p-7 u-radius-3 uni-shadow-lg u-bg-malandy-g1 u-font-size-30 u-font-gray4 text-center"
 										@click="handelClickInfo(item.id)">
 										➪
 									</view>
@@ -111,6 +111,7 @@
 						// }
 						// a = Object.assign(a, item);
 						list.push(item);
+						console.log('res'+item.openid, item.rdata.title);
 					})
 					that.swiperData = list;
 					console.log('res.forEach', list);

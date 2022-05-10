@@ -1,11 +1,12 @@
 <template>
 	<view class="" :style="defaultHeight">
 		<view class="u-p-10"></view>
+		
 		<view class=" share-point u-radius-3 u-bg-malandy2 u-font-gray2 u-m-r-15" style="float: right;padding: 5px;">
-			点击 ... 分享 ⬆
-			<!-- <uni-icons custom-prefix="iconfont" type='icon-fenxiang' size="20" color="#fff"
-			@click="handleClickShare"
-			></uni-icons> -->
+			 ... 分享 ⬆
+		</view>
+		<view class=" share-point u-radius-3 u-bg-malandy2 u-font-gray2 u-m-r-15" style="float: right;padding: 5px;">
+			<uni-icons type='home-filled' size="20" color="#fff" @click="handelClickStars" ></uni-icons>
 		</view>
 		<view class="u-font-white">
 			<view class="u-p-l-20 u-p-r-20 flex-row space-between">
@@ -57,7 +58,7 @@
 				编辑
 			</view>
 		</view>
-		<uComment :projectId='projectId'></uComment>
+		<uComment style="background-color: #eaf8edcc" :projectId='projectId'></uComment>
 	</view>
 </template>
 
@@ -148,6 +149,11 @@
 					}
 				}
 			},
+			handelClickStars() {
+				uni.switchTab({
+					url: '/pages/stars/index'
+				})
+			},
 			handleClickShare(){
 				//// #ifdef H5
 					this.wechatJs();
@@ -175,8 +181,8 @@
 			handleClickDelete(){
 				var that =this;
 				uni.showModal({
-					title:'WARING!!!',
-					content:'ARE YOU SURE DELETE?',
+					title:'请确认',
+					content:'您是否想要删除这个故事?',
 					confirmColor: 'red',
 					success:(res)=>{
 						if(res.confirm){
