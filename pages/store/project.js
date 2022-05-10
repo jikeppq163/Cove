@@ -316,7 +316,6 @@ let actions={
 			for (var item of state.project.rdata.synth) {
 				const node = getNoteAtHeight(item.y);
 				state.sampler.triggerAttack(node, now + item.up);
-				//playByInstrument(item.y, now + item.up);
 			}
 		}
 	},

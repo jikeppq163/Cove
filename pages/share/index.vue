@@ -128,6 +128,7 @@
 					that.getProject();
 				}
 			}
+			this.initPlayer();
 		},
 		methods: {
 			...mapMutations(['setProject']),
@@ -136,6 +137,7 @@
 				if(this.imageUrl){
 					if(this.getPlayerState=='stopped'){
 							this.playerStart();
+							this.runSynthGamut();
 					}
 					else if(this.getPlayerState=='started'){
 						this.playerStop();
