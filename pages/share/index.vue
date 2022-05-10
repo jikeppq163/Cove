@@ -1,5 +1,5 @@
 <template>
-	<view class="u-bg-malandy-g2" :style="defaultHeight">
+	<view class="" :style="defaultHeight">
 		<view class="u-p-10"></view>
 		<view class=" share-point u-radius-3 u-bg-malandy2 u-font-gray2 u-m-r-15" style="float: right;padding: 5px;">
 			点击 ... 分享 ⬆

@@ -84,8 +84,8 @@ export default {
 			fileLists:{},
 			uploadImage:false,
 			imageStyles:{
-				width:120,
-				height:80,
+				width:320,
+				height:180,
 				border:{
 					color:"#fff",
 					width:1,

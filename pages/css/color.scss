@@ -1,4 +1,5 @@
 //编写一个专门用于定义颜色的样式库
+
 //设置一个背景色
 .u-bg-green {
 	background-color: #35a963; //背景颜色
@@ -108,7 +109,7 @@
 }
 
 .u-bg-maka-g{
-	background-image: linear-gradient(to top right, #d3bfe4, #F9E8B8);
+	background-image: linear-gradient(to top right, #d3bfe477, #F9E8B877);
 }
 
 .u-bg-maka-g2{
@@ -123,28 +124,28 @@
  * 莫兰迪色
  */
 .u-bg-malandy1{
-	background-color: #769A80;
+	background-color: #769A8088;
 }
 
 .u-bg-malandy2{
-	background-color: #acc9b5;
+	background-color: #acc9b533;
 }
 
 .u-bg-malandy3{
-	background-color: #F4c587;
+	background-color: #F4c587aa;
 }
 
 .u-bg-malandy-g1{
-	background-image: linear-gradient(to top right, #acc9b5, #F4c587);
+	background-image: linear-gradient(to top right, #acc9b5bb, #F4c587bb);
 }
 
 .u-bg-malandy-g2{
-	background-image: linear-gradient(to bottom left, #769A80, #acc9b5);
+	background-image: linear-gradient(to bottom left, #769A8088, #acc9b533);
 }
 
 .u-bg-malandy-g3{
-	background-image: linear-gradient(to top left, #769A80, #acc9b5);
+	background-image: linear-gradient(to top left, #769A8088, #acc9b533);
 }
 .u-bg-malandy-g3{
-	background-image: linear-gradient(to bottom, #769A80, #acc9b5);
+	background-image: linear-gradient(to bottom, #769A8088, #acc9b533);
 }
