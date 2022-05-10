@@ -33,7 +33,7 @@
 		<view class="flex space-between">
 			<view class="u-m-10 u-p-10 u-radius-5 text-center u-bg-maka3 u-font-gray2" style="width: 100%;"
 			 @click="handleClickDelete">
-				删除这个作品
+				删除这个故事
 			</view>
 			<view class="u-m-10 u-p-10 u-radius-5 text-center u-bg-maka3 u-font-gray2" style="width: 100%;"
 			 @click="handleClickEdit">

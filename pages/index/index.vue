@@ -30,7 +30,7 @@
 		<view class="u-bottom u-p-10 u-m-t-20 u-m-b-40 flex space-between u-bg-malandy-g2">
 			<view class="u-m-10 u-p-10 u-radius-5 text-center u-bg-maka3 u-font-gray2" style="width: 100%;"
 				@click="handleClickAdd">
-				新增作品
+				新增故事
 			</view>
 		</view>
 	</view>
