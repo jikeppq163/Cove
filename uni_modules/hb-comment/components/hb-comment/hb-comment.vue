@@ -18,9 +18,9 @@
 		<view class="comment-list" v-if="commentData.commentSize">
 			<!-- 故事主体-顶部数量及发表故事按钮-start -->
 			<view class="comment-num">
-				<view>共 {{commentData.commentSize}} 个故事</view>
+				<view>共 {{commentData.commentSize}} 个回复</view>
 				<view class="add-btn">
-					<button type="primary" size="mini" @click="commentInput">分享故事</button>
+					<button type="primary" size="mini" @click="commentInput">回复</button>
 				</view>
 			</view>
 			<!-- 故事主体-顶部数量及发表故事按钮-end -->
@@ -109,7 +109,7 @@
 		<!-- 故事主体-end -->
 		<!-- 无故事-start -->
 		<view class="comment-none" v-else>
-			暂无故事，<span @click="commentInput" style="color: #007AFF;">说出你的心声</span>
+			暂无回复，<span @click="commentInput" style="color: #007AFF;">说出你的心声</span>
 		</view>
 		<!-- 无故事-end -->
 		<!-- 新增故事-start -->
@@ -149,7 +149,7 @@
 			deleteTip: {
 				type: String,
 				default: () => {
-					return '操作不可逆，如果故事下有子故事，也将被一并删除，确认？';
+					return '确认删除？';
 				}
 			},
 		},
@@ -225,7 +225,7 @@
 			add() {
 				if (this.commentReq.content == null || this.commentReq.content.length < 2) {
 					uni.showToast({
-						title: '故事内容过短',
+						title: '内容过短',
 						duration: 2000
 					});
 					return

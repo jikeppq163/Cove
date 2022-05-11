@@ -9,7 +9,7 @@
 				:class="inputFocus=='title'? 'u-bg-malandy2':''" 
 				@click="handleClickChangeInput('title')"
 				>
-				<view class="u-p-b-5">作品标题...</view>
+				<view class="u-p-b-5">故事标题...</view>
 				<view class="">
 					<input v-model="title" type="text" maxlength='100' @blur="inputBlur('title')"/>
 				</view>
@@ -84,8 +84,8 @@ export default {
 			fileLists:{},
 			uploadImage:false,
 			imageStyles:{
-				width:120,
-				height:80,
+				width:320,
+				height:180,
 				border:{
 					color:"#fff",
 					width:1,

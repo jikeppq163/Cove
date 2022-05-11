@@ -14,10 +14,10 @@ let state={
 	lastUrl:'',
 	userInfo:{
 		"id": "1",
-		"nickname": "用户名",
+		"nickname": "用户ewqvx_qw12",
 		"avatar": "https://thirdwx.qlogo.cn/mmopen/vi_32/4FYsd8bWiaR8otxj1cNzib0ibL975Ug8zGvJicPT0yZYIh4ox41pmiaUc8GeKl6kw9Q4q26Mab0TzYp9SaKDic55iavIQ/132",
 		"email": null,
-		"openid": "333",
+		"openid": "o_cGP5sxh4TH6i5jBvgtRH9PcsMs",
 		"sex": 0,
 	},
 	defaultHeight:{
@@ -25,10 +25,12 @@ let state={
 		"min-height":"800rpx",
 	},
 	mood:[
-				['开心', '沮丧', '烦恼', '强烈', '焦虑', '满意', '兴奋'],
-				['害怕', '平静', '被爱', '受伤', '后悔', 'overwhelmed', 'height'],
-				['难过', '成熟', '脆弱', '孤单', '阴郁', '失落', '感激'],
-				['低沉', '困惑', '罪恶', '抑郁', '愤怒', '孤独']
+				['开心', '沮丧', '烦恼', '激动'],
+				['害怕', '平静', '热爱', '受伤'],
+				['难过', '成熟', '脆弱', '孤单'],
+				['失落', '感激', '满意', '兴奋'],
+				['焦虑', '后悔', '阴郁', '愤怒'],
+				['低沉', '困惑', '罪恶', '抑郁']
 	],
 	//当前新增列表 project
 	project:{
@@ -314,7 +316,6 @@ let actions={
 			for (var item of state.project.rdata.synth) {
 				const node = getNoteAtHeight(item.y);
 				state.sampler.triggerAttack(node, now + item.up);
-				//playByInstrument(item.y, now + item.up);
 			}
 		}
 	},
