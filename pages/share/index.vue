@@ -34,7 +34,7 @@
 			</view>
 		</view>
 		<view class="u-m-10 u-m-t-20 u-bg-maka-g text-center u-font-gray2 shadow-lg" style="width: 700rpx;height: 400rpx;">
-			<image v-if='imageUrl' :src="imageUrl" mode="aspectFill" style="width: 100%; height: 100%;"></image>
+			<image v-if='imageUrl' :src="imageUrl" lazy-load="true" mode="aspectFill" style="width: 100%; height: 100%;"></image>
 			<view class="u-p-10 u-radius-5 text-center relative" style="height: 60px;width: 60px;left:300rpx;top:-250rpx;"
 				@click="handleClickPlay">
 				<uni-icons 	v-if="imageUrl" 
