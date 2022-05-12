@@ -93,7 +93,7 @@
 		},
 		onShow() {
 			this.style.height = ((this.$store.getters.getWindowsHeight - 62) ) + 'px';
-			console.log('defaultHeight', this.style);
+			// console.log('defaultHeight', this.style);
 			this.$store.dispatch('getLoginStatus');
 			this.$store.dispatch('playerStop');
 			var that = this;

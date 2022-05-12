@@ -25,12 +25,12 @@ let state={
 		"min-height":"800rpx",
 	},
 	mood:[
-				['开心', '沮丧', '烦恼', '激动'],
-				['害怕', '平静', '热爱', '受伤'],
-				['难过', '成熟', '脆弱', '孤单'],
-				['失落', '感激', '满意', '兴奋'],
-				['焦虑', '后悔', '阴郁', '愤怒'],
-				['低沉', '困惑', '罪恶', '抑郁']
+		['热爱', '幸福', '开心', '兴奋'],
+		['感激', '平静', '感动', '激动'],
+		['难过', '害怕', '脆弱', '孤单'],
+		['失落', '罪恶', '烦恼', '受伤'],
+		['焦虑', '后悔', '抑郁', '愤怒'],
+		['低沉', '困惑', '沮丧', '阴郁']
 	],
 	//当前新增列表 project
 	project:{
@@ -42,9 +42,9 @@ let state={
 			audio:'',
 			volume:10,
 			synth:[],
-			title:'NOTHING...',
-			thoughts:'NOTHING...',
-			location:'NOTHING...',
+			title:'',
+			thoughts:'',
+			location:'',
 		}
 	},
 	//模版
@@ -55,9 +55,9 @@ let state={
 			audio:'',
 			volume:10,
 			synth:[],
-			title:'NOTHING...',
-			thoughts:'NOTHING...',
-			location:'NOTHING...',
+			title:'',
+			thoughts:'',
+			location:'',
 		}
 	},
 	//所有过往记录列表 list

@@ -5,7 +5,7 @@
 		:duration="duration">
 			<swiper-item>
 				<view class="swiper-item u-font-white u-p-t-60">
-					<view class="u-p-t-60"></view>
+					<view class="u-p-t-40"></view>
 					<view class="title u-font-size-20  u-p-t-60">欢迎来到心乐星记 </view>
 					<view class="u-p-t-60"></view>
 					<view class="content u-font-size-15 u-p-60">
@@ -20,21 +20,21 @@
 			</swiper-item>
 			<swiper-item>
 				<view class="swiper-item u-font-white u-p-t-60">
-					<view class="u-p-t-60"></view>
-					<view class="title u-font-size-20  u-p-t-60">你的想法比想象中更重要 </view>
+					<view class="u-p-t-40"></view>
+					<view class="title u-font-size-20  u-p-t-60">在心情音乐中感受你的想法和信念</view>
 					<view class="u-p-t-60"></view>
 					<view class="content u-font-size-15 u-p-60">
-						想法本身没有什么好坏之分，<br /><br />
-						关键是想法给你带来了什么样的情绪体验，<br /><br />
-						一些想法不断强化后形成了你的信念，<br /><br />
+						你的想法比想象中更重要，他没有好坏之分，<br /><br />
+						关键是这想法给你带来了什么样的情绪体验，<br /><br />
+						总是有一些想法不断强化后形成了你的信念，<br /><br />
 						深呼吸几次，冷静一下认识你的想法和信念，<br /><br />
-						从更高的认知层次去想一想，你还有更多的可能。<br /><br />
+						从更高的认知层次看, 你有没有更多的可能。<br /><br />
 					</view>
 					<view class="jump-over" @tap="launchFlag()">{{jumpover}}</view>
 				</view>
 			</swiper-item>
 			<swiper-item>
-					<view class="u-p-t-60"></view>
+				<view class="u-p-t-40"></view>
 				<view class="swiper-item u-font-white u-p-t-60">
 					<view class="u-p-t-60"></view>
 					<view class="content u-font-size-15 u-p-60">
@@ -42,13 +42,13 @@
 						在聆听中明晰，<br /><br />
 						在回忆里沉淀，<br /><br />
 						在分享中升华。<br /><br />
-						<view class="u-font-size-20  u-p-t-60">准备开始你的心路旅程吧 </view>
+						<view class="u-font-size-20  u-p-t-40">准备开始你的心路旅程吧 </view>
 					</view>
 					<view class="experience" @tap="launchFlag()">{{experience}}</view>
 				</view>
 			</swiper-item>
 		</swiper>
-		<view class="uniapp-img"><image src="../../../static/image/logo.png" mode="aspectFit"></image></view>
+		<view class="uniapp-img"><image src="../../../static/image/logo1.png" mode="aspectFit"></image></view>
 	</view>
 </template>
 
@@ -60,7 +60,7 @@
 				autoplay: false,
 				duration: 500,
 				jumpover: '跳过',
-				experience: '立即体验'
+				experience: '立即进入'
 			}
 		},
 		methods: {
@@ -72,8 +72,8 @@
 				// 		key: 'launchFlag',
 				// 		data: true,
 				// });
-				uni.switchTab({
-					url: '/pages/index/index'
+				uni.navigateTo({
+					url: '/pages/emotion/mood/index'
 				});
 				
 			}
@@ -91,25 +91,13 @@
 	.swiper{
 		width: 100%;
 		height: 80%;
-		/* background: #FFFFFF; */
 	}
 	.swiper-item {
 		width: 100%;
 		height: 100%;
 		text-align: center;
-		/* position: relative;
-		display: flex; */
-		/* justify-content: center; */
 		align-items:flex-end;
 		flex-direction:column-reverse
-	}
-	.swiper-item-img{
-		width: 100%;
-		height: auto;
-		margin: 0 auto;
-	}
-	.swiper-item-img image{
-		width: 80%;
 	}
 	.uniapp-img{
 		height: 20%;
@@ -120,7 +108,7 @@
 		overflow: hidden;
 	}
 	.uniapp-img image{
-		width: 40%;
+		/* width: 40%; */
 	}
 	
 	.jump-over,.experience{

@@ -501,6 +501,7 @@
 	.comment-add {
 		position: fixed;
 		background-color: #FFFFFF;
+		color: #000000;
 		width: 100%;
 		padding: 5rpx;
 		border: 1px solid #ddd;

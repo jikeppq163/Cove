@@ -17,7 +17,7 @@ const compressor = new Compressor();
 const getInstrument = (instrument) => {
 	const sampler = new Sampler({
 		urls: samples[instrument],
-		baseUrl: "/static/samples/"
+		baseUrl: "https://metamusic-1259245365.cos.ap-guangzhou.myqcloud.com/samples/"
 	}).chain(lowpass, lowshelf, compressor, Master);
 
 	return sampler;

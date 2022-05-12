@@ -26,7 +26,7 @@
 			<slider v-if='show' :value="project.rdata.volume" block-color='#F4c587' min="0" max="30"  @changing='sliderChanging'/>
 		</view>
 		<view v-if='show' class="flex center">
-			<view class="u-p-10 u-font-size-20 u-font-white u-border-1 u-radius-20 u-p-l-40 u-p-r-40 uni-shadow-lg animation-fade" 
+			<view class="u-font-size-20 u-font-white u-border-1 u-radius-20 u-p-20 u-m-b-40 uni-shadow-lg animation-fade" 
 				@click="handleClickNext">
 				下一步
 			</view>
