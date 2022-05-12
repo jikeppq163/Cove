@@ -9,12 +9,17 @@ const notes = octaves.reduce(
 	allNotes.concat(Scale.notes(`${tonicPc}${octave}`, 'major')),
 	[]
 )
-const getNoteAtHeight = (yPct) =>
-	notes[
-		Math.min(
+
+const noteIndex = (yPct) => Math.min(
 			notes.length - 1,
 			Math.floor(((ONE_HUNDRED - yPct) / ONE_HUNDRED) * notes.length)
 		)
-	];
+
+const getNoteAtHeight = (yPct) => {
+	console.log('notes------',notes);
+	let iy = noteIndex(yPct)+1;
+	console.log('noteIndex------',iy);
+	return notes[iy<0?0:iy];
+}
 
 export default getNoteAtHeight

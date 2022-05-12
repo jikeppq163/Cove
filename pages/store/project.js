@@ -313,7 +313,9 @@ let actions={
 	runSynthGamut({state}){
 		if (state.project.rdata.synth != []) {
 			const now = Tone.now();
+			// console.log('synth----------',state.project.rdata.synth);
 			for (var item of state.project.rdata.synth) {
+				// console.log('note----------',item);
 				const node = getNoteAtHeight(item.y);
 				state.sampler.triggerAttack(node, now + item.up);
 			}
