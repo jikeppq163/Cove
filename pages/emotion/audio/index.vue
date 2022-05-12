@@ -1,5 +1,10 @@
 <template>
 	<view class="u-bg-malandy-g2" :style="defaultHeight">
+		<view class="">
+			<view class="text-center u-font-white u-font-size-20 u-p-t-40 u-p-b-20">
+				选择心情天气，创造背景白噪音	
+			</view>
+		</view>
 		<view class="flex center" :style="'height:'+getWindowsHeight*0.7 +'px;'">
 			<view class="flex warp u-p-20">
 				<view v-for="(item,index) of audioList" :key='item.id' 

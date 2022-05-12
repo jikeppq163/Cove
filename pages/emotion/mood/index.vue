@@ -2,7 +2,7 @@
 	<view class="u-bg-malandy-g2" :style="defaultHeight">
 		<view class="">
 			<view class="text-center u-font-white u-font-size-20 u-p-t-40 u-p-b-20">
-				你现在的情绪如何?
+				记录当下心情，选择你的情绪词
 			</view>
 		</view>
 		<MoodView></MoodView>

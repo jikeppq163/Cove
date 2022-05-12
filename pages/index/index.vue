@@ -1,5 +1,5 @@
 <template>
-	<view class="u-bg-malandy-g2" :style="defaultHeight">
+	<view class="main u-bg-malandy-g2 " :style="defaultHeight">
 		<view class="u-p-20 u-font-white text-center u-font-size-16">
 			用音乐记录你的情绪, 探索情绪背后的故事吧!
 		</view>
@@ -48,8 +48,10 @@
 	export default {
 		data() {
 			return {
-
 			}
+		},
+		onLoad(){
+			this.loadExecution()
 		},
 		computed: {
 			...mapState({

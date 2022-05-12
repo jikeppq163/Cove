@@ -29,13 +29,12 @@
 				>
 				<view class="u-p-b-5">地址</view>
 				<view class="">
-					<input v-model="location" type="text" maxlength='100'  @blur="inputBlur('location')"/>
+					<input v-model="location" type="text" maxlength='100' @blur="inputBlur('location')"/>
 				</view>
 			</view>
-			<view class="u-radius-3  u-font-white u-p-10 u-m-t-10 u-font-size-12"
-				>
-				<view class="u-p-b-5 text-center">你觉得心情好点了吗?</view>
-				<view class="u-p-b-5 text-center">加些新标签吧.</view>
+			<view class="u-radius-3  u-font-white u-p-10 u-m-t-10 u-font-size-12" >
+				<view class="u-p-b-5 text-center">认识你的想法和信念，感受情绪变化，记录此刻的心情</view>
+			<!-- 	<view class="u-p-b-5 text-center">加些新标签吧.</view> -->
 				<MoodList></MoodList>
 			</view>
 			<view class="">

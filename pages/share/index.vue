@@ -1,5 +1,5 @@
 <template>
-	<view class="" :style="defaultHeight">
+	<view class="u-bg-malandy-g2" :style="defaultHeight">
 		<view class="u-p-10"></view>
 		
 		<view class=" share-point u-radius-3 u-bg-malandy2 u-font-gray2 u-m-r-15" style="float: right;padding: 5px;">
@@ -47,18 +47,18 @@
 			</view>
 		</view>
 		<view v-if="project.openid == openId" class="u-bottom u-p-10 u-m-t-10 u-m-b-10 flex flex-end widthFull">
-			<view class="u-p-5 u-p-l-20 u-p-r-20 u-radius-5 text-center u-bg-maka3 u-font-gray2"
+			<view class="u-p-5 u-p-l-20 u-p-r-20 u-radius-5 text-center u-font-white"
 			 @click="handleClickDelete">
-				<uni-icons type="trash"></uni-icons>
+				<uni-icons type="trash" color="#fff"></uni-icons>
 				删除
 			</view>
-			<view class="u-m-l-10 u-p-5 u-p-l-20 u-p-r-20 u-radius-5 text-center u-bg-maka3 u-font-gray2" 
+			<view class="u-m-l-10 u-p-5 u-p-l-20 u-p-r-20 u-radius-5 u-font-white text-center" 
 			 @click="handleClickEdit">
-				<uni-icons type="compose"></uni-icons>
+				<uni-icons type="compose" color="#fff"></uni-icons>
 				编辑
 			</view>
 		</view>
-		<uComment style="background-color: #eaf8edcc" :projectId='projectId'></uComment>
+		<uComment style="color: #FFF" :projectId='projectId'></uComment>
 	</view>
 </template>
 

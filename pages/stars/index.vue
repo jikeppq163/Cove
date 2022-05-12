@@ -1,5 +1,5 @@
 <template>
-	<view class="bg-star">
+	<view class="u-bg-malandy-g2">
 		<!-- <view class="flex space-between u-font-gray2 u-p-l-20 u-p-r-20">
 			<liuyuno-tabs :tabData="titleTag" :defaultIndex="defaultIndex" @tabClick='tabClick' />
 		</view> -->
@@ -28,7 +28,7 @@
 											<!-- <text class="u-p-3 u-font-size-12 nowrap">
 												{{item.userInfo.nickName}}
 											</text> -->
-											<view class="u-p-5 u-m-l-5 u-font-gray2 u-bg-malandy-g1 u-radius-50"
+											<view class="u-p-5 u-m-l-5 u-font-black u-bg-malandy-g1 u-radius-50"
 												v-for="item_mood of item.rdata.mood" :key='item_mood.id'>
 												{{item_mood}}
 											</view>
@@ -84,7 +84,7 @@
 				swiperData: [],
 				imageList: [],
 				style: {
-					"height": '1200rpx'
+					"height": '800rpx'
 				}
 			}
 		},
@@ -92,7 +92,7 @@
 			liuyunoTabs
 		},
 		onShow() {
-			this.style.height = (this.$store.getters.getWindowsHeight * 2 * 0.8) + 'rpx';
+			this.style.height = ((this.$store.getters.getWindowsHeight - 62) ) + 'px';
 			console.log('defaultHeight', this.style);
 			this.$store.dispatch('getLoginStatus');
 			this.$store.dispatch('playerStop');
@@ -167,7 +167,7 @@
 		// background-color: #AAA;
 	}
 	.text-story {
-		background-color: #f0f0f0c2;
+		background-color: #f0f0f0eb;
 		border-radius: 10px;
 		margin: 10rpx;
 		padding: 15rpx;

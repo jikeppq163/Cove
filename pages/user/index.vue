@@ -2,29 +2,28 @@
 	<view class="bg-white u-font-black ">
 		<uni-card class="" :title="userInfo.nickname" :sub-title="1?'新手 Lv 1':0" :isFull="true" :thumbnail="userInfo.headimgurl">
 		<!-- :sub-title="userInfo.sex? '女':'男'" -->
-		<view class="u-m-10">
+		<!-- <view class="u-m-10">
 			<uni-icons class='u-m-r-10' type="tune-filled" ></uni-icons>
 			设置 (即将上线) 
-		</view>			
+		</view>	 -->		
 		</uni-card>
 		<!-- <view class="flex flex-center u-bg-malandy2 u-p-10 u-m-t-10">
 			<button size="mini" @click="getLogin()" >登录</button>
 		</view>	 -->	
-		<view class="u-p-3 bg-black"></view>
+		<!-- <view class="u-p-3 bg-black"></view> -->
 	
 		<view class="u-bg-white u-p-10 u-font-black ">
 			我的打卡 (共打卡 {{ scount }} 次) <!-- @change="change" -->
 			<uni-calendar class="uni-calendar--hook" :selected="info.selected" :showMonth="false" @change="change"
 				@monthSwitch="monthSwitch"  />
-			
 		</view>
-		<view class="u-p-3 bg-black"></view>
+		<view class="bg-white" style="height: 300px;"></view>
+	<!-- 	
 		<view class=" u-p-10 u-m-t-10">
 			<uni-icons class='u-m-r-10' type="wallet-filled" ></uni-icons>
 			隐私管理 (即将上线) <br/>
 		<text class="uni-body u-font-gray2">您能在匿名的状态下访问并获取信息。当我们需要能识别您的个人信息或者可以与您联系的信息时，我们会征求您的同意。通常，在您注册或申请开通新的功能时，我们可能收集这些信息：姓名，Email地址，住址和电话号码，并征求您的确认。</text>
-
-		</view>
+		</view> -->
 
 	</view>
 </template>
@@ -87,6 +86,7 @@
 					},
 					success: (res) => {
 						console.log('reqProject.list success:', res);
+						this.scount = 0;
 						res.forEach(item=>{
 							this.info.selected.push({
 								date: getDate(item.created_at).fullDate,

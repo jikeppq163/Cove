@@ -16,9 +16,8 @@ import {getPlatform} from '@/utils/index.js'
 			this.$store.dispatch('initPlayer');
 			//获取存储的数据
 			this.$store.dispatch('getProject');
-			localStorage.setItem('openId','');
 			//测试
-			if(true){ 
+			if(false){ 
 				uni.showToast({
 					title:'测试模式'+ this.$store.state.version
 				})
