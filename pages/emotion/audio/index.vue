@@ -114,7 +114,7 @@
 			},
 			sliderChanging(e){
 				this.playerVolume({
-					volume:e.detail.value-10
+					volume:e.detail.value
 				});
 			}
 		}

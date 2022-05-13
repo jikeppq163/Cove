@@ -108,7 +108,7 @@
 		overflow: hidden;
 	}
 	.uniapp-img image{
-		/* width: 40%; */
+		width: 40%;
 	}
 	
 	.jump-over,.experience{
