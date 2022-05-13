@@ -52,7 +52,7 @@
 			}
 		},
 		onLoad(){
-			this.loadExecution()
+			// this.loadExecution()
 		},
 		computed: {
 			...mapState({

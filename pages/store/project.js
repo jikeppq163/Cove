@@ -262,8 +262,9 @@ let actions={
 			set();
 		}
 		function set(){
+			let bgm = state.project.rdata.audio!=="" ? state.project.rdata.audio : 'rain_light';
 			state.player = new Tone.Player({
-				url:'/static/mp3/'+state.project.rdata.audio+'.mp3',
+				url:'/static/mp3/'+bgm+'.mp3',
 				autostart: closeAutostart? false:true,
 				loop:true
 			}).toDestination();

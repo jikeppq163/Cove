@@ -5,13 +5,13 @@
 				<view class="">{{date}}</view>
 				<view class="">{{time}}</view>
 			</view>
-			<view class="u-bg-malandy1 u-radius-3  u-font-white u-p-10 u-m-t-10 u-font-size-12 shadow-blur" 
+			<view class="u-bg-malandy1 u-radius-3 u-font-white u-p-10 u-m-t-10 u-font-size-12 shadow-blur" 
 				:class="inputFocus=='title'? 'u-bg-malandy2':''" 
 				@click="handleClickChangeInput('title')"
 				>
 				<view class="u-p-b-5">故事主题...</view>
 				<view class="">
-					<uni-easyinput v-model="title" type="textarea" placeholder='用一句话描述产生情绪的故事，避免判断和意见，采用细节' maxlength='200' auto-height @blur="inputBlur('title')"/>
+					<uni-easyinput class="u-bg-gray u-font-white" v-model="title" type="textarea" placeholder='用一句话描述产生情绪的故事，避免判断和意见，采用细节' maxlength='200' auto-height @blur="inputBlur('title')"/>
 				</view>
 			</view>
 			<view class="u-bg-malandy1 u-radius-3  u-font-white u-p-10 u-m-t-20 u-font-size-12 shadow-blur"
@@ -19,7 +19,7 @@
 				@click= "handleClickChangeInput('thoughts')" >
 				<view class="u-p-b-5">你可以记录下你的想法...</view>
 				<view class="">
-					<uni-easyinput v-model="thoughts" placeholder='可以问自己：我为什么会有这样的情绪或者那样的行为？在事情发生后，是什么导致了我出现这样的情绪或行为？我当时是怎么想的？反向检验：有了我所发现的信念，我还会期望感受到那种特定的结果吗？' type="textarea" maxlength='500' auto-height @blur="inputBlur('thoughts')"/>
+					<uni-easyinput class="u-bg-gray u-font-white" v-model="thoughts" placeholder='可以问自己：我为什么会有这样的情绪或者那样的行为？在事情发生后，是什么导致了我出现这样的情绪或行为？我当时是怎么想的？反向检验：有了我所发现的信念，我还会期望感受到那种特定的结果吗？' type="textarea" maxlength='500' auto-height @blur="inputBlur('thoughts')"/>
 				</view>
 			</view>
 			<view class="u-bg-malandy1 u-radius-3  u-font-white u-p-10 u-m-t-20 u-font-size-12 shadow-blur"
@@ -122,7 +122,8 @@ export default {
 			data.id = this.project.id;
 			data.openid = this.openId;
 			data.rdata = JSON.stringify(this.project.rdata);
-			if(this.project.id ==-1){
+			// console.log('this.project.id',this.project.id)
+			if(this.project.id < 1 || this.project.id == undefined){
 				reqProject.create({
 					data:data,
 					success:(res)=>{
