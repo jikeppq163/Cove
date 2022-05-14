@@ -4,7 +4,7 @@
 		<view id = "particles" class="" 
 			:style="'height:'+getWindowsHeight*0.8 +'px;'"
 			@click="handleChickSet"
-			ref = "container">
+			ref="container">
 			<view v-for="(item) of synthList"
 			:key='item.id' 
 			class="view-synth"
@@ -16,12 +16,22 @@
 				}]"
 			@change="change">
 			</view>
-			<view class="pcts" style="" >
-				<view class="helper" style="" v-for="(item) of pctArray" :key='item.id' >{{ item }}</view>	
+			<view class="pcts" :style="[{'display': helperDisplay}]" ref="pcts" >
+				<view class="helper " @click="handleChickHelper"
+					:style="[{
+						'width': clientWidth/4 + 'px',
+						'height': clientHeight/9 + 'px',
+						'line-height': clientHeight/9 + 'px',
+						}]"
+					v-for="(item) of pctArray" :key='item.id' >{{ item }}</view>	
 			</view>
 		</view>
-		<view v-if='show' class="flex center" style="position:fixed;bottom: 50rpx;width: 100%;">
-			<view class="u-font-size-20 u-font-white u-border-1 u-radius-20 u-p-20 u-m-b-40 uni-shadow-lg animation-fade"
+		<view class="flex center" style="position:fixed;bottom: 50rpx;width: 100%;">
+			<view class="u-font-size-20 u-font-white u-border-1 u-radius-20 u-p-20 u-m-b-20 u-m-r-20 uni-shadow-lg animation-fade"
+				@click="handleChickHelper">
+				帮助
+			</view>
+			<view class="u-font-size-20 u-font-white u-border-1 u-radius-20 u-p-20 u-m-b-20 uni-shadow-lg animation-fade"
 				@click="handleClickNext">
 				下一步
 			</view>
@@ -46,6 +56,9 @@
 				pctArray: ['D2', 'E2', 'F#2', 'G2', 'A2', 'B2', 'C#3', 'D3', 'E3', 'F#3', 'G3', 'A3', 'B3', 'C#4', 'D4', 'E4', 'F#4', 'G4', 'A4', 'B4', 'C#5', 'D5', 'E5', 'F#5', 'G5', 'A5', 'B5', 'C#6', 'D6', 'E6', 'F#6', 'G6', 'A6', 'B6', 'C#7'],
 				synthList:[],
 				animation: 'animation-fade-ease-out',
+				clientHeight: 0,
+				clientWidth: 0,
+				helperDisplay:'none'
 			}
 		},
 		computed:{
@@ -57,6 +70,8 @@
 			}
 		},
 		mounted() {
+			this.clientHeight = this.$refs.container.$el.clientHeight;
+			this.clientWidth = this.$refs.container.$el.clientWidth;
 			var that =this;
 			particlesJS.load('particles','./static/particles_nasa.json');
 			this.initPlayer();
@@ -89,10 +104,16 @@
 						},10);
 				})
 			},
+			handleChickHelper(e) {
+				this.helperDisplay ="block";
+				setTimeout(()=>{
+					this.helperDisplay='none';
+				},3000);
+			},
 			handleChickSet(e){
 				//播放音阶
-				var clientHeight = this.$refs.container.$el.clientHeight;
-				var clientWidth = this.$refs.container.$el.clientWidth;
+				var clientHeight = this.clientHeight;
+				var clientWidth = this.clientWidth;
 				var yPct = Math.ceil(e.detail.x/(clientWidth/4)) + (Math.floor(e.detail.y/(clientHeight/9))*4);
 				console.log(yPct,Math.ceil(e.detail.x/(clientWidth/4)),Math.floor(e.detail.y/(clientHeight/9)),e.detail.y,e.detail.x,(clientWidth/4),(clientHeight/9));
 				// var yPct = normalToPct(e.detail.y/clientHeight);
@@ -155,14 +176,12 @@
 		// display: none;
 	}
 	.helper {
-		width: 103.5px;
-		height: 75.88px;
-		line-height: 75.88px;
 		position: relative;
 		color: #ffffff36;
 		float: left;
 		text-align: center;
-		border: 1px solid #ffffff36;
+		border: 1px solid #ffffff17;
+		font-size: 30px;
 	}
 	.view-synth{
 		height: 40px;
