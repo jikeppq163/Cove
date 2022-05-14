@@ -26,7 +26,21 @@
 					v-for="(item) of pctArray" :key='item.id' >{{ item }}</view>	
 			</view>
 		</view>
+		
 		<view class="flex center" style="position:fixed;bottom: 20rpx;width: 100%;">
+			<view v-for="(item,index) of instrumentList" :key='item.id'
+				class="view-image flex center "
+				>
+				<view class="view-image-s u-p-20 animation-fade"
+				:style="[{animationDelay: (index + 1)*0.1 + 's'}]"
+				@click="handleClickImg(index)">
+					<image style="height: 40px;width: 40px;"
+					class="u-p-10 u-radius-20 uni-shadow-base"
+					:class="indexs==index? 'u-bg-malandy-g1':'u-bg-malandy-g2'"
+					:src="'../../../static/icon/'+item[0]+'.png'"
+					></image>
+				</view>
+			</view>
 			<view class="u-font-size-20 u-font-white u-border-1 u-radius-20 u-p-20 u-m-b-20 uni-shadow-lg animation-fade"
 				@click="handleClickNext">
 				下一步
@@ -53,6 +67,15 @@
 	export default{
 		data(){
 			return{
+				instrumentList:[
+					//名称 乐器 是否选中
+					['piano'],
+					['guitar'],
+					['cello'],
+					['harp'],
+					['xylophone'],
+				],
+				indexs:0, //default piano
 				pctArray: ['D2', 'E2', 'F#2', 'G2', 'A2', 'B2', 'C#3', 'D3', 'E3', 'F#3', 'G3', 'A3', 'B3', 'C#4', 'D4', 'E4', 'F#4', 'G4', 'A4', 'B4', 'C#5', 'D5', 'E5', 'F#5', 'G5', 'A5', 'B5', 'C#6', 'D6', 'E6', 'F#6', 'G6', 'A6', 'B6', 'C#7'],
 				synthList:[],
 				animation: 'animation-fade-ease-out',
@@ -74,7 +97,7 @@
 			this.clientWidth = this.$refs.container.$el.clientWidth;
 			var that =this;
 			particlesJS.load('particles','./static/particles_nasa.json');
-			this.initPlayer();
+			this.initPlayer('piano');
 			if(that.project.id != -1){
 				setTimeout(()=>{
 					if(!everClick){
@@ -89,7 +112,7 @@
 		},
 		methods:{
 			...mapActions([
-				'synthGamut','initPlayer','runSynthGamut','saveSynthGamut','playerStop','clearIntervals','runIntervals'
+				'synthGamut','initPlayer','runSynthGamut','saveSynthGamut','playerStop','clearIntervals','runIntervals','setSampler'
 			]),
 			runSynt(){
 				this.runIntervals(()=>{
@@ -110,6 +133,13 @@
 				} else {
 					this.helperDisplay='block';
 				}
+			},handleClickImg(value){
+				var that = this;
+				//console.log('handleClickImg');
+				//that.playerStop();
+				//命中已经选中的乐器
+				that.indexs = value;
+				that.setSampler(that.instrumentList[that.indexs][0]);
 			},
 			handleChickSet(e){
 				//播放音阶
