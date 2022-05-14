@@ -26,11 +26,11 @@
 					v-for="(item) of pctArray" :key='item.id' >{{ item }}</view>	
 			</view>
 		</view>
-		<view class="flex center" style="position:fixed;bottom: 50rpx;width: 100%;">
-			<view class="u-font-size-20 u-font-white u-border-1 u-radius-20 u-p-20 u-m-b-20 u-m-r-20 uni-shadow-lg animation-fade"
+			<view class="u-font-size-30 u-font-black u-border-1 u-radius-20 u-p-10" style="position: fixed; bottom: 10px; left: 10px;"
 				@click="handleChickHelper">
-				帮助
+				#
 			</view>
+		<view class="flex center" style="position:fixed;bottom: 20rpx;width: 100%;">
 			<view class="u-font-size-20 u-font-white u-border-1 u-radius-20 u-p-20 u-m-b-20 uni-shadow-lg animation-fade"
 				@click="handleClickNext">
 				下一步
@@ -105,17 +105,18 @@
 				})
 			},
 			handleChickHelper(e) {
-				this.helperDisplay ="block";
-				setTimeout(()=>{
+				if (this.helperDisplay == "block") {
 					this.helperDisplay='none';
-				},3000);
+				} else {
+					this.helperDisplay='block';
+				}
 			},
 			handleChickSet(e){
 				//播放音阶
 				var clientHeight = this.clientHeight;
 				var clientWidth = this.clientWidth;
 				var yPct = Math.ceil(e.detail.x/(clientWidth/4)) + (Math.floor(e.detail.y/(clientHeight/9))*4);
-				console.log(yPct,Math.ceil(e.detail.x/(clientWidth/4)),Math.floor(e.detail.y/(clientHeight/9)),e.detail.y,e.detail.x,(clientWidth/4),(clientHeight/9));
+				// console.log(yPct,Math.ceil(e.detail.x/(clientWidth/4)),Math.floor(e.detail.y/(clientHeight/9)),e.detail.y,e.detail.x,(clientWidth/4),(clientHeight/9));
 				// var yPct = normalToPct(e.detail.y/clientHeight);
 				
 				yPct = 0<yPct<35 ? (yPct-1) : 34;
