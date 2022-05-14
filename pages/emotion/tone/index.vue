@@ -26,15 +26,15 @@
 					v-for="(item) of pctArray" :key='item.id' >{{ item }}</view>	
 			</view>
 		</view>
-			<view class="u-font-size-30 u-font-black u-border-1 u-radius-20 u-p-10" style="position: fixed; bottom: 10px; left: 10px;"
-				@click="handleChickHelper">
-				#
-			</view>
 		<view class="flex center" style="position:fixed;bottom: 20rpx;width: 100%;">
 			<view class="u-font-size-20 u-font-white u-border-1 u-radius-20 u-p-20 u-m-b-20 uni-shadow-lg animation-fade"
 				@click="handleClickNext">
 				下一步
 			</view>
+		</view>
+		<view class="u-font-size-30 u-font-black u-border-1 u-radius-20 u-p-10" style="position: fixed; bottom: 10px; left: 10px;"
+			@click="handleChickHelper">
+			#
 		</view>
 	</view>
 </template>
