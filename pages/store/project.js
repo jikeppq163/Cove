@@ -5,6 +5,8 @@ import * as Tone from "tone";
 import getInstrument from './instrument';
 import getNoteAtHeight from './getNode';
 
+const pctArray =['D2', 'E2', 'F#2', 'G2', 'A2', 'B2', 'C#3', 'D3', 'E3', 'F#3', 'G3', 'A3', 'B3', 'C#4', 'D4', 'E4', 'F#4', 'G4', 'A4', 'B4', 'C#5', 'D5', 'E5', 'F#5', 'G5', 'A5', 'B5', 'C#6', 'D6', 'E6', 'F#6', 'G6', 'A6', 'B6', 'C#7'];
+				
 let state={
 	version:'0.2.4',
 	server:'',
@@ -306,9 +308,9 @@ let actions={
 	//插入音阶
 	synthGamut({commit,state},yPct){
 		const now = Tone.now();
-		const node = getNoteAtHeight(yPct);
-		
-		state.sampler.triggerAttack(node,now);
+		// const node = getNoteAtHeight(yPct);
+		const node = pctArray[yPct];
+		if (node !== undefined) state.sampler.triggerAttack(node,now);
 		//state.synth.triggerAttackRelease(note, now);
 	},
 	runSynthGamut({state}){
@@ -317,8 +319,9 @@ let actions={
 			// console.log('synth----------',state.project.rdata.synth);
 			for (var item of state.project.rdata.synth) {
 				// console.log('note----------',item);
-				const node = getNoteAtHeight(item.y);
-				state.sampler.triggerAttack(node, now + item.up);
+				// const node = getNoteAtHeight(item.y);
+				const node = pctArray[item.y];
+				if (node !== undefined) state.sampler.triggerAttack(node, now + item.up);
 			}
 		}
 	},

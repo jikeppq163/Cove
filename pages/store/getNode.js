@@ -16,6 +16,7 @@ const noteIndex = (yPct) => Math.min(
 		)
 
 const getNoteAtHeight = (yPct) => {
+	// console.log('yPct------',yPct);
 	// console.log('notes------',notes);
 	let iy = noteIndex(yPct)+1;
 	// console.log('noteIndex------',iy);

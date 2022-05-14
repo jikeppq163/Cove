@@ -16,6 +16,9 @@
 				}]"
 			@change="change">
 			</view>
+			<view class="pcts" style="" >
+				<view class="helper" style="" v-for="(item) of pctArray" :key='item.id' >{{ item }}</view>	
+			</view>
 		</view>
 		<view v-if='show' class="flex center" style="position:fixed;bottom: 50rpx;width: 100%;">
 			<view class="u-font-size-20 u-font-white u-border-1 u-radius-20 u-p-20 u-m-b-40 uni-shadow-lg animation-fade"
@@ -40,6 +43,7 @@
 	export default{
 		data(){
 			return{
+				pctArray: ['D2', 'E2', 'F#2', 'G2', 'A2', 'B2', 'C#3', 'D3', 'E3', 'F#3', 'G3', 'A3', 'B3', 'C#4', 'D4', 'E4', 'F#4', 'G4', 'A4', 'B4', 'C#5', 'D5', 'E5', 'F#5', 'G5', 'A5', 'B5', 'C#6', 'D6', 'E6', 'F#6', 'G6', 'A6', 'B6', 'C#7'],
 				synthList:[],
 				animation: 'animation-fade-ease-out',
 			}
@@ -88,7 +92,13 @@
 			handleChickSet(e){
 				//播放音阶
 				var clientHeight = this.$refs.container.$el.clientHeight;
-				var yPct = normalToPct(e.detail.y/clientHeight);
+				var clientWidth = this.$refs.container.$el.clientWidth;
+				var yPct = Math.ceil(e.detail.x/(clientWidth/4)) + (Math.floor(e.detail.y/(clientHeight/9))*4);
+				console.log(yPct,Math.ceil(e.detail.x/(clientWidth/4)),Math.floor(e.detail.y/(clientHeight/9)),e.detail.y,e.detail.x,(clientWidth/4),(clientHeight/9));
+				// var yPct = normalToPct(e.detail.y/clientHeight);
+				
+				yPct = 0<yPct<35 ? (yPct-1) : 34;
+				
 				if (everClick){
 					this.synthGamut(yPct);
 				}
@@ -140,6 +150,20 @@
 </script>
 
 <style scoped lang="scss">
+	.pcts {
+		position: fixed; 
+		// display: none;
+	}
+	.helper {
+		width: 103.5px;
+		height: 75.88px;
+		line-height: 75.88px;
+		position: relative;
+		color: #ffffff36;
+		float: left;
+		text-align: center;
+		border: 1px solid #ffffff36;
+	}
 	.view-synth{
 		height: 40px;
 		width: 40px;
