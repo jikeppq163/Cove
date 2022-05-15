@@ -38,11 +38,10 @@
 			</view>
 		</view>
 		
-		<view class="flex center" style="position:fixed;bottom: 20rpx;width: 100%;">
+		<view class="flex center" style="position:fixed;bottom:150rpx;width: 100%;">
 			<view v-for="(item,index) of instrumentList" :key='item.id'
-				class="view-image flex center "
-				>
-				<view class="view-image-s u-p-20 animation-fade"
+				class="view-image flex center " >
+				<view class="view-image-s u-p-l-10 animation-fade"
 				:style="[{animationDelay: (index + 1)*0.1 + 's'}]"
 				@click="handleClickImg(index)">
 					<image style="height: 40px;width: 40px;"
@@ -52,14 +51,14 @@
 					></image>
 				</view>
 			</view>
-			<view class="u-font-size-20 u-font-white u-border-1 u-radius-20 u-p-20 u-m-b-20 uni-shadow-lg animation-fade"
-				@click="handleClickNext">
-				下一步
-			</view>
 		</view>
-		<view class="u-font-size-30 u-font-black u-border-1 u-radius-20 u-p-10" style="position: fixed; bottom: 10px; left: 10px;"
-			@click="handleChickHelper">
-			#
+		<view style="position: fixed; bottom: 20px; right: 170px;" class="u-font-size-20 u-font-white u-border-1 u-radius-20 u-p-10 uni-shadow-lg animation-fade"
+			@click="handleClickNext">
+			下一步
+		</view>
+		<view style="position: fixed; bottom: 10px; left: 10px;">
+			<view class="u-font-size-30 u-font-black u-border-1 u-radius-20 u-p-10" @click="handleChickHelper">#</view>
+			
 		</view>
 	</view>
 </template>
@@ -195,7 +194,7 @@
 						});
 					}
 				}
-				console.log(this.lineList);
+				// console.log(this.lineList);
 				
 				//排序
 				this.synthList.sort((a,b)=>{
