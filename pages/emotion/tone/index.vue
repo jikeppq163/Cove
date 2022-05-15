@@ -1,7 +1,7 @@
 <template>
 	<view class="bg-color" :style="defaultHeight">
 		<view class="u-font-white text-center">点亮屏幕上的星空，创作你的情绪旋律</view>
-		<view id = "particles" class="" 
+		<view id="particles" class="" 
 			:style="'height:'+getWindowsHeight*0.8 +'px;'"
 			@click="handleChickSet"
 			ref="container">
@@ -16,8 +16,19 @@
 				}]"
 			@change="change">
 			</view>
+			<!-- class="view-synth"-->
+			<view v-for="(line,i) of lineList" style="position: absolute;" :style="[{animationDelay: line.up + 's',}]" :class="animation" >
+				<svg :width="clientWidth" :height="getWindowsHeight" >
+					<line :x1="line.x1" :y1="line.y1" :x2="line.x2" :y2="line.y2" class="line-path" >
+						<animate attributeName="stroke-dashoffset" from="200" to="2" begin="1s" dur="5s" repeatCount="indefinite"/>
+						<!-- <animate attributeName="stroke-width" from="1" to="2" begin="1s" dur="5s" repeatCount="indefinite"/> -->
+						<!-- <animate attributeName="x2" :from="line.x1" :to="line.x2" begin="500ms" dur="1000ms" />
+						<animate attributeName="y2" :from="line.y1" :to="line.y2" begin="500ms" dur="1000ms" /> -->
+					</line>
+				</svg>
+			</view>
 			<view class="pcts" :style="[{'display': helperDisplay}]" ref="pcts" >
-				<view class="helper " @click="handleChickHelper"
+				<view class="helper"
 					:style="[{
 						'width': clientWidth/4 + 'px',
 						'height': clientHeight/9 + 'px',
@@ -55,6 +66,7 @@
 			return{
 				pctArray: ['D2', 'E2', 'F#2', 'G2', 'A2', 'B2', 'C#3', 'D3', 'E3', 'F#3', 'G3', 'A3', 'B3', 'C#4', 'D4', 'E4', 'F#4', 'G4', 'A4', 'B4', 'C#5', 'D5', 'E5', 'F#5', 'G5', 'A5', 'B5', 'C#6', 'D6', 'E6', 'F#6', 'G6', 'A6', 'B6', 'C#7'],
 				synthList:[],
+				lineList:[],
 				animation: 'animation-fade-ease-out',
 				clientHeight: 0,
 				clientWidth: 0,
@@ -139,6 +151,21 @@
 					y: yPct,
 					up: interval
 				});
+				this.lineList = [];
+				for (let i=0; i<this.synthList.length; i++) {
+					let lineItem1 = this.synthList[i];
+					let lineItem2 = this.synthList[i+1];
+					if (lineItem1!==undefined&&lineItem2!==undefined){
+						this.lineList.push({
+							x1: (parseInt(lineItem1.left.substr(0, lineItem1.left.length - 2))+20),
+							y1: (parseInt(lineItem1.top.substr(0, lineItem1.top.length - 2))+20),
+							x2: (parseInt(lineItem2.left.substr(0, lineItem2.left.length - 2))+20),
+							y2: (parseInt(lineItem2.top.substr(0, lineItem2.top.length - 2))+20),
+							up: lineItem2.up,
+						});
+					}
+				}
+				console.log(this.lineList);
 				
 				//排序
 				this.synthList.sort((a,b)=>{
@@ -172,6 +199,11 @@
 </script>
 
 <style scoped lang="scss">
+	.line-path {
+		stroke: #fbb300;
+		stroke-width: 1;
+		stroke-dasharray: 1, 10;
+	}
 	.pcts {
 		position: fixed; 
 		// display: none;
