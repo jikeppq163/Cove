@@ -243,8 +243,37 @@ let actions={
 	},
 	//初始化音乐
 	initPlayer({commit,state}){
-		state.sampler = getInstrument('piano');
+		state.piano = getInstrument('piano');
+		state.cello = getInstrument('cello');
+		state.guitar = getInstrument('guitar');
+		state.harp = getInstrument('harp');
+		state.xylophone = getInstrument('xylophone');
+		
+		//Assign piano by default
+		state.sampler = state.piano;
 		// state.synth = new Tone.Synth().toDestination();
+	},
+	setSampler({commit,state},instrument){
+		switch (instrument){
+			case 'piano':
+			state.sampler = state.piano;
+			break;
+			case 'cello':
+			state.sampler = state.cello;
+			break;
+			case 'guitar':
+			state.sampler = state.guitar;
+			break;
+			case 'harp':
+			state.sampler = state.harp;
+			break;
+			case 'xylophone':
+			state.sampler = state.xylophone;
+			break;
+			defaut:
+			state.sampler = state.piano;
+			break;
+		}
 	},
 	setPlayer({commit,state,getters},closeAutostart){
 		//播放

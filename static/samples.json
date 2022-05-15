@@ -74,5 +74,52 @@
 		"G4":"./violin/G4.mp3",
 		"G5":"./violin/G5.mp3",
 		"G6":"./violin/G6.mp3"
+	},
+	"harp":{
+		"A2":"./harp/A2.mp3",
+		"A4":"./harp/A4.mp3",
+		"A6":"./harp/A6.mp3",
+		"B1":"./harp/B1.mp3",
+		"B3":"./harp/B3.mp3",
+		"B5":"./harp/B5.mp3",
+		"B6":"./harp/B6.mp3",
+		"C3":"./harp/C3.mp3",
+		"C5":"./harp/C5.mp3",
+		"D2":"./harp/D2.mp3",
+		"D4":"./harp/D4.mp3",
+		"D6":"./harp/D6.mp3",
+		"D7":"./harp/D7.mp3",
+		"E1":"./harp/E1.mp3",
+		"E3":"./harp/E3.mp3",
+		"E5":"./harp/E5.mp3",
+		"F2":"./harp/F2.mp3",
+		"F4":"./harp/F4.mp3",
+		"F6":"./harp/F6.mp3",
+		"F7":"./harp/F7.mp3",
+		"G1":"./harp/G1.mp3",
+		"G3":"./harp/G3.mp3",
+		"G5":"./harp/G5.mp3"
+	},
+	"flute":{
+		"A3":"./flute/A3.mp3",
+		"A4":"./flute/A4.mp3",
+		"A5":"./flute/A5.mp3",
+		"C3":"./flute/C3.mp3",
+		"C4":"./flute/C4.mp3",
+		"C5":"./flute/C5.mp3",
+		"C6":"./flute/C6.mp3",
+		"E3":"./flute/E3.mp3",
+		"E4":"./flute/E4.mp3",
+		"E5":"./flute/E5.mp3"
+	},
+	"xylophone":{
+		"C4":"./xylophone/C4.mp3",
+		"C5":"./xylophone/C5.mp3",
+		"C6":"./xylophone/C6.mp3",
+		"C7":"./xylophone/C7.mp3",
+		"G3":"./xylophone/G3.mp3",
+		"G4":"./xylophone/G4.mp3",
+		"G5":"./xylophone/G5.mp3",
+		"G6":"./xylophone/G6.mp3"
 	}
 }
