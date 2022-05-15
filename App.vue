@@ -13,7 +13,7 @@ import {getPlatform} from '@/utils/index.js'
 				}
 			})
 			//初始化音频
-			this.$store.dispatch('initPlayer');
+			//this.$store.dispatch('initPlayer');
 			//获取存储的数据
 			this.$store.dispatch('getProject');
 			//测试

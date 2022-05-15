@@ -88,6 +88,7 @@
 						title: 'Loading...',
 						thoughts: '',
 						location: '',
+						instrument:''
 					},
 					created_at: ''
 				},
@@ -128,11 +129,10 @@
 					that.getProject();
 				}
 			}
-			this.initPlayer();
 		},
 		methods: {
 			...mapMutations(['setProject']),
-			...mapActions(['initPlayer','setPlayer','playerStart','playerStop','runIntervals','runSynthGamut','clearIntervals','getLoginStatus']),
+			...mapActions(['initSampler','setPlayer','playerStart','playerStop','runIntervals','runSynthGamut','clearIntervals','getLoginStatus']),
 			handleClickPlay(){
 				if(this.imageUrl){
 					if(this.getPlayerState=='stopped'){
@@ -238,6 +238,7 @@
 						else{
 							that.imageUrl = that.project.rdata.image;
 						}
+						this.initSampler(that.project.rdata.instrument);
 					},
 					fail: (err) => {
 						console.log('reqProject.share fail',err);
