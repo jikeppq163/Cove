@@ -360,6 +360,7 @@ let actions={
 			// console.log('synth----------',state.project.rdata.synth);
 			for (var item of state.project.rdata.synth) {
 				// console.log('note----------',item);
+				// console.log('item.up',item.up);
 				// const node = getNoteAtHeight(item.y);
 				const node = notesArray[item.node];
 				if (node !== undefined) state.sampler.triggerAttack(node, now + item.up);
