@@ -1,8 +1,27 @@
 
 <svg xmlns="http://www.w3.org/2000/svg" width="1000" height="1000" version="1.1">
-  <polygon style="fill:#fbb300;stroke:#fbb30052;stroke-width:0;transform: translate(390px, 390px);" points="" >
+	<style>
+		.star-b {
+		  animation: star_flow 1s;
+		}
+		
+		@keyframes star_flow {
+		  from {
+			stroke: #fbb30052;
+		    stroke-width: 0;
+		  }
+		  to {
+			stroke: #fbb30000;
+		    stroke-width: 430;
+		  }
+		}
+	</style>
+  <polygon class="star-start" style="fill:#fbb300;stroke:#fbb30052;stroke-width:0;transform: translate(390px, 390px);" points="" >
      <animate attributeName="points" dur="1s" fill="freeze" repeatCount="indefinite" values="100,0,129.97704786691614,58.74013328687768,195.10565162951536,69.09830056250526,148.50388233105284,115.7598667131223,158.77852522924732,180.90169943749473,100,151,41.2214747707527,180.90169943749476,51.49611766894717,115.75986671312232,4.894348370484636,69.09830056250527,70.02295213308386,58.740133286877686;100,0,135.2671151375484,51.45898033750315,195.10565162951536,69.09830056250526,157.06339097770922,118.54101966249684,158.77852522924732,180.90169943749473,100.00000000000001,160,41.2214747707527,180.90169943749476,42.93660902229079,118.54101966249685,4.894348370484636,69.09830056250527,64.7328848624516,51.45898033750316;100,0,129.97704786691614,58.74013328687768,195.10565162951536,69.09830056250526,148.50388233105284,115.7598667131223,158.77852522924732,180.90169943749473,100,151,41.2214747707527,180.90169943749476,51.49611766894717,115.75986671312232,4.894348370484636,69.09830056250527,70.02295213308386,58.740133286877686" />
-     <animate attributeName="stroke-width" dur="3s" fill="freeze" from="0" to="430" repeatCount="indefinite" />
-     <animate attributeName="stroke" dur="3s" fill="freeze" from="#fbb30052" to="#fbb30000" repeatCount="indefinite" />
+    <!-- <animate attributeName="stroke-width" dur="3s" fill="freeze" from="0" to="430" repeatCount="indefinite" />-->
+    <!-- <animate attributeName="stroke" dur="1s" fill="freeze" from="#fbb30052" to="#fbb30000" repeatCount="indefinite" />
+	 <animate attributeName="stroke-dashoffset" values="1;9;1" dur="1s" repeatCount="indefinite"/>
+	 <animate attributeName="stroke-dasharray" values="1;3;1" dur="1s" repeatCount="indefinite"/>
+	 <animate attributeName="stroke-width" values="33;155;33" dur="1s" repeatCount="indefinite"/> -->
   </polygon>
 </svg>

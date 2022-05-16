@@ -5,25 +5,23 @@
 			:style="'height:'+getWindowsHeight*0.8 +'px;'"
 			@click="handleChickSet"
 			ref="container">
-			<view v-for="(item) of synthList"
+<svg class="pcts" xmlns="http://www.w3.org/2000/svg"  :width="clientWidth" :height="getWindowsHeight"  version="1.1">
+	<polygon v-for="(item,index) of synthList"
 			:key='item.id' 
-			class="view-synth"
-			:class="animation"
+			:id='index' 
+			class="view-star"
+			:class="index==0?'star-start':animation"
 			:style="[{
 				animationDelay: item.up + 's',
-				top:item.top,
-				left:item.left,
+				transform: 'translate('+item.left+','+item.top+') scale(0.1)',
 				}]"
-			@change="change">
-			</view>
-			<!-- class="view-synth"-->
-			<view v-for="(line,i) of lineList" style="position: absolute;" :style="[{animationDelay: line.up + 's',}]" :class="animation" >
-				<svg :width="clientWidth" :height="getWindowsHeight" >
-					<line :x1="line.x1" :y1="line.y1" :x2="line.x2" :y2="line.y2" class="line-path" >
-						<animate attributeName="stroke-dashoffset" from="200" to="2" begin="1s" dur="5s" repeatCount="indefinite"/>
-					</line>
-				</svg>
-			</view>
+			@change="change" style="fill:#fbb300;stroke:#fbb30052;stroke-width:0;" points="100,0,129.97704786691614,58.74013328687768,195.10565162951536,69.09830056250526,148.50388233105284,115.7598667131223,158.77852522924732,180.90169943749473,100,151,41.2214747707527,180.90169943749476,51.49611766894717,115.75986671312232,4.894348370484636,69.09830056250527,70.02295213308386,58.740133286877686" >
+     <animate attributeName="points" dur="1s" fill="freeze" repeatCount="indefinite" values="100,0,123.51141009169893,67.63932022500211,195.10565162951536,69.09830056250526,138.04226065180615,112.36067977499789,158.77852522924732,180.90169943749473,100,140,41.2214747707527,180.90169943749476,61.95773934819386,112.3606797749979,4.894348370484636,69.09830056250527,76.48858990830107,67.63932022500211;100,0,137.0304708944258,49.03192935437831,195.10565162951536,69.09830056250526,159.91656052659468,119.46807064562168,158.77852522924732,180.90169943749473,100.00000000000001,163,41.2214747707527,180.90169943749476,40.08343947340533,119.4680706456217,4.894348370484636,69.09830056250527,62.96952910557418,49.03192935437832;100,0,123.51141009169893,67.63932022500211,195.10565162951536,69.09830056250526,138.04226065180615,112.36067977499789,158.77852522924732,180.90169943749473,100,140,41.2214747707527,180.90169943749476,61.95773934819386,112.3606797749979,4.894348370484636,69.09830056250527,76.48858990830107,67.63932022500211" />
+	</polygon>
+  	<line v-for="(line,i) of lineList" style="position: absolute;" :style="[{animationDelay: line.up + 's',}]" :x1="line.x1" :y1="line.y1" :x2="line.x2" :y2="line.y2" class="line-path" >
+  		<animate attributeName="stroke-dashoffset" from="200" to="2" begin="1s" dur="5s" repeatCount="indefinite"/>
+  	</line>
+</svg>
 			<view class="pcts" :style="[{'display': helperDisplay}]" ref="pcts" >
 				<view class="helper"
 					:style="[{
@@ -101,6 +99,7 @@
 				animation: 'animation-fade-ease-out',
 				clientHeight: 0,
 				clientWidth: 0,
+				// audioTime:this.project.rdata.audioTime,
 				helperDisplay:'none'
 			}
 		},
@@ -130,7 +129,7 @@
 						//that.runSynthGamut();
 						that.runSynt();
 					}
-				},2000);
+				},5000);
 			}
 		},
 		methods:{
@@ -141,15 +140,16 @@
 			]),
 			runSynt(){
 				this.runIntervals(()=>{
-						//Reset delay count
-						loopStartTime = Date.now();
-						//console.log('清空动画');
-						this.animation ="";
-						setTimeout(()=>{
-							//console.log('启动动画');
-							this.animation='animation-fade-ease-out';
-							this.runSynthGamut();
-						},30);
+					//Reset delay count
+					loopStartTime = Date.now();
+					//console.log('清空动画');
+					this.animation ="";
+					setTimeout(()=>{
+						//console.log('启动动画');
+						// this.animation='animation-fade-ease-out';
+						this.animation='star-b';
+						this.runSynthGamut();
+					},30);
 				})
 			},
 			handleChickHelper(e) {
@@ -177,12 +177,11 @@
 				
 				nodeIndex = 0<nodeIndex<78 ? (nodeIndex) : 77;
 				
-				if (everClick){
+				this.animation='';
+				if (everClick) {
 					this.synthGamut(nodeIndex);
-				}
-				
-				if (!everClick) {
-					this.runSynt()
+				} else {
+					this.runSynt();
 				}
 				
 				//Calculate intervals
@@ -190,13 +189,14 @@
 				interval = (Date.now() - loopStartTime)/1000;
 				clickCount +=1;
 				this.synthList.push({
-					left: (e.detail.x-90) + 'px',
-					top: (e.detail.y-110) +'px',
+					left: (e.detail.x-10) + 'px',
+					top: (e.detail.y-30) +'px',
 					node: nodeIndex,
 					up: interval,
 					order: clickCount
 				});
-				
+				console.log(interval);
+				// this.audioTime = interval;
 				//排序
 				this.synthList.sort((a,b)=>{
 					return a.up - b.up
@@ -211,10 +211,10 @@
 							lineItem2.up = lineItem1.up + 1;
 						}
 						this.lineList.push({
-							x1: (parseInt(lineItem1.left.substr(0, lineItem1.left.length - 2))+90),
-							y1: (parseInt(lineItem1.top.substr(0, lineItem1.top.length - 2))+90),
-							x2: (parseInt(lineItem2.left.substr(0, lineItem2.left.length - 2))+90),
-							y2: (parseInt(lineItem2.top.substr(0, lineItem2.top.length - 2))+90),
+							x1: (parseInt(lineItem1.left.substr(0, lineItem1.left.length - 2))+10),
+							y1: (parseInt(lineItem1.top.substr(0, lineItem1.top.length - 2))+10),
+							x2: (parseInt(lineItem2.left.substr(0, lineItem2.left.length - 2))+10),
+							y2: (parseInt(lineItem2.top.substr(0, lineItem2.top.length - 2))+10),
 							up: lineItem2.up,
 						});
 					}
@@ -264,6 +264,30 @@
 </script>
 
 <style scoped lang="scss">
+	.star-start {
+	  animation: ani_flow 9s infinite;
+	}
+	@keyframes ani_flow {
+	  from {
+		stroke-width: 300;
+	  }
+	  to {
+		stroke-width: 30;
+	  }
+	}
+	.star-b {
+	  animation: star_flow 1s;
+	}
+	@keyframes star_flow {
+	  from {
+		stroke: #fbb30077;
+		stroke-width: 0;
+	  }
+	  to {
+		stroke: #fbb30000;
+		stroke-width: 1000;
+	  }
+	}
 	.line-path {
 		stroke: #fbb300;
 		stroke-width: 1;
@@ -290,6 +314,9 @@
 		background-position: center center;
 		background-repeat: no-repeat;
 		background-size: contain;
+	}
+	.view-star{
+		position: absolute;
 	}
 	#particles{
 	      position: absolute;

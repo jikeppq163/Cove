@@ -53,6 +53,7 @@ let state={
 			volume:10,
 			synth:[],
 			title:'',
+			audioTime:30,
 			thoughts:'',
 			location:'',
 			instrument:'',
@@ -359,8 +360,8 @@ let actions={
 			const now = Tone.now();
 			// console.log('synth----------',state.project.rdata.synth);
 			for (var item of state.project.rdata.synth) {
-				// console.log('note----------',item);
-				// console.log('item.up',item.up);
+				// console.log('runSynthGamut note----------',item);
+				console.log('runSynthGamut item.up----------',item.up,state.project.rdata.audioTime);
 				// const node = getNoteAtHeight(item.y);
 				const node = notesArray[item.node];
 				if (node !== undefined) state.sampler.triggerAttack(node, now + item.up);
@@ -425,11 +426,15 @@ let actions={
 			}
 		});
 	},
+	saveAudioTime({state},audioTime){
+		state.project.rdata.audioTime = audioTime;
+	},
 	runIntervals({state},callback){
 		callback(true);
+		// console.log('runIntervals',state.project.rdata.audioTime)
 		state.Interval = setInterval(()=>{
 			callback(true);
-		},30000);
+		},9000);
 	},
 	clearIntervals({state}){
 		//停止循环
