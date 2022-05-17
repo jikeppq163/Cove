@@ -1,64 +1,72 @@
 <template>
-	<view class="u-bg-malandy-g2" :style="defaultHeight">
-		<view class="u-p-10"></view>
-		
-		<view class=" share-point u-radius-3 u-bg-malandy2 u-font-gray2 u-m-r-15" style="float: right;padding: 5px;">
-			 ... 分享 ⬆
+	<view class="u-bg-malandy-g2 uni-scroll-view" :style="defaultHeight">
+
+		<view class=" share-point u-bg-malandy2 " style="width: 100%;">
+			<view class="u-font-gray2" style="float: right;">
+				 点击上方 ... 分享
+			</view>
+			<view class="u-bg-malandy2 u-font-white u-p-5" @click="handelClickStars">
+				<uni-icons type='home-filled' size="20" color="#fff" ></uni-icons> 返回社区
+			</view>
 		</view>
-		<view class=" share-point u-radius-3 u-bg-malandy2 u-font-gray2 u-m-r-15" style="float: right;padding: 5px;">
-			<uni-icons type='home-filled' size="20" color="#fff" @click="handelClickStars" ></uni-icons>
-		</view>
-		<view class="u-font-white">
-			<view class="u-p-l-20 u-p-r-20 flex-row space-between">
-				<view class="">
-					<view class="u-font-size-20 u-p-3">
-						{{project.rdata.title}}
+		<scroll-view scroll-y="true" class="u-p-t-5 u-font-white uni-shadow-base"
+			:style="'height:'+ (getWindowsHeight) +'px;'">
+			<view class="uni-scroll-view-content" >
+				<view class="u-p-20"></view>
+				<view class="u-font-white">
+					<view class="u-p-l-20 u-p-r-20 flex-row space-between">
+						<view class="">
+							<view class="u-font-size-20 u-p-3">
+								{{project.rdata.title}}
+							</view>
+							<view class="u-p-3 u-font-gray4">
+								{{project.rdata.thoughts}}
+							</view>
+						</view>
+						<!-- <view class="u-p-t-10">
+							<view class="u-p-10 u-radius-5 u-bg-malandy2 text-center" style="height: 40px;width: 40px;">
+								<uni-icons custom-prefix="iconfont" type='icon-fenxiang' size="20" color="#fff"
+								@click="handleClickShare"
+								></uni-icons>
+							</view>
+						</view> -->
 					</view>
-					<view class="u-p-3">
-						{{project.rdata.thoughts}}
+					<view class="u-p-l-23 u-p-r-20 flex-row space-between u-font-gray3">
+						<uni-dateformat :date="project.created_at" :threshold="[60000,3600000]"></uni-dateformat>
+						<view class="">
+							<uni-icons type="location" color='#fff'></uni-icons>
+							{{project.rdata.location}}
+						</view>
 					</view>
 				</view>
-				<!-- <view class="u-p-t-10">
-					<view class="u-p-10 u-radius-5 u-bg-malandy2 text-center" style="height: 40px;width: 40px;">
-						<uni-icons custom-prefix="iconfont" type='icon-fenxiang' size="20" color="#fff"
-						@click="handleClickShare"
-						></uni-icons>
+				<view class="u-m-10 u-m-t-20 u-bg-maka-g text-center u-font-gray2 shadow-lg" style="width: 700rpx;height: 700rpx;">
+					<image v-if='imageUrl' :src="imageUrl" lazy-load="true" mode="aspectFill" style="width: 100%; height: 100%;"></image>
+					<view class="u-p-10 u-radius-5 text-center relative" style="position: relative;top:-395rpx;"
+						@click="handleClickPlay">
+						<uni-icons 	v-if="imageUrl" 
+									custom-prefix="iconfont" 
+									:type='getPlayerState=="stopped"? "icon-bofang":"icon-zanting"' 
+									size="90" 
+									color="#fff">
+						</uni-icons>
 					</view>
-				</view> -->
-			</view>
-			<view class="u-p-l-23 u-p-r-20 flex-row space-between">
-				<uni-dateformat :date="project.created_at" :threshold="[60000,3600000]"></uni-dateformat>
-				<view class="">
-					<uni-icons type="location" color='#fff'></uni-icons>
-					{{project.rdata.location}}
 				</view>
+				<view v-if="project.openid == openId" class="u-bottom u-p-10 u-m-t-10 u-m-b-10 flex flex-end widthFull">
+					<view class="u-p-5 u-p-l-20 u-p-r-20 u-radius-5 text-center u-font-white"
+					 @click="handleClickDelete">
+						<uni-icons type="trash" color="#fff"></uni-icons>
+						删除
+					</view>
+					<view class="u-m-l-10 u-p-5 u-p-l-20 u-p-r-20 u-radius-5 u-font-white text-center" 
+					 @click="handleClickEdit">
+						<uni-icons type="compose" color="#fff"></uni-icons>
+						编辑
+					</view>
+				</view>
+				<uComment style="color: #FFF" :projectId='projectId'></uComment>
 			</view>
-		</view>
-		<view class="u-m-10 u-m-t-20 u-bg-maka-g text-center u-font-gray2 shadow-lg" style="width: 700rpx;height: 400rpx;">
-			<image v-if='imageUrl' :src="imageUrl" lazy-load="true" mode="aspectFill" style="width: 100%; height: 100%;"></image>
-			<view class="u-p-10 u-radius-5 text-center relative" style="height: 60px;width: 60px;left:300rpx;top:-250rpx;"
-				@click="handleClickPlay">
-				<uni-icons 	v-if="imageUrl" 
-							custom-prefix="iconfont" 
-							:type='getPlayerState=="stopped"? "icon-bofang":"icon-zanting"' 
-							size="40" 
-							color="#fff">
-				</uni-icons>
-			</view>
-		</view>
-		<view v-if="project.openid == openId" class="u-bottom u-p-10 u-m-t-10 u-m-b-10 flex flex-end widthFull">
-			<view class="u-p-5 u-p-l-20 u-p-r-20 u-radius-5 text-center u-font-white"
-			 @click="handleClickDelete">
-				<uni-icons type="trash" color="#fff"></uni-icons>
-				删除
-			</view>
-			<view class="u-m-l-10 u-p-5 u-p-l-20 u-p-r-20 u-radius-5 u-font-white text-center" 
-			 @click="handleClickEdit">
-				<uni-icons type="compose" color="#fff"></uni-icons>
-				编辑
-			</view>
-		</view>
-		<uComment style="color: #FFF" :projectId='projectId'></uComment>
+			
+		</scroll-view>
 	</view>
 </template>
 
@@ -272,4 +280,11 @@
 
 <style Scope>
 @import '@/static/share/iconfont.css';
+/* body {
+	position: absolute !important;
+} */
+.share-point {
+	z-index: 99;
+	position: fixed;
+}
 </style>

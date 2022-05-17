@@ -57,6 +57,10 @@ import {getPlatform} from '@/utils/index.js'
 	page {
 		background-image: url(/static/image/bg.gif);
 	}
+	
+	body {
+		position: fixed;
+	}
 
 	/* #endif */
 	.example-info {

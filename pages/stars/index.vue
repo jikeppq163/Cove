@@ -9,10 +9,10 @@
 		</view>
 			<swiper indicator-dots :current="swiperCurrent" previous-margin='40px' next-margin='40px' :style="style">
 				<swiper-item v-for="(item,index) of swiperData" :key="item.id" @click="handleClickSwiper(index)">
-					<view class="flex center" style="height: 100%;">
-						<view class="flex-column center" style="height: 100%;">
+					<view class="flex center" style="height: 95%;">
+						<view class="flex-column center" style="height: 95%;">
 							<view class="u-bg-malandy-g1 u-radius-20 shadow-blur" style="width: 500rpx;height: 900rpx;">
-								<view class="flex u-p-10">
+								<view class="flex u-p-5">
 									<!-- <view class="u-p-10">
 										<view class="u-radius-20"
 											style="width: 120rpx;height: 120rpx;overflow: hidden;">
@@ -20,9 +20,13 @@
 												alt="">
 										</view>
 									</view> -->
-									<view class="text-center u-p-10 flex-column center nowrap">
+									<view class="flex absolute right-10">
+										<uni-icons type="location" color='#000'></uni-icons>
+										<text class="nowrap u-font-size-12">{{item.rdata.location}}</text>
+									</view>
+									<view class="text-center u-p-10 u-p-t-25 flex-column center nowrap">
 										<text class="u-p-3 u-font-size-20">
-											{{textLine(item.rdata.title)}}
+											{{textLine(item.rdata.title,10)}}
 										</text>
 										<view class="flex space-between u-m-t-10">
 											<!-- <text class="u-p-3 u-font-size-12 nowrap">
@@ -39,14 +43,8 @@
 									<view class="u-p-t-20"></view>
 									<view class="text-center text-story">
 										<text class="u-font-size-30">“</text>
-										<text class="text-shadow">{{item.rdata.thoughts}} </text>
+										<text class="text-shadow text-story-text">{{textLine(item.rdata.thoughts,170)}} </text>
 										<text class="u-font-size-30">”</text>
-									</view>
-									<view class="flex absolute left-10 bottom-60 text-story">
-										<view class="">
-											<uni-icons type="location" color='#fff'></uni-icons>
-											<text class=" nowrap u-font-size-12">{{item.rdata.location}}</text>
-										</view>
 									</view>
 								</view>
 								<view class="absolute left-20 bottom-10" style="">
@@ -57,8 +55,7 @@
 								</view>
 								<view class="absolute right-20 bottom-10" style="">
 									<view
-										class="u-p-7 u-radius-3 uni-shadow-lg u-bg-malandy-g1 u-font-size-30 u-font-gray4 text-center"
-										@click="handelClickInfo(item.id)">
+										class="u-p-7 u-radius-3 uni-shadow-lg u-bg-white u-font-size-30 u-font-gray text-center" @click="handelClickInfo(item.id)">
 										➪
 									</view>
 								</view>
@@ -139,7 +136,7 @@
 				if (this.imageList) return "background-image:url(" + this.imageList[index%10] + ');';
 			},
 			textLine(text,length) {
-				if(!length) length =6;
+				if(!length) length =8;
 				if (text.length > length) return text.substr(0, length) + '...'
 				return text
 			},
@@ -167,10 +164,11 @@
 		// background-color: #AAA;
 	}
 	.text-story {
-		background-color: #f0f0f0eb;
+		background-color: #f0f0f0d6;
 		border-radius: 10px;
 		margin: 10rpx;
 		padding: 15rpx;
+		max-height: 550rpx;
 	}
 	
 	.bg-image{
@@ -178,7 +176,8 @@
 		background-repeat: no-repeat;
 		// background-blend-mode: color; //定义了背景层的混合模式（图片与颜色）
 		background-color: #AAA; // 解决小白边
-		background-position:center;
+		background-position: center center;
+		background-size: cover;
 	}
 	
 	.view_animation {
