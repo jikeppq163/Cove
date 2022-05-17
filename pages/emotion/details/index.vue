@@ -1,65 +1,68 @@
 <template>
-	<view class="u-bg-malandy-g2" :style="defaultHeight">
-		<view class="u-p-10">
-			<view class="flex space-between u-font-white">
-				<view class="">{{date}}</view>
-				<view class="">{{time}}</view>
-			</view>
-			<view class="u-bg-malandy1 u-radius-3 u-font-white u-p-10 u-m-t-10 u-font-size-12 shadow-blur" 
-				:class="inputFocus=='title'? 'u-bg-malandy2':''" 
-				@click="handleClickChangeInput('title')"
-				>
-				<view class="u-p-b-5">故事主题...</view>
-				<view class="">
-					<uni-easyinput class="u-bg-gray u-font-white" v-model="title" type="textarea" placeholder='用一句话描述产生情绪的故事，避免判断和意见，采用细节' maxlength='200' auto-height @blur="inputBlur('title')"/>
+	<view class="u-bg-malandy-g2 uni-scroll-view" :style="defaultHeight">
+		<scroll-view scroll-y="true" class="u-p-t-5 u-font-white uni-shadow-base"
+			:style="'height:'+ (getWindowsHeight) +'px;'">
+			<view class="uni-scroll-view-content">
+					<view class="u-p-10">
+					<view class="flex space-between u-font-white">
+						<view class="">{{date}}</view>
+						<view class="">{{time}}</view>
+					</view>
+					<view class="u-bg-malandy1 u-radius-3 u-font-white u-p-10 u-m-t-10 u-font-size-12 shadow-blur" 
+						:class="inputFocus=='title'? 'u-bg-malandy2':''" 
+						@click="handleClickChangeInput('title')" >
+						<view class="u-p-b-5">故事主题...</view>
+						<view class="">
+							<uni-easyinput class="u-bg-gray u-font-white" v-model="title" type="textarea" placeholder='用一句话描述产生情绪的故事，避免判断和意见，采用细节' maxlength='200' auto-height @blur="inputBlur('title')"/>
+						</view>
+					</view>
+					<view class="u-bg-malandy1 u-radius-3  u-font-white u-p-10 u-m-t-20 u-font-size-12 shadow-blur"
+						:class="inputFocus=='thoughts'? 'u-bg-malandy2':''" 
+						@click= "handleClickChangeInput('thoughts')" >
+						<view class="u-p-b-5">你可以记录下你的想法...</view>
+						<view class="">
+							<uni-easyinput class="u-bg-gray u-font-white" v-model="thoughts" placeholder='可以问自己：我为什么会有这样的情绪或者那样的行为？在事情发生后，是什么导致了我出现这样的情绪或行为？我当时是怎么想的？反向检验：有了我所发现的信念，我还会期望感受到那种特定的结果吗？' type="textarea" maxlength='500' auto-height @blur="inputBlur('thoughts')"/>
+						</view>
+					</view>
+					<view class="u-bg-malandy1 u-radius-3  u-font-white u-p-10 u-m-t-20 u-font-size-12 shadow-blur"
+						:class="inputFocus=='location'? 'u-bg-malandy2':''" 
+						@click= "handleClickChangeInput('location')"
+						>
+						<view class="u-p-b-5">地址</view>
+						<view class="">
+							<input v-model="location" placeholder='例如: 家乡, 城市, 又或者是梦里, 某人的心中 ' type="text" maxlength='100' @blur="inputBlur('location')"/>
+						</view>
+					</view>
+					<view class="u-radius-3  u-font-white u-p-10 u-m-t-10 u-font-size-12" >
+						<view class="u-p-b-5 text-center">认识你的想法和信念，感受情绪变化，记录此刻的心情</view>
+					<!-- 	<view class="u-p-b-5 text-center">加些新标签吧.</view> -->
+						<MoodList></MoodList>
+					</view>
+					<view class="">
+						<view class="u-p-b-5 text-center u-font-white">你可以用一张图片表达你的心情</view>
+						<view class="flex center">
+							<uni-file-picker
+								:value="fileLists" 
+								return-type='object' 
+								:imageStyles="imageStyles" 
+								file-mediatype="image"
+								limit='1'
+								@select='selectImage'
+							></uni-file-picker>
+						</view>
+					</view>
+				</view>
+				<view class="flex center u-m-t-20">
+					<view v-if='!uploadImage' class=" u-font-size-20 u-font-white u-border-1 u-radius-20  u-p-10 u-m-b-60 uni-shadow-lg"  @click="handleClickNext">
+						保存故事
+					</view>
+					<view v-if='uploadImage' class=" u-font-size-20 u-font-white u-border-1 u-radius-20  u-p-10 u-m-b-60 uni-shadow-lg"
+						>
+						图片上传中...
+					</view>
 				</view>
 			</view>
-			<view class="u-bg-malandy1 u-radius-3  u-font-white u-p-10 u-m-t-20 u-font-size-12 shadow-blur"
-				:class="inputFocus=='thoughts'? 'u-bg-malandy2':''" 
-				@click= "handleClickChangeInput('thoughts')" >
-				<view class="u-p-b-5">你可以记录下你的想法...</view>
-				<view class="">
-					<uni-easyinput class="u-bg-gray u-font-white" v-model="thoughts" placeholder='可以问自己：我为什么会有这样的情绪或者那样的行为？在事情发生后，是什么导致了我出现这样的情绪或行为？我当时是怎么想的？反向检验：有了我所发现的信念，我还会期望感受到那种特定的结果吗？' type="textarea" maxlength='500' auto-height @blur="inputBlur('thoughts')"/>
-				</view>
-			</view>
-			<view class="u-bg-malandy1 u-radius-3  u-font-white u-p-10 u-m-t-20 u-font-size-12 shadow-blur"
-				:class="inputFocus=='location'? 'u-bg-malandy2':''" 
-				@click= "handleClickChangeInput('location')"
-				>
-				<view class="u-p-b-5">地址</view>
-				<view class="">
-					<input v-model="location" placeholder='例如: 家乡, 城市, 又或者是梦里, 某人的心中 ' type="text" maxlength='100' @blur="inputBlur('location')"/>
-				</view>
-			</view>
-			<view class="u-radius-3  u-font-white u-p-10 u-m-t-10 u-font-size-12" >
-				<view class="u-p-b-5 text-center">认识你的想法和信念，感受情绪变化，记录此刻的心情</view>
-			<!-- 	<view class="u-p-b-5 text-center">加些新标签吧.</view> -->
-				<MoodList></MoodList>
-			</view>
-			<view class="">
-				<view class="u-p-b-5 text-center u-font-white">你可以用一张图片表达你的心情</view>
-				<view class="flex center">
-					<uni-file-picker
-						:value="fileLists" 
-						return-type='object' 
-						:imageStyles="imageStyles" 
-						file-mediatype="image"
-						limit='1'
-						@select='selectImage'
-					></uni-file-picker>
-				</view>
-			</view>
-		</view>
-		<view class="flex center u-m-t-20">
-			<view v-if='!uploadImage' class=" u-font-size-20 u-font-white u-border-1 u-radius-20  u-p-20 u-m-b-40 uni-shadow-lg" 
-				@click="handleClickNext">
-				保存故事
-			</view>
-			<view v-if='uploadImage' class=" u-font-size-20 u-font-white u-border-1 u-radius-20  u-p-20 u-m-b-40 uni-shadow-lg"
-				>
-				图片上传中...
-			</view>
-		</view>
+		</scroll-view>
 	</view>
 </template>
 
@@ -82,8 +85,8 @@ export default {
 			fileLists:{},
 			uploadImage:false,
 			imageStyles:{
-				width:320,
-				height:180,
+				width:300,
+				height:300,
 				border:{
 					color:"#fff",
 					width:1,
@@ -96,7 +99,7 @@ export default {
 	components:{MoodList},
 	computed:{
 		...mapState(['openId','project']),
-		...mapGetters(['defaultHeight'])
+		...mapGetters(['getWindowsHeight','defaultHeight'])
 	},
 	mounted() {
 		var date = new Date();

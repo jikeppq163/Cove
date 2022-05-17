@@ -51,33 +51,33 @@
 								localStorage.setItem("userInfo", JSON.stringify(res));
 								localStorage.setItem("unionid",res.unionid);
 								that.getLoginStatus();
-								that.msg = JSON.stringify(res);
-								that.text = "跳转中...";
-								if(!that.debug){
-									if (redirectUrl) {
-										uni.switchTab({
-											url: redirectUrl,
-											fail:()=>{
-												uni.navigateTo({
-													url: redirectUrl
-												})
-											},
-											complete: (err) => {
-												that.msg = JSON.stringify(err);
-											}
-										})
-									} else {
-										uni.switchTab({
-											url: "/",
-											complete: (err) => {
-												that.msg = JSON.stringify(err);
-											}
-										})
-									}
-								}
-								else{
-									that.text = "测试模式不跳转";
-								}
+								// that.msg = JSON.stringify(res);
+								// that.text = "跳转中...";
+								// if(!that.debug){
+								// 	if (redirectUrl) {
+								// 		uni.switchTab({
+								// 			url: redirectUrl,
+								// 			fail:()=>{
+								// 				uni.navigateTo({
+								// 					url: redirectUrl
+								// 				})
+								// 			},
+								// 			complete: (err) => {
+								// 				that.msg = JSON.stringify(err);
+								// 			}
+								// 		})
+								// 	} else {
+								// 		uni.switchTab({
+								// 			url: "/",
+								// 			complete: (err) => {
+								// 				that.msg = JSON.stringify(err);
+								// 			}
+								// 		})
+								// 	}
+								// }
+								// else{
+								// 	that.text = "测试模式不跳转";
+								// }
 							},
 							fail:()=>{
 								that.text = "登录失败";

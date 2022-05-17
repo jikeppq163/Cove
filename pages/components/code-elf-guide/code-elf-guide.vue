@@ -72,9 +72,16 @@
 				// 		key: 'launchFlag',
 				// 		data: true,
 				// });
-				uni.navigateTo({
-					url: '/pages/emotion/mood/index'
-				});
+				let redirectUrl = sessionStorage.getItem("wxRedirectUrl");
+				if (redirectUrl.search("share/index")!==-1) {
+					uni.navigateTo({
+						url: redirectUrl
+					});
+				} else {
+					uni.navigateTo({
+						url: '/pages/emotion/mood/index'
+					});
+				}
 				
 			}
 		}

@@ -6,9 +6,8 @@
 			</view>
 		</view>
 		<MoodView></MoodView>
-		<view v-if="project.rdata.mood.length" class="u-p-t-60 flex center">
-			<view class="u-font-size-20 u-font-white u-border-1 u-radius-20  u-p-20 u-m-b-40 uni-shadow-lg animation-fade" 
-				@click="handleClickNext">
+		<view v-if="project.rdata.mood.length" class="u-p-t-30 flex center">
+			<view class="u-font-size-20 u-font-white u-border-1 u-radius-20  u-p-10 u-m-b-60 uni-shadow-lg animation-fade"  @click="handleClickNext">
 				下一步
 			</view>
 		</view>
