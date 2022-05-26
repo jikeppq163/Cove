@@ -1,6 +1,6 @@
 <template>
 	<view class="bg-color" :style="defaultHeight">
-		<view class="u-font-white text-center">点亮屏幕上的星空，创作你的情绪旋律</view>
+		<view class="u-font-gray4 text-center">点亮屏幕上的星空，创作你的情绪旋律</view>
 		<view id="particles" class="pcts" 
 			:style="'height:'+getWindowsHeight*0.8 +'px;'"
 			@click="handleChickSet"
@@ -47,7 +47,7 @@
 				</view>
 			</view>
 		</view>
-		<view v-if='show' style="position: fixed; bottom: 20px; left:38%;" class="u-font-size-20 u-font-white u-border-1 u-radius-20 u-p-10 uni-shadow-lg animation-fade"
+		<view v-if='show' style="position: fixed; bottom: 20px; left:38%;" class="u-font-size-20 u-font-gray4 u-border-1 u-radius-20 u-p-10 uni-shadow-lg animation-fade"
 			@click="handleClickNext">
 			下一步
 		</view>

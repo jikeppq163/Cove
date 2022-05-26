@@ -186,6 +186,9 @@ let getters={
 	getWindowsHeight:(state)=>{
 		return state.systemInfo.windowHeight - 43
 	},
+	getWindowsWidth:(state)=>{
+		return state.systemInfo.windowWidth
+	},
 	findMood:(state)=>(value)=>{
 		return state.project.rdata.mood.findIndex(item=>{
 					return item === value

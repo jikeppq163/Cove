@@ -1,6 +1,6 @@
 <template>
 	<view class="u-bg-malandy-g2" :style="defaultHeight">
-		<view class="text-center u-font-white">
+		<view class="text-center u-font-gray4">
 			<view class="u-font-size-20 u-p-20 u-p-t-60">
 				{{project.rdata.title}}
 			</view>
@@ -26,7 +26,7 @@
 			配图
 		</view>
 		<view class="flex u-p-20">
-			<view class="u-p-10 u-m-l-10 u-font-white u-bg-maka-g2 u-radius-5" v-for="item of project.rdata.mood" :key='item.id'>
+			<view class="u-p-10 u-m-l-10 u-font-gray4 u-bg-maka-g2 u-radius-5" v-for="item of project.rdata.mood" :key='item.id'>
 				{{item}}
 			</view>
 		</view>

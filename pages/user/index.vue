@@ -24,8 +24,38 @@
 			隐私管理 (即将上线) <br/>
 		<text class="uni-body u-font-gray2">您能在匿名的状态下访问并获取信息。当我们需要能识别您的个人信息或者可以与您联系的信息时，我们会征求您的同意。通常，在您注册或申请开通新的功能时，我们可能收集这些信息：姓名，Email地址，住址和电话号码，并征求您的确认。</text>
 		</view> -->
+		<view>
+			<uni-popup ref="popup" >
+				<view class="u-bg-malandy-g2 u-p-t-5 u-font-gray4 uni-shadow-base" 
+					:style="'width:'+ (getWindowsWidth) +'px'">
+					<view class="u-radius-3 u-p-3 u-m-10 uni-shadow-base" v-for="(item,index) of list"
+						:key='item.id' @click="handleClickInfo(item.id)">
+						<view class="u-p-3">
+							<uni-icons type="flag" color='#dbfdd6'></uni-icons>
+							{{item.rdata.title}}
+						</view>
+						<view class="u-p-3">
+							<uni-icons type="compose" color='#dbfdd6'></uni-icons>
+							{{item.rdata.thoughts}}
+						</view>
+						<view class="u-p-3 flex space-between">
+							<view class="">
+								<uni-icons type="spinner-cycle" color='#dbfdd6'></uni-icons>
+								<uni-dateformat :date="item.created_at"></uni-dateformat>
+							</view>
+							<view class="">
+								<uni-icons type="location" color='#dbfdd6'></uni-icons>
+								{{item.rdata.location}}
+							</view>
+						</view>
+					</view>
+						<view class="u-p-t-5"></view>
+				</view>
+			</uni-popup>
+		</view>
 
 	</view>
+
 </template>
 
 <script>
@@ -66,12 +96,16 @@
 					insert: false,
 					selected: []
 				},
+				list: []
 			}
 		},
 		computed:{
 			...mapState({
+				openId: 'openId',
 				userInfo: 'userInfo'
-			})
+			}),
+			// 使用对象展开运算符将 getter 混入 computed 对象中
+			...mapGetters(['findMood', 'defaultHeight', 'getWindowsHeight','getWindowsWidth'])
 		},
 		mounted() {
 			this.getLoginStatus(this.$route.fullPath);
@@ -85,19 +119,21 @@
 						openid: this.openId
 					},
 					success: (res) => {
-						console.log('reqProject.list success:', res);
+						console.log('reqProject.list success:', this.mapLoction(res));
+						// this.setProjectList(res);
 						this.scount = 0;
-						res.forEach(item=>{
-							this.info.selected.push({
-								date: getDate(item.created_at).fullDate,
-								info: item.rdata.mood[0],
-								data: {
-									custom: item.rdata.location,
-									name: item.rdata.title
-								}
-							});
-							this.scount++;
-						})
+						this.info.selected = this.mapLoction(res);
+						// res.forEach(item=>{
+						// 	this.info.selected.push({
+						// 		date: getDate(item.created_at).fullDate,
+						// 		info: item.rdata.mood[0],
+						// 		data: {
+						// 			custom: item.rdata.location,
+						// 			name: item.rdata.title
+						// 		}
+						// 	});
+						// 	this.scount++;
+						// })
 					},
 					fail: (err) => {
 						console.log('reqProject.list fail:', err);
@@ -114,7 +150,7 @@
 			}
 		},
 		methods:{
-			...mapActions(['getLoginStatus']),
+			...mapActions(['setProjectList', 'setProjectFromId', 'getLoginStatus', 'initStatus']),
 			open() {
 				this.$refs.calendar.open()
 			},
@@ -122,7 +158,11 @@
 				console.log('弹窗关闭');
 			},
 			change(e) {
-				console.log('change 返回:', e)
+				console.log('change 返回:', e);
+				if (e.extraInfo.data!==undefined&&e.extraInfo.data.length>0) {
+					this.$refs.popup.open('center');
+					this.list = e.extraInfo.data;
+				}
 				// 模拟动态打卡
 				// if (this.info.selected.length > 5) return
 				// this.info.selected.push({
@@ -135,7 +175,38 @@
 			},
 			monthSwitch(e) {
 				console.log('monthSwitchs 返回:', e)
-			}
+			},
+			handleClickInfo(id) {
+				this.setProjectFromId(id);
+				uni.navigateTo({
+					url: '/pages/share/index?id=' + id
+				})
+			},mapLoction(arr) {
+				var newArr = [];
+				arr.forEach(function (oldData, i) {
+					 var index = -1;
+					 var createTime = oldData.created_at.substring(0, 10);
+					 var alreadyExists = newArr.some(function (newData, j) {
+					 // console.log('oldData',oldData,newData);
+						 if (oldData.created_at.substring(0, 10) === newData.date.substring(0, 10)) {
+							 index = j;
+							 return true;
+						 }
+					 });
+					 if (!alreadyExists) {
+						 newArr.push({
+							date: getDate(oldData.created_at).fullDate,
+							info: oldData.rdata.mood[0],
+							data: [
+								oldData
+							]
+						 });
+					 } else {
+						 newArr[index].data.push(oldData);
+					 }
+				 });
+				 return newArr;
+			 }
 		}
 	}
 </script>

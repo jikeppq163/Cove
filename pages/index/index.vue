@@ -1,9 +1,15 @@
 <template>
 	<view class="main u-bg-malandy-g2 " >
-		<view class="u-p-20 u-font-white text-center u-font-size-16">
+		<view class="u-p-20 u-font-gray4 text-center u-font-size-16">
 			用音乐记录你的情绪, 探索情绪背后的故事吧!
 		</view>
-		<scroll-view scroll-y="true" class="u-p-t-5 u-font-white uni-shadow-base"
+		<!-- <view class="u-bottom u-p-10 u-m-t-20 u-m-b-40 flex space-between u-bg-malandy-g2"> -->
+			<view class="u-m-10 u-p-10 u-radius-5 text-center u-bg-maka3 u-font-gray4" 
+				@click="handleClickAdd">
+				新增故事
+			</view>
+		<!-- </view> -->
+		<scroll-view scroll-y="true" class="u-p-t-5 u-font-gray4 uni-shadow-base"
 			:style="'height:'+ (getWindowsHeight-140) +'px;'">
 			<view class="u-radius-3 u-p-3 u-m-10 u-bg-maka-g uni-shadow-base" v-for="(item,index) of list"
 				:key='item.id' @click="handleClickInfo(item.id)">
@@ -18,7 +24,7 @@
 				<view class="u-p-3 flex space-between">
 					<view class="">
 						<uni-icons type="spinner-cycle" color='#dbfdd6'></uni-icons>
-						<uni-dateformat :date="item.updated_at"></uni-dateformat>
+						<uni-dateformat :date="item.created_at"></uni-dateformat>
 					</view>
 					<view class="">
 						<uni-icons type="location" color='#dbfdd6'></uni-icons>
@@ -28,12 +34,6 @@
 			</view>
 				<view class="u-p-t-60"></view>
 		</scroll-view>
-		<view class="u-bottom u-p-10 u-m-t-20 u-m-b-40 flex space-between u-bg-malandy-g2">
-			<view class="u-m-10 u-p-10 u-radius-5 text-center u-bg-maka3 u-font-gray2" style="width: 100%;"
-				@click="handleClickAdd">
-				新增故事
-			</view>
-		</view>
 	</view>
 </template>
 

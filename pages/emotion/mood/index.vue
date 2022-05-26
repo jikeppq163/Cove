@@ -1,13 +1,13 @@
 <template>
 	<view class="u-bg-malandy-g2" :style="defaultHeight">
 		<view class="">
-			<view class="text-center u-font-white u-font-size-20 u-p-t-40 u-p-b-20">
+			<view class="text-center u-font-gray4 u-font-size-20 u-p-t-40 u-p-b-20">
 				记录当下心情，选择你的情绪词
 			</view>
 		</view>
 		<MoodView></MoodView>
 		<view v-if="project.rdata.mood.length" class="u-p-t-30 flex center">
-			<view class="u-font-size-20 u-font-white u-border-1 u-radius-20  u-p-10 u-m-b-60 uni-shadow-lg animation-fade"  @click="handleClickNext">
+			<view class="u-font-size-20 u-font-gray4 u-border-1 u-radius-20  u-p-10 u-m-b-60 uni-shadow-lg animation-fade"  @click="handleClickNext">
 				下一步
 			</view>
 		</view>

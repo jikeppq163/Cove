@@ -5,15 +5,15 @@
 			<view class="u-font-gray2" style="float: right;">
 				 点击上方 ... 分享
 			</view>
-			<view class="u-bg-malandy2 u-font-white u-p-5" @click="handelClickStars">
+			<view class="u-bg-malandy2 u-font-gray4 u-p-5" @click="handelClickStars">
 				<uni-icons type='home-filled' size="20" color="#fff" ></uni-icons> 返回社区
 			</view>
 		</view>
-		<scroll-view scroll-y="true" class="u-p-t-5 u-font-white uni-shadow-base"
+		<scroll-view scroll-y="true" class="u-p-t-5 u-font-gray4 uni-shadow-base"
 			:style="'height:'+ (getWindowsHeight) +'px;'">
 			<view class="uni-scroll-view-content" >
 				<view class="u-p-20"></view>
-				<view class="u-font-white">
+				<view class="u-font-gray4">
 					<view class="u-p-l-20 u-p-r-20 flex-row space-between">
 						<view class="">
 							<view class="u-font-size-20 u-p-3">
@@ -52,12 +52,12 @@
 					</view>
 				</view>
 				<view v-if="project.openid == openId" class="u-bottom u-p-10 u-m-t-10 u-m-b-10 flex flex-end widthFull">
-					<view class="u-p-5 u-p-l-20 u-p-r-20 u-radius-5 text-center u-font-white"
+					<view class="u-p-5 u-p-l-20 u-p-r-20 u-radius-5 text-center u-font-gray4"
 					 @click="handleClickDelete">
 						<uni-icons type="trash" color="#fff"></uni-icons>
 						删除
 					</view>
-					<view class="u-m-l-10 u-p-5 u-p-l-20 u-p-r-20 u-radius-5 u-font-white text-center" 
+					<view class="u-m-l-10 u-p-5 u-p-l-20 u-p-r-20 u-radius-5 u-font-gray4 text-center" 
 					 @click="handleClickEdit">
 						<uni-icons type="compose" color="#fff"></uni-icons>
 						编辑

@@ -4,7 +4,7 @@
 			<liuyuno-tabs :tabData="titleTag" :defaultIndex="defaultIndex" @tabClick='tabClick' />
 		</view> -->
 		<view >
-		<view class="u-p-20 u-font-white text-center u-font-size-16">
+		<view class="u-p-20 u-font-gray4 text-center u-font-size-16">
 			与同伴们一起, 寻找你心路旅程的故事吧!
 		</view>
 			<swiper indicator-dots :current="swiperCurrent" previous-margin='40px' next-margin='40px' :style="style">
@@ -47,12 +47,12 @@
 										<text class="u-font-size-30">”</text>
 									</view>
 								</view>
-								<view class="absolute left-20 bottom-10" style="">
+								<!-- <view class="absolute left-20 bottom-10" style="">
 									<view class="flex u-font-gray4 u-font-size-16">
 										<uni-icons type="chat" color='#fff' size="20"></uni-icons>
 										{{item.comment}}
 									</view>
-								</view>
+								</view> -->
 								<view class="absolute right-20 bottom-10" style="">
 									<view
 										class="u-p-7 u-radius-3 uni-shadow-lg u-bg-white u-font-size-30 u-font-gray text-center" @click="handelClickInfo(item.id)">

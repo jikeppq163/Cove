@@ -4,7 +4,7 @@
 		:autoplay="autoplay" 
 		:duration="duration">
 			<swiper-item>
-				<view class="swiper-item u-font-white u-p-t-60">
+				<view class="swiper-item u-font-gray4 u-p-t-60">
 					<view class="u-p-t-40"></view>
 					<view class="title u-font-size-20  u-p-t-60">欢迎来到心乐星记 </view>
 					<view class="u-p-t-60"></view>
@@ -19,7 +19,7 @@
 				</view>
 			</swiper-item>
 			<swiper-item>
-				<view class="swiper-item u-font-white u-p-t-60">
+				<view class="swiper-item u-font-gray4 u-p-t-60">
 					<view class="u-p-t-40"></view>
 					<view class="title u-font-size-20  u-p-t-60">在心情音乐中感受你的想法和信念</view>
 					<view class="u-p-t-60"></view>
@@ -35,7 +35,7 @@
 			</swiper-item>
 			<swiper-item>
 				<view class="u-p-t-40"></view>
-				<view class="swiper-item u-font-white u-p-t-60">
+				<view class="swiper-item u-font-gray4 u-p-t-60">
 					<view class="u-p-t-60"></view>
 					<view class="content u-font-size-15 u-p-60">
 						在记忆里留存，<br /><br />

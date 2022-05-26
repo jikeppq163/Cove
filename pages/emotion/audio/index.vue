@@ -1,7 +1,7 @@
 <template>
 	<view class="u-bg-malandy-g2" :style="defaultHeight">
 		<view class="">
-			<view class="text-center u-font-white u-font-size-20 u-p-t-40">
+			<view class="text-center u-font-gray4 u-font-size-20 u-p-t-40">
 				选择心情天气，创造背景白噪音	
 			</view>
 		</view>
@@ -26,7 +26,7 @@
 			<slider v-if='show' :value="project.rdata.volume" block-color='#F4c587' min="0" max="30"  @changing='sliderChanging'/>
 		</view>
 		<view v-if='show' class="flex center">
-			<view class="u-font-size-20 u-font-white u-border-1 u-radius-20 u-p-10 u-m-b-60 uni-shadow-lg animation-fade"  @click="handleClickNext">
+			<view class="u-font-size-20 u-font-gray4 u-border-1 u-radius-20 u-p-10 u-m-b-60 uni-shadow-lg animation-fade"  @click="handleClickNext">
 				下一步
 			</view>
 		</view>
