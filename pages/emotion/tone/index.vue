@@ -25,8 +25,8 @@
 				<view class="helper"
 					:style="[{
 						'width': clientWidth/7 + 'px',
-						'height': clientHeight/11-1 + 'px',
-						'line-height': clientHeight/11-1 + 'px',
+						'height': clientHeight/11 + 'px',
+						'line-height': clientHeight/11 + 'px',
 						}]"
 					v-for="(item) of notesArray" :key='item.id' >{{ item }}</view>	
 			</view>
