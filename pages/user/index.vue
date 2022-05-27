@@ -27,7 +27,7 @@
 		<view>
 			<uni-popup ref="popup" >
 				<view class="u-bg-malandy-g2 u-p-t-5 u-font-gray4 uni-shadow-base" 
-					:style="'width:'+ (getWindowsWidth) +'px'">
+					:style="'width:'+ (getWindowsWidth) +'px;max-height:700rpx'">
 					<view class="u-radius-3 u-p-3 u-m-10 uni-shadow-base" v-for="(item,index) of list"
 						:key='item.id' @click="handleClickInfo(item.id)">
 						<view class="u-p-3">

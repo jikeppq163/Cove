@@ -14,20 +14,20 @@
 			<view class="u-radius-3 u-p-3 u-m-10 u-bg-maka-g uni-shadow-base" v-for="(item,index) of list"
 				:key='item.id' @click="handleClickInfo(item.id)">
 				<view class="u-p-3">
-					<uni-icons type="flag" color='#dbfdd6'></uni-icons>
+					<uni-icons type="flag" color='#c0d11b'></uni-icons>
 					{{item.rdata.title}}
 				</view>
 				<view class="u-p-3">
-					<uni-icons type="compose" color='#dbfdd6'></uni-icons>
+					<uni-icons type="compose" color='#c0d11b'></uni-icons>
 					{{item.rdata.thoughts}}
 				</view>
 				<view class="u-p-3 flex space-between">
 					<view class="">
-						<uni-icons type="spinner-cycle" color='#dbfdd6'></uni-icons>
+						<uni-icons type="spinner-cycle" color='#c0d11b'></uni-icons>
 						<uni-dateformat :date="item.created_at"></uni-dateformat>
 					</view>
 					<view class="">
-						<uni-icons type="location" color='#dbfdd6'></uni-icons>
+						<uni-icons type="location" color='#c0d11b'></uni-icons>
 						{{item.rdata.location}}
 					</view>
 				</view>

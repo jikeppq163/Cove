@@ -2,7 +2,7 @@
 	<view class="u-bg-malandy-g2" :style="defaultHeight">
 		<view class="">
 			<view class="text-center u-font-gray4 u-font-size-20 u-p-t-40">
-				选择心情天气，创造背景白噪音	
+				来听听自然的声音，感受你的情绪和想法
 			</view>
 		</view>
 		<view class="flex center" :style="'height:'+getWindowsHeight*0.65 +'px;'">

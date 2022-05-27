@@ -1,6 +1,5 @@
 <template>
 	<view class="bg-color" :style="defaultHeight">
-		<view class="u-font-gray4 text-center">点亮屏幕上的星空，创作你的情绪旋律</view>
 		<view id="particles" class="pcts" 
 			:style="'height:'+getWindowsHeight*0.8 +'px;'"
 			@click="handleChickSet"
@@ -32,6 +31,8 @@
 					v-for="(item) of notesArray" :key='item.id' >{{ item }}</view>	
 			</view>
 		</view>
+		<view class="u-font-gray4 text-center" style="position:fixed;top:10rpx;width: 100%;">点亮星空，告诉星星你为什么感到{{project.rdata.mood.length>0?project.rdata.mood.join('，'):'这样的情绪'}}?</view>
+		<!-- 想想是什么样的信念让你有了这样的情绪体验? -->
 		
 		<view class="flex center" style="position:fixed;bottom:150rpx;width: 100%;">
 			<view v-for="(item,index) of instrumentList" :key='item.id'
@@ -190,7 +191,7 @@
 				clickCount +=1;
 				this.synthList.push({
 					left: (e.detail.x-10) + 'px',
-					top: (e.detail.y-30) +'px',
+					top: (e.detail.y-10) +'px',
 					node: nodeIndex,
 					up: interval,
 					order: clickCount

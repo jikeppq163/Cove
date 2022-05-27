@@ -11,17 +11,19 @@
 					<view class="u-bg-malandy1 u-radius-3 u-font-gray4 u-p-10 u-m-t-10 u-font-size-12 shadow-blur" 
 						:class="inputFocus=='title'? 'u-bg-malandy2':''" 
 						@click="handleClickChangeInput('title')" >
-						<view class="u-p-b-5">故事主题...</view>
+						<view class="u-p-b-5">故事标题</view>
 						<view class="">
-							<uni-easyinput class="u-bg-gray u-font-gray4" v-model="title" type="textarea" placeholder='用一句话描述产生情绪的故事，避免判断和意见，采用细节' maxlength='200' auto-height @blur="inputBlur('title')"/>
+							<input v-model="title" type="text" maxlength='100' placeholder='给今天的心情故事起个标题吧!' @blur="inputBlur('title')"/>
+							<!-- <uni-easyinput class="u-bg-gray u-font-gray4" v-model="title" type="textarea" maxlength='200' auto-height @blur="inputBlur('title')"/> -->
 						</view>
 					</view>
 					<view class="u-bg-malandy1 u-radius-3  u-font-gray4 u-p-10 u-m-t-20 u-font-size-12 shadow-blur"
 						:class="inputFocus=='thoughts'? 'u-bg-malandy2':''" 
 						@click= "handleClickChangeInput('thoughts')" >
-						<view class="u-p-b-5">你可以记录下你的想法...</view>
+						<view class="u-p-b-5">想法与信念</view>
 						<view class="">
-							<uni-easyinput class="u-bg-gray u-font-gray4" v-model="thoughts" placeholder='可以问自己：我为什么会有这样的情绪或者那样的行为？在事情发生后，是什么导致了我出现这样的情绪或行为？我当时是怎么想的？反向检验：有了我所发现的信念，我还会期望感受到那种特定的结果吗？' type="textarea" maxlength='500' auto-height @blur="inputBlur('thoughts')"/>
+							<textarea v-model="thoughts" type="text" maxlength='300' auto-height :placeholder="'是什么想法或信念让你感受到了'+(project.rdata.mood.length>0?project.rdata.mood.join():'这样的情绪')+'？'" @blur="inputBlur('thoughts')"/>
+							<!-- <uni-easyinput class="u-bg-gray u-font-gray4" v-model="thoughts" placeholder='可以问自己：我为什么会有这样的情绪或者那样的行为？在事情发生后，是什么导致了我出现这样的情绪或行为？我当时是怎么想的？反向检验：有了我所发现的信念，我还会期望感受到那种特定的结果吗？' type="textarea" maxlength='500' auto-height @blur="inputBlur('thoughts')"/> -->
 						</view>
 					</view>
 					<view class="u-bg-malandy1 u-radius-3  u-font-gray4 u-p-10 u-m-t-20 u-font-size-12 shadow-blur"
@@ -198,4 +200,10 @@ export default {
 </script>
 
 <style>
+	.textarea-placeholder {
+		font-size: smaller;
+	}
+	.input-placeholder {
+		font-size: smaller;
+	}
 </style>
