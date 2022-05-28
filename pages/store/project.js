@@ -355,6 +355,8 @@ let actions={
 		const now = Tone.now();
 		// const node = getNoteAtHeight(yPct);
 		const node = notesArray[nodeIndex];
+		// Tone.Transport.bpm.value=260
+		// console.log(state.sampler,Tone.Transport.bpm.value);
 		if (node !== undefined) state.sampler.triggerAttack(node,now);
 		//state.synth.triggerAttackRelease(note, now);
 	},
