@@ -31,7 +31,10 @@
 					v-for="(item) of notesArray" :key='item.id' >{{ item }}</view>	
 			</view>
 		</view>
-		<view class="u-font-gray4 text-center" style="position:fixed;top:10rpx;width: 100%;">点亮星空，告诉星星你为什么感到{{project.rdata.mood.length>0?project.rdata.mood.join('，'):'这样的情绪'}}?</view>
+		<vue-typed-js :strings="getQuestions()" :typeSpeed="100" :startDelay="3000" :backSpeed="30" :smartBackspace="true" :backDelay="5000" :fadeOut="true" :fadeOutDelay="1500" :loop="true" :loopCount="5" :showCursor="true" :cursorChar="'_'" :autoInsertCss="true" >
+		<!-- 点亮星空，告诉星星你为什么感到{{project.rdata.mood.length>0?project.rdata.mood.join('，'):'这样的情绪'}}? -->
+			<view class="typing u-font-gray4 text-center" style="position:fixed;top:10rpx;width: 100%;"></view>
+		</vue-typed-js>
 		<!-- 想想是什么样的信念让你有了这样的情绪体验? -->
 		
 		<view class="flex center" style="position:fixed;bottom:150rpx;width: 100%;">
@@ -100,6 +103,9 @@
 				animation: 'animation-fade-ease-out',
 				clientHeight: 0,
 				clientWidth: 0,
+				questions:{
+					base:[]
+				},
 				// audioTime:this.project.rdata.audioTime,
 				helperDisplay:'none'
 			}
@@ -139,6 +145,18 @@
 				'synthGamut','initSampler','runSynthGamut','saveSynthGamut','playerStop',
 				'clearIntervals','runIntervals','setSampler','loadSampler'
 			]),
+			getQuestions(){
+				let currentMoods = this.project.rdata.mood.length>0?this.project.rdata.mood.join('，'):'这样的情绪';
+				return [
+					'点亮星空，告诉星星你为什么感到'+currentMoods+'?',
+					'或许是因为你的主观想法, 试着问问自己...',
+					'首先，我这样想，符合逻辑吗？',
+					'其次，这是事实，还是我的过度想象？',
+					'再次，这样想能让我得到好处吗，或只是自找麻烦？',
+					'最后，如果这件事再次发生，我可以有别的选择吗？',
+					'你的想法比你想象的更重要，将他们写下来吧，点击下一步...'
+				];
+			},
 			runSynt(){
 				this.runIntervals(()=>{
 					//Reset delay count

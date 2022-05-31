@@ -3,6 +3,9 @@
 		<view class="login-title u-bg-malandy-g2"></view>
 		<view class="login-view">
 			<view class="u-radius-3 shadow u-m-10 u-p-10 u-p-t-20 u-p-b-20 bg-white">
+				<vue-typed-js :strings="['John', 'James']">
+				  <h1>Hey <span class="typing"></span></h1>
+				</vue-typed-js>
 				<view class="flex u-p-5">
 					<!-- <uni-easyinput prefixIcon="person-filled" v-model="username" placeholder="请输入账号"></uni-easyinput> -->
 					valence(决定旋律兴奋或平静,输入范围0~1! ): <input v-model="valence" type="text" maxlength='100' placeholder='' />

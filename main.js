@@ -3,6 +3,10 @@
 import Vue from 'vue';
 import App from './App';
 import store from '@/pages/store/index.js';
+import VueTypedJs from 'vue-typed-js'
+
+Vue.use(VueTypedJs)
+
 // import Vconsole from 'vconsole';
 //npm install eruda 控制台工具 体积太大 用的时候再安装
 if(process.env.NODE_ENV === 'development'){
