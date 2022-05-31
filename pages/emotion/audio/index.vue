@@ -13,7 +13,7 @@
 					<view class="view-image-s u-p-20 animation-fade"
 					:style="[{animationDelay: (index + 1)*0.1 + 's'}]"
 					@click="handleClickImg(index)">
-						<image style="height: 80px;width: 80px;"
+						<image style="height: 60px;width: 60px;"
 						class="u-p-10 u-radius-40 uni-shadow-base"
 						:class="indexs==index? 'u-bg-malandy-g1':'u-bg-malandy-g2'"
 						:src="'../../../static/icon/'+item[0]+'.png'"
@@ -41,12 +41,14 @@
 				innerAudioContext:'',
 				audioList:[
 					//名称 音量 是否选中
-					['birds_countryside'],
+					['rain_window'],
 					['misc_night'],
 					['rain_light'],
 					['thunder'],
 					['water_river'],
 					['wind_grass'],
+					['misc_fire'],
+					['water_beach'],
 				],
 				indexs:99,
 				volume:10,
