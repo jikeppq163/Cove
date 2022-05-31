@@ -20,7 +20,7 @@
 					<view class="u-bg-malandy1 u-radius-3  u-font-gray4 u-p-10 u-m-t-20 u-font-size-12 shadow-blur"
 						:class="inputFocus=='thoughts'? 'u-bg-malandy2':''" 
 						@click= "handleClickChangeInput('thoughts')" >
-						<view class="u-p-b-5">想法与信念</view>
+						<view class="u-p-b-5">我的想法 (信念)</view>
 						<view class="">
 							<textarea v-model="thoughts" type="text" maxlength='300' auto-height :placeholder="'是什么想法或信念让你感受到了'+(project.rdata.mood.length>0?project.rdata.mood.join():'这样的情绪')+'？'" @blur="inputBlur('thoughts')"/>
 							<!-- <uni-easyinput class="u-bg-gray u-font-gray4" v-model="thoughts" placeholder='可以问自己：我为什么会有这样的情绪或者那样的行为？在事情发生后，是什么导致了我出现这样的情绪或行为？我当时是怎么想的？反向检验：有了我所发现的信念，我还会期望感受到那种特定的结果吗？' type="textarea" maxlength='500' auto-height @blur="inputBlur('thoughts')"/> -->

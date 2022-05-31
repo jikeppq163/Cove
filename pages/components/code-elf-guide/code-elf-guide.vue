@@ -73,7 +73,8 @@
 				// 		data: true,
 				// });
 				let redirectUrl = sessionStorage.getItem("wxRedirectUrl");
-				if (redirectUrl.search("share/index")!==-1) {
+				// console.log(redirectUrl)
+				if (redirectUrl&&redirectUrl.search("share/index")!==-1) {
 					uni.navigateTo({
 						url: redirectUrl
 					});
