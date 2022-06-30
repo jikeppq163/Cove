@@ -15,23 +15,23 @@ import {getPlatform} from '@/utils/index.js'
 			//初始化音频
 			this.$store.dispatch('initPlayer');
 			//获取存储的数据
-			this.$store.dispatch('getProject');
+			this.$store.dispatch('getProjectStorage');
 			//测试
-			if(process.env.NODE_ENV === 'development'){ 
+			//if(true || process.env.NODE_ENV === 'development'){ 
 				uni.showToast({
 					title:'测试模式'+ this.$store.state.version
 				})
 				localStorage.setItem('authDebug',1);
 				localStorage.setItem('openId','o_cGP5sxh4TH6i5jBvgtRH9PcsMs');
 				this.$store.commit('setOpenId','o_cGP5sxh4TH6i5jBvgtRH9PcsMs');
-			}
+			//}
 			//正式
-			else{ 
-				var test = localStorage.getItem('openId');
-				if(test=='o_cGP5sxh4TH6i5jBvgtRH9PcsMs') localStorage.setItem('openId','');
-				localStorage.setItem('authDebug',0);
-				//this.$store.dispatch('getLoginStatus');
-			}
+			// else{ 
+			// 	var test = localStorage.getItem('openId');
+			// 	if(test=='o_cGP5sxh4TH6i5jBvgtRH9PcsMs') localStorage.setItem('openId','');
+			// 	localStorage.setItem('authDebug',0);
+			// 	//this.$store.dispatch('getLoginStatus');
+			// }
 		},
 		onShow: function() {
 			//console.log('App Show')

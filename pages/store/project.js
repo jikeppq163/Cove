@@ -351,7 +351,7 @@ let actions={
 		//console.log('saveProject',state.project);
 		state.project.id = 'id_' + Date.now();
 		state.project.rdata.date = new Date();
-		//dispatch('saveListToStorage');
+		dispatch('saveListToStorage');
 	},
 	saveListToStorage({commit,state,getters}){
 		state.list.push(state.project);
@@ -367,7 +367,7 @@ let actions={
 		if(value) state.list = value;
 	},
 	//获取本地list
-	getProject({commit,state,getters}){
+	getProjectStorage({commit,state,getters}){
 		uni.getStorage({
 			key:'list',
 			success:(res)=>{

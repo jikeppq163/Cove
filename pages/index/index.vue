@@ -4,7 +4,7 @@
 			用音乐记录你的情绪, 探索情绪背后的故事吧!
 		</view>
 		<scroll-view scroll-y="true" class="u-p-t-5 u-font-white uni-shadow-base"
-			:style="'height:'+ (getWindowsHeight-140) +'px;'">
+			:style="'height:'+ (getWindowsHeight-100) +'px;'">
 			<view class="u-radius-3 u-p-3 u-m-10 u-bg-maka-g uni-shadow-base" v-for="(item,index) of list"
 				:key='item.id' @click="handleClickInfo(item.id)">
 				<view class="u-p-3">
@@ -28,7 +28,7 @@
 			</view>
 				<view class="u-p-t-60"></view>
 		</scroll-view>
-		<view class="u-bottom u-p-10 u-m-t-20 u-m-b-40 flex space-between u-bg-malandy-g2">
+		<view class="u-bottom u-p-10 u-m-t-20 flex space-between u-bg-malandy-g2">
 			<view class="u-m-10 u-p-10 u-radius-5 text-center u-bg-maka3 u-font-gray2" style="width: 100%;"
 				@click="handleClickAdd">
 				新增故事
@@ -71,35 +71,36 @@
 			//this.$store.dispatch('initStatus',this.$route.fullPath);
 		},
 		onShow() {
-			if (localStorage.getItem('openId')) {
-				if (!this.openId) this.getLoginStatus();
-				//获取网络列表
-				reqProject.list({
-					params: {
-						openid: this.openId
-					},
-					success: (res) => {
-						console.log('reqProject.list success:', res);
-						this.setProjectList(res);
-					},
-					fail: (err) => {
-						console.log('reqProject.list fail:', err);
-					}
-				});
-			} else {
-				uni.showModal({
-					title: '登录?',
-					content: '你还未登录,是否登录获取信息?',
-					success: (res) => {
-						if (res.confirm) this.getLoginStatus();
-					}
-				})
-			}
-			this.$store.dispatch('playerStop');
+			// if (localStorage.getItem('openId')) {
+			// 	if (!this.openId) this.getLoginStatus();
+			// 	//获取网络列表
+			// 	reqProject.list({
+			// 		params: {
+			// 			openid: this.openId
+			// 		},
+			// 		success: (res) => {
+			// 			console.log('reqProject.list success:', res);
+			// 			this.setProjectList(res);
+			// 		},
+			// 		fail: (err) => {
+			// 			console.log('reqProject.list fail:', err);
+			// 		}
+			// 	});
+			// } else {
+			// 	uni.showModal({
+			// 		title: '登录?',
+			// 		content: '你还未登录,是否登录获取信息?',
+			// 		success: (res) => {
+			// 			if (res.confirm) this.getLoginStatus();
+			// 		}
+			// 	})
+			// }
+			this.playerStop();
+			this.getProjectStorage();
 		},
 		methods: {
 			...mapMutations(['CLEAR_INDEX', 'RESET_PROJECT']),
-			...mapActions(['setProjectList', 'setProjectFromId', 'getLoginStatus', 'initStatus']),
+			...mapActions(['setProjectList', 'setProjectFromId', 'getLoginStatus', 'initStatus','playerStop','getProjectStorage']),
 			handleClickDelete() {
 				uni.showModal({
 					title: '删除全部',
