@@ -37,25 +37,6 @@
 			"path": "pages/share/index"
 		}
 	],
-	"tabBar": {
-		"color": "#7A7E83",
-		"selectedColor": "#3cc51f",
-		"borderStyle": "black",
-		"backgroundColor": "#ffffff",
-		"list": [{
-			"pagePath": "pages/index/index",
-			"iconPath": "static/image/menu.png",
-			"selectedIconPath": "static/image/menu_fill.png"
-		},{
-			"pagePath": "pages/stars/index",
-			"iconPath": "static/image/tianwen.png",
-			"selectedIconPath": "static/image/tianwen_fill.png"
-		},{
-			"pagePath": "pages/user/index",
-			"iconPath": "static/image/set.png",
-			"selectedIconPath": "static/image/set_fill.png"
-		}]
-	},
 	"globalStyle": {
 		"navigationBarTextStyle": "white",
 		"navigationBarTitleText": "心乐星记",
